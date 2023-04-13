@@ -1,0 +1,132 @@
+﻿@model WordMergerUI.Models.WmDataViewModel
+@using System.Configuration;
+@{
+    ViewBag.Title = "Формирование документов";
+}
+
+@section scripts {
+    <script src="@Url.Content("~/Scripts/GridViewModel.js")"></script>
+    <script>
+        $(document).ready(function () {
+            $("#ParamsDialog").hide();
+            $("#FilterDialog").hide();
+            $("#FormatDialog").hide();
+
+            var initialData = [
+                @foreach (var item in Model.LstView.Where(x => x.IsVisible))
+                {
+                    @:{ name: "@(item.Name)", id: "@(item.ID)", isChooseFormat: "@(item.IsChooseFormat)" },
+	            }
+            ];
+
+            ko.applyBindings(new DocumentsGridModel(initialData));
+
+            if ($("#ErrorMessage").html().trim() != '') {
+                if ('@ViewBag.isConditionError' == "True") {
+                    ShowConditionErrorMessage($("#ErrorMessage").html().trim());
+                } else {
+                    ShowErrorMessage($("#ErrorMessage").html().trim());
+                }
+                
+            }
+
+            if ($("#InfoMessage").html().trim() != '') {
+                ShowResultMessage($("#InfoMessage").html().trim());
+            }
+
+        });
+    </script>
+}
+
+@using (Html.BeginForm("CreateDocument", "Home", FormMethod.Post,
+    new
+    {
+        id = "docForm",
+        style = "overflow:hidden;position:absolute;top:55px;bottom:0px;left:0px;right:0px; min-width: 390px;min-height: 500px;",
+        enctype = "multipart/form-data"
+    }))
+{
+    <div style="padding-top: 0px; padding-right: 5px; padding-bottom: 0px; padding-left: 5px; width: 100%; box-sizing: border-box; position: absolute; bottom: 43px; top: 0px; min-width: 550px;">
+        <div style="text-align: left; width: 100%; height: 45px;">
+            <input type="text" id="search" placeholder="Поиск...." data-bind="value: condition, valueUpdate: ['input']" />
+        </div>
+        <div id="TableContainer" style="box-sizing: border-box; padding: 0px 5px; width: 100%; position: absolute; top: 50px; left: 0px; bottom: 0px; right: 0px; overflow: hidden;">
+
+            <div style="text-align: right; width: 100%; height: 40px;">
+                <table style="border-collapse: collapse; width: 100%; height: 100%;">
+                    <thead>
+                        <tr data-bind="click: $root.sortByName">
+                            <th style="cursor: pointer;">Наименование документа</th>
+                        </tr>
+                    </thead>
+                </table>
+                <img id="imgFilter" class="filter-img" src="@Url.Content("~/Content/imgs/filter.png")" alt="Фильтрация документов" onclick="ShowFilterDialog()" />
+            </div>
+            <div style="box-sizing: border-box; padding: 0px 5px; width: 100%; position: absolute; top: 40px; left: 0px; bottom: 0px; right: 0px; overflow: auto;">
+                <table style="border-collapse: collapse; width: 100%; height: auto; border-top: 0px;">
+                    <tbody id="foreachDoc" data-bind='foreach: filterDocuments'>
+                        <tr data-bind="click: $root.selectDocument, css: { selected: $root.isselected(id) }" class="unselectable" unselectable="on" onselectstart="return false;" onmousedown="return false;">
+                            <td style="cursor: pointer; font-size: 13px;" data-bind='text: name'></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        @Html.HiddenFor(m => m.ID)
+        @Html.HiddenFor(m => m.SaveFormat)
+    </div>
+    <div class="Footer">
+        @Html.HiddenFor(m => m.EnableIgnoreCondition)
+        @if (Model.EnableIgnoreCondition)
+        {
+            @Html.CheckBoxFor(m => m.IsIgnoreCondition)
+            <span class="disable-condition">Отключить проверки</span>
+        }
+         <input type="submit" id="btnChooseReport" value="Сформировать документ" style="width: 200px;" data-bind="click: mergeDocument" onclick="    return false;" />
+        <input type="submit" id="btnPreviewDocument" value="Предварительный просмотр" style="width: 220px; @(Convert.ToBoolean(ConfigurationManager.AppSettings["ShowPreviewButton"]) ? "" : "display: none;")" data-bind="click: previewParamsDocument" onclick="    return false;" />
+        <input type="submit" value="Закрыть" onclick="window.close()" />
+    </div>
+
+    <div id="ParamsDialog" title="Параметры отчета">
+        <br />
+        Заполните необходимые параметры:
+        <br />
+        <br />
+        <input type="hidden" autofocus />
+        <div id="WMParametersBlock">
+            @{Html.RenderPartial("Params", Model);}
+        </div>
+    </div>
+
+    <div id="FilterDialog" title="Фильтрация отчетов">
+        <br />
+        Укажите необходимые фильтры:
+        <br />
+        <br />
+        <input type="hidden" autofocus />
+        <div id="WMFilterBlock">
+            @{Html.RenderPartial("Filters", Model);}
+        </div>
+    </div>
+
+    <div id="FormatDialog" title="Выбор формата">
+        <br />
+        Выберите формат:
+        <select id="formatBox">
+            <option>docx</option>
+            <option>pdf</option>
+            <option>xps</option>
+            <option>html</option>
+        </select>
+    </div>
+
+    <div id="ErrorMessage" style="display: none;">
+        @ViewBag.msg
+    </div>
+
+    <div id="InfoMessage" style="display: none;">
+        @ViewBag.info
+    </div>
+
+    <div id="Preview"></div>
+}

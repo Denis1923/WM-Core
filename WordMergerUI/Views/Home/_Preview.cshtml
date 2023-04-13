@@ -1,0 +1,23 @@
+﻿@if (ViewBag.ImageData != null && ViewBag.ImageData.Length != 0)
+{
+    for (int i = 0; i < ViewBag.ImageData.Length; i++)
+    { 
+        <h4>@(i + 1)</h4>               
+        <img src="@ViewBag.ImageData[i]" height="450" style="margin: 5px;" onclick="Zoom()"/>
+        <br>
+    }
+    
+    <div class="Footer" style="position: fixed;">
+        <input type="submit" value="Сформировать документ" style="width: 200px;" onclick="MergeDocument(); HideModalDialog('Preview'); $('.clonedItem').remove(); return false;" />
+        <input type="submit" value="Закрыть" onclick="HideModalDialog('Preview'); $('.clonedItem').remove(); return false;" />
+    </div>
+    
+}
+else
+{
+    <div style="width: 350px;">
+        <div class="errorHeader">Произошла ошибка:</div>
+        <div class="errorText" id="errorText">@ViewBag.msg</div>
+        <input type="submit" value="ОК" onclick="HideModalDialog('Preview'); return false;" />
+    </div>
+}

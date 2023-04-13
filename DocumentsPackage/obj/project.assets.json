@@ -1,0 +1,120 @@
+{
+  "version": 3,
+  "targets": {
+    "net7.0": {
+      "ICSharpCode.SharpZipLib.dll/0.85.4.369": {
+        "type": "package",
+        "compile": {
+          "lib/net20/ICSharpCode.SharpZipLib.dll": {}
+        },
+        "runtime": {
+          "lib/net20/ICSharpCode.SharpZipLib.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ICSharpCode.SharpZipLib.dll/0.85.4.369": {
+      "sha512": "HrJHR5IQoTXXQZgoGZZiu2oYw7V4FdjhwVLwWhV4G+9Xe9wo4MB+n7OaG96efyEJ2PFm4KhCbWNr54HWFdyt2A==",
+      "type": "package",
+      "path": "icsharpcode.sharpziplib.dll/0.85.4.369",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "NuGet.Config",
+        "NuGet.exe",
+        "NuGet.targets",
+        "icsharpcode.sharpziplib.dll.0.85.4.369.nupkg.sha512",
+        "icsharpcode.sharpziplib.dll.nuspec",
+        "lib/net20/ICSharpCode.SharpZipLib.dll",
+        "packages.config"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net7.0": [
+      "ICSharpCode.SharpZipLib.dll >= 0.85.4.369"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\dzhernov\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\source\\WordMerger-Agreement-Core\\DocumentsPackage\\DocumentsPackage.csproj",
+      "projectName": "DocumentsPackage",
+      "projectPath": "C:\\source\\WordMerger-Agreement-Core\\DocumentsPackage\\DocumentsPackage.csproj",
+      "packagesPath": "C:\\Users\\dzhernov\\.nuget\\packages\\",
+      "outputPath": "C:\\source\\WordMerger-Agreement-Core\\DocumentsPackage\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\dzhernov\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net7.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net7.0": {
+        "targetAlias": "net7.0",
+        "dependencies": {
+          "ICSharpCode.SharpZipLib.dll": {
+            "target": "Package",
+            "version": "[0.85.4.369, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+      }
+    }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'ICSharpCode.SharpZipLib.dll 0.85.4.369' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "ICSharpCode.SharpZipLib.dll",
+      "targetGraphs": [
+        "net7.0"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+﻿<Window x:Class="WordMergeUtil_Core.SelectTemplateWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WordMergeUtil_Core"
+        mc:Ignorable="d"
+        Title="Выберите документы слияния для экспорта" Height="450" Width="400"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <DockPanel LastChildFill="True">
+            <Label DockPanel.Dock="Top">
+                <TextBlock TextWrapping="Wrap">Внимание! В системе имеются документы слияния, связанные с переносимыми шаблонами согласования. Просьба уточнить, что необходимо экспортировать:</TextBlock>
+            </Label>
+            <ListBox SelectionMode="Multiple" Name="ListZone" ItemsSource="{Binding SelectedReports}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <CheckBox Content="{Binding Name}" IsChecked="{Binding IsChecked}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </DockPanel>
+        <DockPanel Grid.Row="1" Margin="4">
+            <Button Click="Select_Click" Height="30" Width="80" HorizontalAlignment="Right">Выбрать</Button>
+            <Button Click="Cancel_Click" Height="30" Width="80" HorizontalAlignment="Right">Отмена</Button>
+        </DockPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,75 @@
+﻿<Window x:Class="WordMergeUtil_Core.ParameterConditionEditor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WordMergeUtil_Core.ReportPackage"
+        mc:Ignorable="d"
+        xmlns:avalonedit="clr-namespace:ICSharpCode.AvalonEdit;assembly=ICSharpCode.AvalonEdit"
+        Title="Редактор условия параметра" Height="393" Width="662"
+        Unloaded="Window_Unloaded">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Name="ParamLeftColumn" Width="250" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <ToolBarPanel Grid.Row="0" Grid.ColumnSpan="2" >
+                <ToolBar Name="toolBarParamConditions">
+                    <Button Name="AddParamCondition" Click="AddParamCondition_Click">Добавить условие</Button>
+                    <Button Name="RemoveParamCondition" Click="RemoveParamCondition_Click">Удалить условие</Button>
+                    <Button Name="SaveParam" Click="SaveParam_Click">Сохранить</Button>
+                </ToolBar>
+            </ToolBarPanel>
+            <ListBox Margin="5" Grid.Row="1" Name="ParamConditionsListBox" SelectionChanged="ParamConditionsListBox_SelectionChanged" />
+            <Grid Grid.Column="1" Grid.Row="1" Name="ParamConditionGrid">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="60*" />
+                    <RowDefinition Height="60" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="116" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" Content="Наименование" Height="26" Margin="0,2" Width="98
+                                       "></Label>
+                <TextBox Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="250" Text="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DataContext="{Binding}" IsEnabled="True" 
+                                         Name="RepParamNameTextBox" Height="20" Margin="0" Width="250"></TextBox>
+                <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Content="Условие сравнения" Height="26" Margin="-1,2,0,2" Width="117"></Label>
+                <ComboBox Grid.Column="1" Grid.Row="1" Height="20" HorizontalAlignment="Left" Margin="0" FontSize="11" FontWeight="ExtraBlack" Name="conditionOperatorComboBox" VerticalAlignment="Center" Width="120" Text="{Binding Path=ConditionOperator, Mode=TwoWay}">
+                    <ComboBoxItem Content="=" Height="20" FontSize="10" FontWeight="ExtraBlack"/>
+                    <ComboBoxItem Content="&lt;&gt;" Height="20" FontSize="10" FontWeight="ExtraBlack"/>
+                    <ComboBoxItem Content="&gt;" Height="20" FontSize="10" FontWeight="ExtraBlack"/>
+                    <ComboBoxItem Content="&lt;" Height="20" FontSize="10" FontWeight="ExtraBlack"/>
+                    <ComboBoxItem Content="&gt;=" Height="20" FontSize="10" FontWeight="ExtraBlack"/>
+                    <ComboBoxItem Content="&lt;=" Height="20" FontSize="10" FontWeight="ExtraBlack"/>
+                </ComboBox>
+                <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Content="Число записей" Height="26" Margin="0,0,0,4" Width="91" RenderTransformOrigin="0.484,-0.339"/>
+                <TextBox Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" MinWidth="100" Text="{Binding Path=RecordCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="120" IsEnabled="False" Name="RecordCountTextBox" Margin="0" Height="20
+                                         " VerticalAlignment="Center"/>
+                <Label Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Right" Content="Запрос" Height="26" Width="49"></Label>
+                <Border BorderBrush="Silver" BorderThickness="1" Grid.Row="3" Grid.Column="1" Grid.RowSpan="1" Margin="0,5,5,5">
+                    <avalonedit:TextEditor FontFamily="Courier New" FontSize="12" Name="SQLConditionQueryEditor" ShowLineNumbers="False" IsEnabled="False" SnapsToDevicePixels="True" Margin="0">
+                        <avalonedit:TextEditor.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Command="Undo" />
+                                <MenuItem Command="Redo" />
+                                <Separator/>
+                                <MenuItem Command="Cut" />
+                                <MenuItem Command="Copy" />
+                                <MenuItem Command="Paste" />
+                            </ContextMenu>
+                        </avalonedit:TextEditor.ContextMenu>
+                    </avalonedit:TextEditor>
+                </Border>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

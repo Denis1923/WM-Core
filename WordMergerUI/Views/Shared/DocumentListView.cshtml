@@ -1,0 +1,49 @@
+﻿@model WordMergerUI2013.Models.WmDataViewModel
+
+@using (Html.BeginForm("CreateDocument", "Home", FormMethod.Post, new { id = "docForm" }))
+{
+    <div style="margin: 10px;">
+        <div id="pnlInfo">
+            <label id="Label1" style="font-weight: bold;">Список доступных документов <span>(@Model.LstView.Count)</span> </label>
+            <br />
+            @Html.DropDownListFor(m => m.ID, new SelectList(Model.LstView, "ID", "Name"), new
+                           {
+                               id = "lstView",
+                               size = Model.LstView.Count,
+                               style = "height:250px;width:652px",
+                               onchange = "$('#btnChooseReport').removeAttr('disabled');"
+                           })
+        </div>
+        <div id="pnlError" style="@if (String.IsNullOrEmpty(ViewBag.msg))
+                                  { 
+                                     @:display:none;
+                                  }
+                                  else
+                                  { 
+                                      @:display:block; 
+                                  }">
+            <fieldset id="UploadMessageFS">
+                <legend id="UploadMessageLegend">Статус</legend>
+                <p id="UploadMessageP" style="word-wrap: break-word;">
+                    @ViewBag.msg
+                </p>
+            </fieldset>
+        </div>
+        <div id="pnlGeneral" runat="server" height="39px">
+            <input type="submit" id="btnChooseReport" value="Сформировать документ" style="width: 260px;" onclick="IsParameterItem(); return false;" />
+            <input type="submit" value="Закрыть" onclick="window.close()" />
+        </div>
+    </div>
+    
+@*Диалоговое окно*@
+    <div id="ParamsDialog" title="Параметры документа">
+        <br />
+        Заполните необходимые параметры:
+        <br />
+        <br />
+        <input type="hidden" autofocus />
+        <div id="WMParametersBlock">
+            @{Html.RenderPartial("Params", Model);}
+        </div>
+    </div>
+}

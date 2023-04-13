@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "Загрузка шаблона";
+}
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            @if (!string.IsNullOrEmpty(ViewBag.errorMessage))
+            { 
+                @:ShowErrorMessage('@(ViewBag.errorMessage)');
+            }
+
+            @if (!string.IsNullOrEmpty(ViewBag.result))
+            { 
+                @:ShowResultMessage('@(ViewBag.result)');
+            }
+        });
+    </script>
+}
+
+@using (Html.BeginForm("Import", "Import", FormMethod.Post, new
+        {
+            id = "VerifyForm",
+            @class = "mainContainer",
+            enctype = "multipart/form-data",
+            onsubmit = "ShowProgress()"
+        }))
+{
+    
+    <div style="margin: 5px;">
+        <label id="FilePath">Выберите файл для загрузки</label>
+        <br />
+        <br />
+        <input type="file" name="file" id="FileUpload" accept=".doc,.docx,.xls,.xlsx"/>
+        <br />
+        <br />
+    </div>
+    <div class="footer">
+        <input type="submit" value="Загрузить файл" style="width: 150px;" id="UploadFile" />
+        <input type="submit" value="Закрыть" onclick="CloseApp(); return false;" style="width: 150px;" />
+    </div>
+}

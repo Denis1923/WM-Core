@@ -1,0 +1,52 @@
+﻿<Window x:Class="WordMergeUtil_Core.ConditionEditor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WordMergeUtil_Core"
+        mc:Ignorable="d"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Редактор условий" Height="488" Width="819" 
+        xmlns:avalonedit="clr-namespace:ICSharpCode.AvalonEdit;assembly=ICSharpCode.AvalonEdit" 
+        Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" Unloaded="Window_Unloaded">
+    <Grid>
+        <ToolBar Name="toolBar3" Height="30" VerticalAlignment="Top">
+            <Button Content="Добавить условие" Name="tbtAddCondition" Click="tbtAddCondition_Click" />
+            <Button Content="Удалить условие" Name="tbtRemoveCondition" Click="tbtRemoveCondition_Click" />
+        </ToolBar>
+        <Grid Margin="212,36,0,43" Name="conditionGrid2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="141" />
+                <ColumnDefinition Width="344*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="120*" />
+                <RowDefinition Height="84*" />
+            </Grid.RowDefinitions>
+            <Label Content="Наименование" FontWeight="Bold" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" />
+            <TextBox DataContext="{Binding}" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" IsEnabled="False" MinWidth="200" Name="ConditionNameTextBox2" Text="{Binding Path=conditionname, Mode=TwoWay}" VerticalAlignment="Center" />
+            <Label Content="Условие сравнения" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" />
+            <ComboBox Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="0,3,0,0" Name="conditionOperatorComboBox2" Text="{Binding Path=conditionoperator, Mode=TwoWay}" VerticalAlignment="Top" Width="120">
+                <ComboBoxItem Content="=" />
+                <ComboBoxItem Content="&lt;&gt;" />
+                <ComboBoxItem Content="&gt;" />
+                <ComboBoxItem Content="&lt;" />
+                <ComboBoxItem Content="&gt;=" />
+                <ComboBoxItem Content="&lt;=" />
+            </ComboBox>
+            <Label Content="Число записей" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" />
+            <TextBox Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" IsEnabled="False" Margin="0,4" MinWidth="100" Name="RecordCountTextBox2" Text="{Binding Path=recordcount, Mode=TwoWay}" VerticalAlignment="Center" Width="120" />
+            <Label Content="Запрос" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Top" />
+            <Border BorderBrush="Silver" BorderThickness="1" Grid.Column="1" Grid.Row="3" Grid.RowSpan="1" Margin="0,5,5,5">
+                <avalonedit:TextEditor FontFamily="Courier New" FontSize="12" IsEnabled="False" Margin="0" Name="SQLConditionQueryEditor2" ShowLineNumbers="False" SnapsToDevicePixels="True" />
+            </Border>
+            <Label Content="Сообщение об ошибке" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Top" />
+            <TextBox Grid.Column="1" Grid.Row="4" Margin="0,5,5,5" Text="{Binding Path=errormessage, Mode=TwoWay}" TextWrapping="Wrap" />
+        </Grid>
+        <ListBox Margin="4,36,0,43" Name="lbxCondtionList" HorizontalAlignment="Left" Width="201" SelectionChanged="lbxCondtionList_SelectionChanged" />
+        <Button Content="Закрыть" HorizontalAlignment="Right" Margin="0,0,5,14" Name="btnClose" Width="90" Click="btnClose_Click" Height="23" VerticalAlignment="Bottom" />
+    </Grid>
+</Window>

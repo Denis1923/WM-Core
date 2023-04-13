@@ -1,0 +1,37 @@
+﻿<Window xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation" x:Class="WordMergeUtil_Core.AgreementTool.VersionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WordMergeUtil_Core.AgreementTool"
+        mc:Ignorable="d"
+        Title="Набор данных" Height="450" Width="800">
+    <ScrollViewer>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <telerik:RadToolBar >
+                <telerik:RadButton Click="ApplyVersion_Click" IsEnabled="{Binding IsUnlocked}">
+                    <telerik:Label Content="" FontFamily="{StaticResource CrmSymbol}" FontSize="24" Foreground="DarkBlue" ToolTip="Выбрать версию"/>
+                </telerik:RadButton>
+                <telerik:RadButton Click="CompareVersion_Click" IsEnabled="{Binding IsUnlocked}">
+                    <telerik:Label Content="" FontFamily="{StaticResource CrmSymbol}" FontSize="24" Foreground="DarkBlue" ToolTip="Сравнить версии"/>
+                </telerik:RadButton>
+            </telerik:RadToolBar>
+            <StackPanel Grid.Row="1" x:Name="VersionPanel" Margin="0,0,0,5">
+                <Label Name="TableLable" HorizontalAlignment="Center" FontWeight="Bold">Версии документа</Label>
+                <telerik:RadGridView x:Name="VersionView" SelectionMode="Extended" AutoGenerateColumns="False"                             
+                            GroupRenderMode="Flat" IsReadOnly="True" ItemsSource="{Binding DocumentContents}">
+                    <telerik:RadGridView.Columns>
+                        <telerik:GridViewDataColumn DataMemberBinding="{Binding VersionName}" Header="Версия"/>
+                        <telerik:GridViewDataColumn DataMemberBinding="{Binding CreatedOn}" Header="Дата"/>
+                        <telerik:GridViewDataColumn DataMemberBinding="{Binding CreatedBy}" Header="Кем изменено"/>
+                    </telerik:RadGridView.Columns>
+                </telerik:RadGridView>
+            </StackPanel>
+
+        </Grid>
+    </ScrollViewer>
+</Window>

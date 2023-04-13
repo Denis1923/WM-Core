@@ -1,0 +1,62 @@
+﻿@model WordMergerUI.Models.WmDataViewModel
+
+@{
+    if (Model != null && Model.Filters != null && Model.Filters.Any())
+    {
+        foreach (var filter in Model.Filters)
+        {
+    <div id="@(filter.Id)" class="@(filter.IsVisible ? "" : "hidden")">
+        @Html.CheckBox("filter_" + filter.Id + "_isUse", filter.IsUse)
+        @Html.Label("filter_" + filter.Id + "_label", filter.DisplayName, new { style = "font-size:0.8em" })
+        @Html.Hidden("filter_" + filter.Id + "_parentId", filter.ParentFilterId, new { @class = "ParentId" })
+        @Html.Hidden("filter_" + filter.Id + "_parentValue", string.Join(";;", filter.ParentValue))
+        @Html.Hidden("filter_" + filter.Id + "_parentOperator", filter.ParentOperator)
+        <br />
+        @switch (filter.Type)
+        {
+            case "DateTime":
+                @Html.TextBox("filter_" + filter.Id + "_value", !string.IsNullOrEmpty(filter.Value) ? filter.Value : (filter.List != null && filter.List.Any()) ? filter.List[0].Value : string.Empty, new { @class = "dateFilter WMFilters", style = "font-size:0.8em", onchange = "fieldChanged('" + filter.Id + "')" });
+                <br />
+                <br />
+                break;
+
+            case "String":
+                @Html.TextBox("filter_" + filter.Id + "_value", !string.IsNullOrEmpty(filter.Value) ? filter.Value : (filter.List != null && filter.List.Any()) ? filter.List[0].Value : string.Empty, new { style = "font-size:0.8em", @class = "WMFilters", onchange = "fieldChanged('" + filter.Id + "')" });
+                <br />
+                <br />
+                break;
+
+            case "Bool":
+                @Html.CheckBox("filter_" + filter.Id + "_value", !string.IsNullOrEmpty(filter.Value) && filter.Value != "null" ? bool.Parse(filter.Value) : (filter.List != null && filter.List.Any()) ? bool.Parse(filter.List[0].Value) : false, new { @class = "WMFilters", onchange = "fieldChanged('" + filter.Id + "', true)" });
+                <br />
+                <br />
+                break;
+
+            case "OptionSet":
+                if (filter.List != null && filter.List.Any())
+                {
+                    @Html.DropDownList("filter_" + filter.Id + "_value", new SelectList(filter.List, "Value", "Label", filter.Value), new { @class = "WMFilters", style = "font-size:0.8em", onchange = "fieldChanged('" + filter.Id + "')" })
+                    <br />
+                    <br />
+                }
+                break;
+
+            case "LookUp":
+
+                if (filter.List != null && filter.List.Any())
+                {
+                    @Html.DropDownList("filter_" + filter.Id + "_value", new SelectList(filter.List, "Value", "Label", filter.Value), new { @class = "WMFilters combobox", style = "font-size:0.8em" })
+                    <br />
+                    <br />
+                }
+                break;
+
+            default:
+                break;
+        }
+    </div>
+        }
+
+        <script type="text/javascript">$(".combobox").combobox();</script>
+    }
+}

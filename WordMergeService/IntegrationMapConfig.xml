@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Integration Code="ЭА">
+    <Url>http://vm-dev-crm365:2568/AgIntegration/IntegrationService.svc</Url>
+    <ActionName IsFromDS="true">ВидДокументаЭА</ActionName>
+    <AddingParameters>
+      <AddingParameter Name="externalId" />
+    </AddingParameters>
+  </Integration>
+  <Integration Code="CRM365">
+    <Url>http://localhost:61062/IntegrationService.svc</Url>
+    <ActionName>CreatePFParameter</ActionName>
+    <AddingParameters>
+      <AddingParameter Name="rowid" IsRowId="true" />
+      <AddingParameter Name="entityname" FromReport="entityname" />
+      <AddingParameter Name="reportcode" FromReport="reportcode" />
+      <AddingParameter Name="auditid" FromAudit="Id" />
+    </AddingParameters>
+  </Integration>
+</Configuration>

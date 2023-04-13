@@ -1,0 +1,109 @@
+﻿<Page x:Class="WordMergeUtil_Core.ReportPackageEditorPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d"  d:DesignWidth="800" d:DesignHeight="800"
+      xmlns:avalonedit="clr-namespace:ICSharpCode.AvalonEdit;assembly=ICSharpCode.AvalonEdit" Title="ReportPackageEditorPage" Height="640.469">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="170" />
+            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="219*" />
+        </Grid.RowDefinitions>
+        <Label Content="Редактирование комплекта документов" FontFamily="Trebuchet MS" FontSize="18" FontWeight="Bold" Foreground="#0066cc" Grid.ColumnSpan="4" Grid.RowSpan="2" Name="CaptionLabel" VerticalAlignment="Top" />
+        <Label Content="Отображаемое имя" Grid.Row="1" Height="28" HorizontalAlignment="Left" Margin="4,2,0,0" Name="label2" VerticalAlignment="Top" />
+        <TextBox Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="1" Height="23" Margin="0,4,10,0" Name="tbxDisplayName" Text="{Binding Path=DisplayName, Mode=TwoWay}" FontWeight="Bold" VerticalAlignment="Top" />
+        <Label Content="Уникальное имя" Grid.Row="2" Height="28" HorizontalAlignment="Left" Margin="4,2,0,0" Name="label1" VerticalAlignment="Top" />
+        <TextBox Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="2" Height="23" Margin="0,4,10,0" Name="tbxName" Text="{Binding Path=Name, Mode=TwoWay}" VerticalAlignment="Top" />
+        <Label Content="Имя сущности" Grid.Row="3" Height="28" HorizontalAlignment="Left" Margin="4,2,0,0" Name="label3" VerticalAlignment="Top" />
+        <TextBox Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="3" Height="23" Margin="0,4,10,0" Name="tbxEntityName" Text="{Binding Path=EntityName, Mode=TwoWay}" VerticalAlignment="Top" />
+        <Label Content="Тестовый идентификатор" Grid.Row="4" Height="28" HorizontalAlignment="Left" Margin="4,2,0,0" Name="label4" VerticalAlignment="Top" />
+        <TextBox Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="4" Height="23" Margin="0,4,10,0" Name="tbxTestId" Text="{Binding Path=TestId, Mode=TwoWay}" VerticalAlignment="Top" />
+        <Label Content="Тестовый пользователь" Grid.Row="5" Height="28" HorizontalAlignment="Left" Margin="4,2,0,0" Name="lblTestUserID" VerticalAlignment="Top" />
+        <TextBox Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="5" Height="23" Margin="0,4,10,0" Name="tbxTestUserId" Text="{Binding Path=TestUserId, Mode=TwoWay}" VerticalAlignment="Top" />
+        <Label Content="Отображать в приложении?" Grid.Row="6" Height="28" HorizontalAlignment="Left" Margin="4,2,0,0" Name="label9" VerticalAlignment="Top" Width="166" ToolTip="Отображать комплект документов при формировании в Silverlight приложении" />
+        <CheckBox Grid.Column="1" Grid.Row="6" Height="16" HorizontalAlignment="Left" Name="chbIsShow" IsChecked="{Binding Path=IsShow, Mode=TwoWay}" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="2,8,0,6" Width="16" />
+        <Label Content="Проставлять дату?" Grid.Row="7" Height="28" HorizontalAlignment="Left" Margin="4,2,0,0" Name="labelSetDate" VerticalAlignment="Top" Width="166" />
+        <CheckBox Grid.Column="1" Grid.Row="7" Height="16" HorizontalAlignment="Left" Name="IsSetDate" IsChecked="{Binding Path=IsSetDate, Mode=TwoWay}" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="2,8,0,6" Width="16" />
+        <Label Content="Порядковый номер КД" Grid.Row="8" Height="28" HorizontalAlignment="Left" Margin="4,2,0,0" Name="label7" VerticalAlignment="Top" Width="150" ToolTip="Порядок отображения в Silverlight приложении при выборе комплекта документов" />
+        <TextBox Grid.Column="1" Grid.Row="8" Height="23" Margin="0,4,10,0" HorizontalAlignment="Left" Width="30" Name="sqNumber" VerticalAlignment="Top" Text="{Binding Path=sequencenumber, Mode=TwoWay}" />
+        <Label Grid.Column="0" Grid.Row="9" VerticalAlignment="Center" FontWeight="Normal" Height="28" HorizontalAlignment="Left" Margin="4,2,0,0">Запрос определяющий название файла</Label>
+        <Border BorderBrush="Silver" BorderThickness="1" Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="2" Margin="0,0,350,0">
+            <avalonedit:TextEditor Grid.Column="1" Grid.Row="9" FontWeight="Normal" FontFamily="Courier New" FontSize="12" Name="SQLQueryFileName" ShowLineNumbers="False" IsEnabled="True" SnapsToDevicePixels="True" Margin="0,-1,-1,-1" HorizontalScrollBarVisibility="Hidden">
+                <avalonedit:TextEditor.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Command="Undo" />
+                        <MenuItem Command="Redo" />
+                        <Separator/>
+                        <MenuItem Command="Cut" />
+                        <MenuItem Command="Copy" />
+                        <MenuItem Command="Paste" />
+                    </ContextMenu>
+                </avalonedit:TextEditor.ContextMenu>
+            </avalonedit:TextEditor>
+        </Border>
+        <Label Content="Документы комплекта" FontWeight="Bold" Grid.Row="10" Height="28" HorizontalAlignment="Left" Margin="8,0,0,0" Name="label6" VerticalAlignment="Top" />
+        <Button Click="btnAdd_Click" Content="Добавить" Grid.Row="11" Height="23" HorizontalAlignment="Left" Margin="8,0,0,0" Name="btnAdd" Width="64" />
+        <Button Click="btnDelete_Click" Content="Удалить" Grid.Row="11" Height="23" HorizontalAlignment="Right" Margin="0,0,38,0" Name="btnDelete" Width="54" />
+        <Button Content="Сохранить" Grid.Row="11" Height="23" HorizontalAlignment="Left" Margin="139,0,0,0" Name="button1" Width="78" Grid.ColumnSpan="2" Click="button1_Click" />
+        <Button Click="cmdTest_Click" Content="Тест" Grid.Column="1" Grid.Row="11" Height="23" HorizontalAlignment="Right" Margin="0,0,10,0" Name="cmdTest" Width="36" />
+        <Label Content="Условия попадания в комплект" FontWeight="Bold" Grid.RowSpan="2" Height="28" HorizontalAlignment="Left" Margin="4,0,0,0" Name="label5" VerticalAlignment="Top" Grid.Column="2" Grid.Row="11" />
+        <ListBox SelectionChanged="listDocuments_SelectionChanged" Grid.ColumnSpan="2" Grid.Row="12" Margin="8,6,10,12" MouseDoubleClick="listDocuments_MouseDoubleClick" Name="listDocuments" />
+        <Grid Grid.Column="2" Grid.Row="12" Name="CondGrid">
+            <ToolBar Name="toolBar3" Height="30" VerticalAlignment="Top">
+                <Button Content="Добавить условие" Name="tbtAddCondition" Click="tbtAddCondition_Click" />
+                <Button Content="Удалить условие" Name="tbtRemoveCondition" Click="tbtRemoveCondition_Click" />
+            </ToolBar>
+            <Grid Margin="161,36,0,6" Name="conditionGrid2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="121" />
+                    <ColumnDefinition Width="344*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="120*" />
+                    <RowDefinition Height="84*" />
+                </Grid.RowDefinitions>
+                <Label Content="Наименование" FontWeight="Bold" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                <TextBox DataContext="{Binding}" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" IsEnabled="False" MinWidth="200" Name="ConditionNameTextBox2" Text="{Binding Path=conditionname, Mode=TwoWay}" VerticalAlignment="Center" />
+                <Label Content="Условие сравнения" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                <ComboBox Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="0,3,0,0" Name="conditionOperatorComboBox2" Text="{Binding Path=conditionoperator, Mode=TwoWay}" VerticalAlignment="Top" Width="120">
+                    <ComboBoxItem Content="=" />
+                    <ComboBoxItem Content="&lt;&gt;" />
+                    <ComboBoxItem Content="&gt;" />
+                    <ComboBoxItem Content="&lt;" />
+                    <ComboBoxItem Content="&gt;=" />
+                    <ComboBoxItem Content="&lt;=" />
+                </ComboBox>
+                <Label Content="Число записей" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                <TextBox Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" IsEnabled="False" Margin="0,4" MinWidth="100" Name="RecordCountTextBox2" Text="{Binding Path=recordcount, Mode=TwoWay}" VerticalAlignment="Center" Width="120" />
+                <Label Content="Запрос" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Top" />
+                <Border BorderBrush="Silver" BorderThickness="1" Grid.Column="1" Grid.Row="3" Grid.RowSpan="1" Margin="0,5,5,5">
+                    <avalonedit:TextEditor FontFamily="Courier New" FontSize="12" IsEnabled="False" Margin="0" Name="SQLConditionQueryEditor2" ShowLineNumbers="False" SnapsToDevicePixels="True"  />
+                </Border>
+                <Label Content="Сообщение" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Top" Height="29" Width="75" />
+                <Label Content="об ошибке" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Top" Height="27" Width="69" Margin="0,20,0,0" />
+                <TextBox Name="ErrMsg" Grid.Column="1" Grid.Row="4" Margin="0,5,5,5" Text="{Binding Path=errormessage, Mode=TwoWay}" TextWrapping="Wrap" />
+            </Grid>
+            <ListBox Margin="4,36,0,6" Name="lbxCondtionList" HorizontalAlignment="Left" Width="151" SelectionChanged="lbxCondtionList_SelectionChanged" />
+        </Grid>
+    </Grid>
+</Page>

@@ -1,0 +1,2 @@
+C:\source\WordMerger-Agreement-Core\WordMergeService\obj\Debug\WordMergeService.csproj.AssemblyReference.cache
+C:\source\WordMerger-Agreement-Core\WordMergeService\obj\Debug\WordMergeService.csproj.CoreCompileInputs.cache

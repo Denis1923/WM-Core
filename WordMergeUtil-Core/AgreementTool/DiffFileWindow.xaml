@@ -1,0 +1,50 @@
+﻿<Window x:Class="WordMergeUtil_Core.AgreementTool.DiffFileWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        xmlns:local="clr-namespace:WordMergeUtil_Core.AgreementTool"
+        mc:Ignorable="d"
+        Title="Сравнение" Height="450" Width="1200">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="600"/>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <telerik:Label Grid.Column="1" Grid.Row="0" 
+               VerticalAlignment="Center" HorizontalAlignment="Right" 
+               Foreground="#0066cc" Name="DocLabel" Content="Загруженный документ:"/>
+        <telerik:Label Grid.Column="2" Grid.Row="0" 
+               VerticalAlignment="Center" HorizontalAlignment="Left" 
+               Name="DocName" Content=""/>
+        <telerik:Label Grid.Column="1" Grid.Row="1" 
+               VerticalAlignment="Center" HorizontalAlignment="Right" 
+               Foreground="#0066cc" Name="TemplateLabel" Content="Шаблон:"/>
+        <telerik:Label Grid.Column="2" Grid.Row="1" 
+               VerticalAlignment="Center" HorizontalAlignment="Left" 
+               Name="TemplateLabelValue" Content=""/>
+        <telerik:RadComboBox Grid.Column="2" Grid.Row="1"
+               VerticalAlignment="Center" HorizontalAlignment="Left" 
+               Name="TemplateValue" MinWidth="200"
+               DisplayMemberPath="Value" SelectedValuePath="Key" SelectionChanged="TemplateValue_SelectionChanged"
+               AllowMultipleSelection="False"/>
+        <telerik:RadGridView x:Name="RadGridView" Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="1" Margin="4" AutoGenerateColumns="False" 
+                             MergedCellsDirection="Vertical" CanUserFreezeColumns="False" GroupRenderMode="Flat" ShowGroupPanel="False"
+                             ItemsSource="{Binding _filterParagraphs}">
+            <telerik:RadGridView.Columns>
+                <telerik:GridViewDataColumn Name="TemplateColumn" DataMemberBinding="{Binding DocumentName}" Header="Шаблон" TextAlignment="Center" Width="*"/>
+                <telerik:GridViewDataColumn DataMemberBinding="{Binding ParagraphName}" Header="Параграф" TextAlignment="Center" Width="*"/>
+                <telerik:GridViewDataColumn DataMemberBinding="{Binding VersionName}"  Header="Версия" Width="200" />
+                <telerik:GridViewDataColumn DataMemberBinding="{Binding Similarity}" Header="Сходство" MinWidth="100" Width="Auto" />
+            </telerik:RadGridView.Columns>
+        </telerik:RadGridView>
+        <telerik:RadRichTextBox  Grid.Row="0" Grid.RowSpan="3" Name="radRichTextBox1" LayoutMode="Paged" IsReadOnly="True" />
+    </Grid>
+</Window>

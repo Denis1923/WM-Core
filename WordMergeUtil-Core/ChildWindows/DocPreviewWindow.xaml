@@ -1,0 +1,13 @@
+﻿<Window x:Class="WordMergeUtil_Core.ChildWindows.DocPreviewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        WindowStartupLocation="CenterOwner"
+        Title="Предварительный прсмотр" Height="600" Width="800">
+    <Grid>
+        <ScrollViewer x:Name="MyScrollViewer" VerticalScrollBarVisibility="Auto" CanContentScroll="True">
+            <DockPanel HorizontalAlignment="Center">
+                <StackPanel x:Name="ImageHolder" HorizontalAlignment="Center"></StackPanel>
+            </DockPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="WordMergeUtil_Core.GlobalSettinsPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WordMergeUtil_Core"
+             mc:Ignorable="d" 
+             d:DesignHeight="311" d:DesignWidth="472"
+	        Unloaded="Page_Unloaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" FontFamily="Trebuchet MS" 
+        FontWeight="Bold" FontSize="18" Foreground="#0066cc" Name="CaptionLabel" Content="Системные параметры"></Label>
+        <Grid Grid.Column="1" Grid.Row="1" Name="DataSourceGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="373*" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" Content="Сервер БД"></Label>
+            <TextBox Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="50" Text="{Binding Path=ServerName, Mode=TwoWay}" Width="200" IsEnabled="True" Name="ServerDbNameTextBox" LostFocus="ServerDbNameTextBox_LostFocus"></TextBox>
+            <Label Grid.Column="0" Grid.Row="1" x:Name="BaseLabel" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Right">База данных</Label>
+            <ComboBox x:Name="BaseTextComboBox" FontWeight="Normal"  Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="286" Height="23" DisplayMemberPath="Value" SelectedValuePath="Key" SelectedValue="{Binding Path=DbName, Mode=TwoWay}"/>
+            <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" Content="Путь до исходных ГИ"></Label>
+            <TextBox Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="50" Text="{Binding Path=GlobalDataSourcePath, Mode=TwoWay}" Width="200" IsEnabled="True" Name="GlobalDataSourcePath"></TextBox>
+            <Label Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" Content="Путь до исходных ГП"></Label>
+            <TextBox Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="50" Text="{Binding Path=GlobalConditionPath, Mode=TwoWay}" Width="200" IsEnabled="True" Name="GlobalConditionPath"></TextBox>
+            <Label Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" Content="Убирать цвета?" ToolTip="Убирать ли цветовое выделение текста и менять цвет шрифта на указанный ниже. Работает только в выходном документе"></Label>
+            <CheckBox Grid.Column="1" x:Name="IsRemoveHighlight" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="{Binding Path=IsRemoveHighlight, Mode=TwoWay}"/>
+            <Label Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" Content="Цвет шрифта" ToolTip="Цвет шрифта по умолчанию для замены"></Label>
+            <Rectangle Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" Width="20" Height="20" x:Name="DefaultColorRect"/>
+            <ComboBox Grid.Column="1" Grid.Row="5" Margin="30 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" Height="22" Name="DefaultColorComboBox" SelectedValuePath="Tag" SelectionChanged="DefaultColorComboBox_SelectionChanged"/>
+            <TextBox Grid.Column="1" Grid.Row="5" Margin="140 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="50" Text="{Binding Path=DefaultColorText, Mode=TwoWay}" Width="100" IsEnabled="True" Name="DefaultColorText" TextChanged="DefaultColorText_TextChanged" ToolTip="Формат #AARRGGBB"></TextBox>
+            <Button Content="Сохранить" Grid.Column="1" Grid.Row="6" Height="23" HorizontalAlignment="Left" Name="SaveButton" VerticalAlignment="Top" Width="75" Click="SaveButton_Click" />
+        </Grid>
+    </Grid>
+</UserControl>

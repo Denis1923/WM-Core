@@ -1,0 +1,273 @@
+﻿html, body {
+    margin: 0;
+    padding: 0px;
+    font-family: "customFont", Helvetica;
+    border: 0px;
+    overflow: auto;
+}
+
+body {
+    width: 100%;
+    min-width: 390px;
+    min-height: 500px;
+}
+
+.header {
+    height: 50px;
+    width: 100%;
+    border: 1px solid;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    position: relative;
+    top: 0px;
+    left: 0px;
+}
+
+.headerTitle {
+    color: white;
+    font-size: 17px;
+    margin-left: 11px;
+    position: relative;
+    margin-top: 14px;
+    float: left;
+}
+
+.headerLogo {
+    margin-left: 5px;
+    position: relative;
+    height: 25px;
+    min-width: 20px;
+    float: left;
+    margin-top: 12px;
+}
+
+footer, nav, section {
+    display: block;
+}
+
+.modal, .modalError {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: black;
+    z-index: 99;
+    opacity: 0.4;
+    filter: alpha(opacity=40);
+    -moz-opacity: 0.4;
+    min-height: 100%;
+    width: 100%;
+}
+
+.loading {
+    font-family: "customFont",Arial;
+    font-size: 12px;
+    border: 1px solid #ccc;
+    text-align: center;
+    vertical-align: middle;
+    display: none;
+    position: absolute;
+    background-color: White;
+    z-index: 999;
+    margin: 5px;
+    padding: 5px;
+}
+
+.error, .result {
+    font-family: "customFont",Arial;
+    width: 350px;
+    font-size: 12px;
+    border: 1px solid #ccc;
+    text-align: center;
+    vertical-align: middle;
+    display: none;
+    position: absolute;
+    background-color: White;
+    z-index: 999;
+    margin: 5px;
+    padding: 5px;
+    max-height: 140px;
+}
+
+.conditionError {
+    font-family: "customFont",Arial;
+    width: 350px;
+    font-size: 12px;
+    border: 1px solid #ccc;
+    text-align: center;
+    vertical-align: middle;
+    display: none;
+    position: absolute;
+    background-color: White;
+    z-index: 999;
+    margin: 5px;
+    padding: 5px;
+    max-height: 160px;
+}
+
+.errorHeader, .resultHeader {
+    font-weight: bold;
+    margin: 5px;
+}
+
+.errorText {
+    margin: 5px;
+    overflow: auto;
+    vertical-align: middle;
+    max-height: 75px;
+}
+
+fieldset {
+    border: 1px solid #ddd;
+    padding: 0 1.4em 1.4em 1.4em;
+    margin: 0 0 10px 0px;
+    width: 605px;
+}
+
+legend {
+    font-weight: bold;
+}
+
+textarea {
+    min-height: 75px;
+}
+
+.editor-label {
+    margin: 1em 0 0 0;
+}
+
+.editor-field {
+    margin: 0.5em 0 0 0;
+}
+
+input[type=text].WMParameters {
+    width: 260px;
+}
+
+select.WMParameters {
+    width: 260px;
+}
+
+#search {
+    height: 20px;
+    width: 99.5%;
+    height: 25px;
+    margin-right: 0px;
+}
+
+    #search:focus {
+        margin-right: 0px;
+    }
+
+.Footer {
+    height: 40px;
+    width: 100%;
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    text-align: center;
+    background-color: white;
+    border-top: solid 1px lightgray;
+}
+
+.unselectable {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -o-user-select: none;
+}
+
+#Preview {
+    font-family: "customFont",Arial;
+    font-size: 12px;
+    border: 1px solid #ccc;
+    text-align: center;
+    vertical-align: middle;
+    display: none;
+    position: absolute;
+    background-color: White;
+    z-index: 999;
+    margin: 5px;
+    padding: 5px;
+    width: auto;
+    min-width: 350px;
+    max-width: 600px;
+    height: auto;
+    overflow: auto;
+}
+
+.custom-combobox {
+    width: 262px;
+    border: 1px solid #cccccc;
+    display: block;
+    background: white;
+}
+
+.custom-combobox-input {
+    height: 16px;
+    width: 100%;
+    border: none;
+}
+
+.custom-combobox-toggle {
+    height: 17px;
+    text-align: center;
+    width: 25px;
+    display: inline-block;
+}
+
+.custom-combobox-input-container {
+    display: inline-block;
+    width: 235px;
+}
+
+.custom-combobox-button-container {
+    display: inline-block;
+    float: right;
+    width: 25px;
+}
+
+.ui-icon {
+    display: inline-block !important;
+}
+
+.ui-menu {
+    height: 300px;
+    width: 400px;
+    overflow: auto;
+}
+
+.filter-img {
+    width: 30px;
+    height: 23px;
+    position: absolute;
+    right: 5px;
+    margin-top: -30px;
+}
+
+.hidden {
+    display: none;
+}
+
+input[type=text].WMFilters {
+    width: 230px;
+    margin-left: 20px;
+}
+
+select.WMFilters {
+    width: 230px;
+    margin-left: 20px;
+}
+
+input[type=checkbox].WMFilters {
+    margin-left: 20px;
+}
+
+.disable-condition {
+    font-family: Arial;
+    font-size:12px;
+    text-transform: uppercase;
+    color: #444;
+}

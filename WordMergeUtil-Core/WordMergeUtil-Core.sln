@@ -1,0 +1,85 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordMergeUtil-Core", "WordMergeUtil-Core.csproj", "{182B58DD-9EF4-4BEE-A7D2-D38B3EC5B98A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordMergeEngine", "..\WordMergeEngine\WordMergeEngine.csproj", "{CE548EEC-DFF0-4F6C-BF1F-7408C803775E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataByWords", "..\DataByWords\DataByWords.csproj", "{C6D5C98B-5E3E-4BF3-8607-2180F8DEA28D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentsPackage", "..\DocumentsPackage\DocumentsPackage.csproj", "{F8B80598-FE38-4050-95EA-4A692F4AA8A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordMerger.Scripts", "..\WordMerger.Scripts\WordMerger.Scripts.csproj", "{859D30D0-C074-4AAA-A9D2-D0208BCA6246}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordMergerUI", "..\WordMergerUI\WordMergerUI.csproj", "{3341FAA3-F85A-4772-B007-C2074A24AF2B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrmWordAddIn.Models", "..\..\..\tfs\Global\CmdWordAddIn\Models\CrmWordAddIn.Models.csproj", "{68509CBB-0A3A-4D8E-BB7E-0B002EF62590}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LicenseVerifierLib", "..\..\..\tfs\Global\LicenseGenerator\LicenseVerifierLib\LicenseVerifierLib.csproj", "{7853A851-58D7-4D59-8752-E4AF98D07B4C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRMIntegrationService", "..\CRMIntegrationService\CRMIntegrationService.csproj", "{D96165A8-5EE4-49B5-A9E3-A63B1B6AED2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationService", "..\IntegrationService\IntegrationService.csproj", "{AEFA2335-45E5-4777-A2F6-0D0F0AA54591}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordMergeService", "..\WordMergeService\WordMergeService.csproj", "{2D249120-44A0-4389-8D16-6C4A2EA166D0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{182B58DD-9EF4-4BEE-A7D2-D38B3EC5B98A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{182B58DD-9EF4-4BEE-A7D2-D38B3EC5B98A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{182B58DD-9EF4-4BEE-A7D2-D38B3EC5B98A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{182B58DD-9EF4-4BEE-A7D2-D38B3EC5B98A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE548EEC-DFF0-4F6C-BF1F-7408C803775E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE548EEC-DFF0-4F6C-BF1F-7408C803775E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE548EEC-DFF0-4F6C-BF1F-7408C803775E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE548EEC-DFF0-4F6C-BF1F-7408C803775E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6D5C98B-5E3E-4BF3-8607-2180F8DEA28D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6D5C98B-5E3E-4BF3-8607-2180F8DEA28D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6D5C98B-5E3E-4BF3-8607-2180F8DEA28D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6D5C98B-5E3E-4BF3-8607-2180F8DEA28D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8B80598-FE38-4050-95EA-4A692F4AA8A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8B80598-FE38-4050-95EA-4A692F4AA8A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8B80598-FE38-4050-95EA-4A692F4AA8A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8B80598-FE38-4050-95EA-4A692F4AA8A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{859D30D0-C074-4AAA-A9D2-D0208BCA6246}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{859D30D0-C074-4AAA-A9D2-D0208BCA6246}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{859D30D0-C074-4AAA-A9D2-D0208BCA6246}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{859D30D0-C074-4AAA-A9D2-D0208BCA6246}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3341FAA3-F85A-4772-B007-C2074A24AF2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3341FAA3-F85A-4772-B007-C2074A24AF2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3341FAA3-F85A-4772-B007-C2074A24AF2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3341FAA3-F85A-4772-B007-C2074A24AF2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68509CBB-0A3A-4D8E-BB7E-0B002EF62590}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68509CBB-0A3A-4D8E-BB7E-0B002EF62590}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68509CBB-0A3A-4D8E-BB7E-0B002EF62590}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68509CBB-0A3A-4D8E-BB7E-0B002EF62590}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7853A851-58D7-4D59-8752-E4AF98D07B4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7853A851-58D7-4D59-8752-E4AF98D07B4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7853A851-58D7-4D59-8752-E4AF98D07B4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7853A851-58D7-4D59-8752-E4AF98D07B4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D96165A8-5EE4-49B5-A9E3-A63B1B6AED2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D96165A8-5EE4-49B5-A9E3-A63B1B6AED2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D96165A8-5EE4-49B5-A9E3-A63B1B6AED2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D96165A8-5EE4-49B5-A9E3-A63B1B6AED2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEFA2335-45E5-4777-A2F6-0D0F0AA54591}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEFA2335-45E5-4777-A2F6-0D0F0AA54591}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEFA2335-45E5-4777-A2F6-0D0F0AA54591}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEFA2335-45E5-4777-A2F6-0D0F0AA54591}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D249120-44A0-4389-8D16-6C4A2EA166D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D249120-44A0-4389-8D16-6C4A2EA166D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D249120-44A0-4389-8D16-6C4A2EA166D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D249120-44A0-4389-8D16-6C4A2EA166D0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {46DFCC46-5E15-4ACD-839B-856B9BAE45E1}
+	EndGlobalSection
+EndGlobal

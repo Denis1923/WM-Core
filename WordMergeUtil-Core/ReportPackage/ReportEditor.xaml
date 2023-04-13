@@ -1,0 +1,723 @@
+﻿<Page x:Class="WordMergeUtil_Core.EditReport"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WordMergeUtil_Core.ReportPackage"
+      mc:Ignorable="d"  d:DesignHeight="539" d:DesignWidth="964"
+	  Title="Редактирование документа слияния"
+      xmlns:avalonedit="clr-namespace:ICSharpCode.AvalonEdit;assembly=ICSharpCode.AvalonEdit" Unloaded="Page_Unloaded" Loaded="Page_Loaded">
+    <Page.Resources>
+        <Color x:Key="Color1">#FFE3E9EF</Color>
+    </Page.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="408*"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" FontFamily="Trebuchet MS" FontWeight="Bold" FontSize="18" Foreground="#0066cc" Name="CaptionLabel">
+            Редактирование документа слияния
+        </Label>
+        <Grid Grid.Row="1" Margin="0,0,0,45">
+            <TabControl Name="tabControl1" Margin="10,10,10,0" SelectionChanged="tabControl1_SelectionChanged">
+                <TabItem Header="Параметры документа" Name="tabItem1">
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                        <StackPanel Orientation="Vertical" Name="MainPanel">
+                            <GroupBox Header="Основные параметры" BorderThickness="0,1,0,0" FontWeight="Bold" Height="600">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="29" />
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="60" />
+                                        <RowDefinition Height="60" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="230" />
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Grid.Row="0" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Right">Наименование документа</Label>
+                                    <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal">
+                                        <TextBox FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Name="DocName" TextChanged="DocName_TextChanged" MinWidth="250" Text="{Binding Path=reportname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                    </StackPanel>
+                                    <Label Grid.Column="0" FontWeight="Normal" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Content="Тип документа"></Label>
+                                    <ComboBox  Grid.Column="1" FontWeight="Normal" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Name="reporttype" MinWidth="286" SelectedValuePath="Tag" SelectionChanged="reporttype_SelectionChanged">
+                                        <ComboBoxItem Tag="doc">Документ слияния</ComboBoxItem>
+                                        <ComboBoxItem Tag="rep">Отчет</ComboBoxItem>
+                                        <ComboBoxItem Tag="eml">Шаблон электронной почты</ComboBoxItem>
+                                        <ComboBoxItem Tag="ins">Инструкция</ComboBoxItem>
+                                    </ComboBox>
+                                    <Label Grid.Column="0" FontWeight="Normal" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Content="Формат документа"></Label>
+                                    <ComboBox Grid.Column="1" FontWeight="Normal" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Name="reportformat" MinWidth="286" SelectedValuePath="Tag">
+                                        <ComboBoxItem Tag="" Content="Формат шаблона" />
+                                        <ComboBoxItem Tag="pdf" Content="Формат PDF" />
+                                        <ComboBoxItem Tag="xps" Content="Формат XPS" />
+                                        <ComboBoxItem Tag="html" Content="Формат HTML" />
+                                    </ComboBox>
+                                    <Label x:Name="ChooseFormatLabel" Grid.Column="0" FontWeight="Normal" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right">Доступен выбор формата?</Label>
+                                    <CheckBox Grid.Column="1" Grid.Row="3"  VerticalAlignment="Center" Name="ChooseFormatCheckBox" IsChecked="{Binding Path=IsChooseFormat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <Label x:Name="TemplatePathLabel" Grid.Column="0" FontWeight="Normal" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Right">Путь к шаблону на сервере</Label>
+                                    <Label x:Name="CustomTemplateLabel" Grid.Column="0" FontWeight="Normal" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Right">Шаблон</Label>
+                                    <Label x:Name="SubjectLabel" FontWeight="Normal" IsEnabled="False" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right">Тема письма</Label>
+                                    <TextBox x:Name="SubjectTextBox" FontWeight="Normal" Grid.Column="1" IsEnabled="False" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="400" Text="{Binding Path=subjectemail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                    <Label Grid.Column="0" Grid.Row="5" FontWeight="Normal" HorizontalAlignment="Right" VerticalAlignment="Center" Content="Настраиваемый шаблон" ToolTip="Использовать шаблон, настраиваемый через Agreement Merger Tool"/>
+                                    <CheckBox Grid.Column="1" Grid.Row="5"  VerticalAlignment="Center" Name="CustomTemplateCheckBox" IsChecked="{Binding Path=isCustomTemplate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <ComboBox Grid.Column="1" Grid.Row="6" x:Name="CustomTemplateComboBox" FontWeight="Normal"  HorizontalAlignment="Left" VerticalAlignment="Center" Width="286" Height="23" DisplayMemberPath="Value" SelectedValuePath="Key" SelectionChanged="CustomTemplateComboBox_SelectionChanged"/>
+                                    <StackPanel Grid.Column="1" Grid.Row="6" Orientation="Horizontal">
+                                        <TextBox x:Name="TemplatePathTextBox" HorizontalAlignment="Left" FontWeight="Normal" VerticalAlignment="Center" MinWidth="375" Text="{Binding Path=reportpath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                        <Button HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="25" Height="22" Name="SelectDocPath" Click="SelectDocPath_Click">...</Button>
+                                    </StackPanel>
+                                    <Label Grid.Column="0" Grid.Row="7" VerticalAlignment="Center" FontWeight="Normal" HorizontalAlignment="Right" Content="Код док-та для интеграции"></Label>
+                                    <TextBox Grid.Column="1" Grid.Row="7" HorizontalAlignment="Left" FontWeight="Normal" VerticalAlignment="Center" MinWidth="286" Text="{Binding Path=reportcode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ReportCodeTextBox" PreviewLostKeyboardFocus="ReportCodeTextBox_PreviewLostKeyboardFocus"></TextBox>
+                                    <Label x:Name="ServerLabel" Grid.Column="0" Grid.Row="8" VerticalAlignment="Center" FontWeight="Normal" HorizontalAlignment="Right">Сервер базы данных</Label>
+                                    <TextBox Grid.Column="1" x:Name="ServerTextBox" Grid.Row="8" HorizontalAlignment="Left" FontWeight="Normal" VerticalAlignment="Center" MinWidth="286" Text="{Binding Path=servername, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" LostFocus="ServerTextBox_LostFocus"></TextBox>
+                                    <Label Grid.Column="0" Grid.Row="9" x:Name="BaseLabel" VerticalAlignment="Center" FontWeight="Normal" HorizontalAlignment="Right">База данных</Label>
+                                    <ComboBox x:Name="BaseTextComboBox" FontWeight="Normal"  Grid.Column="1" Grid.Row="9" HorizontalAlignment="Left" VerticalAlignment="Center" Width="286" Height="23" DisplayMemberPath="Value" SelectedValuePath="Key" SelectedValue="{Binding Path=defaultdatabase, Mode=TwoWay}"/>
+                                    <Label Grid.Row="10" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Normal" Content="Имя сущности" Margin="0,2"></Label>
+                                    <TextBox Grid.Column="1" Grid.Row="10" HorizontalAlignment="Left" FontWeight="Normal" VerticalAlignment="Center" MinWidth="286" Text="{Binding Path=entityname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,4"></TextBox>
+                                    <Label Grid.Column="0" Grid.Row="11" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Normal" Content="Период действия документа"></Label>
+                                    <Grid Name="Period" Grid.Column="1" Grid.Row="11">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="25" />
+                                            <ColumnDefinition Width="120" />
+                                            <ColumnDefinition Width="25" />
+                                            <ColumnDefinition Width="120" />
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Normal" Content="c" />
+                                        <DatePicker Grid.Column="1" Name="ActiveOn" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" Width="110" SelectedDate="{Binding activeon, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FirstDayOfWeek="Monday" SelectedDateChanged="ActiveOn_SelectedDateChanged">
+                                            <Validation.ErrorTemplate>
+                                                <ControlTemplate/>
+                                            </Validation.ErrorTemplate>
+                                        </DatePicker>
+                                        <Label Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" Content="по" />
+                                        <DatePicker Grid.Column="3" Name="DeactiveOn" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" Width="110" SelectedDate="{Binding deactivateon, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FirstDayOfWeek="Monday" SelectedDateChanged="DeactiveOn_SelectedDateChanged">
+                                            <Validation.ErrorTemplate>
+                                                <ControlTemplate/>
+                                            </Validation.ErrorTemplate>
+                                        </DatePicker>
+                                    </Grid>
+                                    <Label Grid.Row="12" x:Name="EmptyLabel" HorizontalAlignment="Right" FontWeight="Normal" VerticalAlignment="Center" Margin="23,3,0,1">Удалять пустые области?</Label>
+                                    <StackPanel Grid.Column="1" Grid.Row="12" Orientation="Horizontal">
+                                        <CheckBox  Height="16" FontWeight="Normal" HorizontalAlignment="Left" Name="checkBox1" IsChecked="{Binding Path=removeemptyregions}" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="2,4,0,2" />
+                                        <Label  x:Name="ReplaceLabel" HorizontalAlignment="Right" FontWeight="Normal" VerticalAlignment="Center" Margin="23,3,0,1" Content="Заменять поля текстом?"></Label>
+                                        <CheckBox Height="16" FontWeight="Normal" HorizontalAlignment="Left" Name="checkBox2" IsChecked="{Binding Path=replacefieldswithstatictext}" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="2,4,0,2" />
+                                    </StackPanel>
+                                    <Label Grid.Row="13" HorizontalAlignment="Right" FontWeight="Normal" VerticalAlignment="Center" Margin="23,3,0,1" Content="Отображать при формировании?" ToolTip="Отображать данный отчет в приложении при формировании отчета"/>
+                                    <StackPanel Grid.Row="13"  Grid.Column="1" Orientation="Horizontal">
+                                        <CheckBox Height="16" HorizontalAlignment="Left" Name="chbIsShow" IsChecked="{Binding Path=IsShow, Mode=TwoWay}" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="2,4,0,2" />
+                                        <Label HorizontalAlignment="Right" FontWeight="Normal" VerticalAlignment="Center" Margin="23,3,0,1" Content="Порядковый номер ПФ" ToolTip="Порядок отображения в приложении при выборе отчета"/>
+                                        <TextBox  HorizontalAlignment="Left" FontWeight="Normal" VerticalAlignment="Center" MinWidth="30" Text="{Binding Path=sequencenumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </StackPanel>
+                                    <Label Grid.Row="14" x:Name="labelSetDate" HorizontalAlignment="Right" FontWeight="Normal" VerticalAlignment="Center" Margin="23,3,0,1">Проставлять дату?</Label>
+                                    <StackPanel Grid.Row="14"  Grid.Column="1" Orientation="Horizontal">
+                                        <CheckBox Height="16" HorizontalAlignment="Left" Name="IsSetDate" IsChecked="{Binding Path=setdate}" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="2,4,0,2" />
+                                        <Label  x:Name="IsChangeColorLabel" HorizontalAlignment="Right" FontWeight="Normal" VerticalAlignment="Center" Margin="23,3,0,1" Content="Менять цвет?"></Label>
+                                        <CheckBox Height="16" FontWeight="Normal" HorizontalAlignment="Left" Name="IsChangeColorCheckBox" IsChecked="{Binding Path=IsChangeColor}" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="2,4,0,2" />
+                                    </StackPanel>
+                                    <Label Grid.Column="0" Grid.Row="15" VerticalAlignment="Center" FontWeight="Normal" HorizontalAlignment="Right">Запрос определяющий название файла</Label>
+                                    <Border BorderBrush="Silver" BorderThickness="1" Grid.Column="1" Grid.Row="15">
+                                        <avalonedit:TextEditor Grid.Column="1" Grid.Row="11" FontWeight="Normal" FontFamily="Courier New" FontSize="12" Name="SQLQueryFileName" ShowLineNumbers="False" IsEnabled="True" SnapsToDevicePixels="True" Margin="0,-1,0,15" TextChanged="SQLQuery_TextChanged" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
+                                            <avalonedit:TextEditor.ContextMenu>
+                                                <ContextMenu>
+                                                    <MenuItem Command="Undo" />
+                                                    <MenuItem Command="Redo" />
+                                                    <Separator/>
+                                                    <MenuItem Command="Cut" />
+                                                    <MenuItem Command="Copy" />
+                                                    <MenuItem Command="Paste" />
+                                                </ContextMenu>
+                                            </avalonedit:TextEditor.ContextMenu>
+                                        </avalonedit:TextEditor>
+                                    </Border>
+                                    <Label Grid.Column="0" Grid.Row="16" VerticalAlignment="Center" FontWeight="Normal" HorizontalAlignment="Right">Запрос выключающий проверки</Label>
+                                    <Border BorderBrush="Silver" BorderThickness="1" Grid.Column="1" Grid.Row="16">
+                                        <avalonedit:TextEditor Grid.Column="1" Grid.Row="11" FontWeight="Normal" FontFamily="Courier New" FontSize="12" Name="SqlQueryUseCondition" ShowLineNumbers="False" IsEnabled="True" SnapsToDevicePixels="True" Margin="0,-1,0,15" TextChanged="SQLQuery_TextChanged" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
+                                            <avalonedit:TextEditor.ContextMenu>
+                                                <ContextMenu>
+                                                    <MenuItem Command="Undo" />
+                                                    <MenuItem Command="Redo" />
+                                                    <Separator/>
+                                                    <MenuItem Command="Cut" />
+                                                    <MenuItem Command="Copy" />
+                                                    <MenuItem Command="Paste" />
+                                                </ContextMenu>
+                                            </avalonedit:TextEditor.ContextMenu>
+                                        </avalonedit:TextEditor>
+                                    </Border>
+                                </Grid>
+                            </GroupBox>
+                            <GroupBox Header="Параметры дополнительных соглашений" BorderThickness="0,1,0,0" FontWeight="Bold">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="230" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Row="0" x:Name="DSLabel" FontWeight="Normal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="23,3,0,1" Content="Доп. соглашение?"></Label>
+                                    <CheckBox Grid.Column="1" Grid.Row="0" FontWeight="Normal" Height="16" HorizontalAlignment="Left" Name="DSCheckBox" IsChecked="{Binding Path=IsDS}" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="2,4,0,2" />
+                                    <Label Name="MainReportCodeLabel" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" FontWeight="Normal" HorizontalAlignment="Right">Запрос для кода основного док-та</Label>
+                                    <Border x:Name="SqlMainReportCodeBorder" BorderBrush="Silver" BorderThickness="1" Grid.Column="1" Grid.Row="1">
+                                        <avalonedit:TextEditor Grid.Column="1" Grid.Row="11" FontWeight="Normal" FontFamily="Courier New" FontSize="12" Name="SqlMainReportCode" ShowLineNumbers="False" IsEnabled="True" SnapsToDevicePixels="True" Margin="0,-1,0,15" TextChanged="SqlMainReportCode_TextChanged" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
+                                            <avalonedit:TextEditor.ContextMenu>
+                                                <ContextMenu>
+                                                    <MenuItem Command="Undo" />
+                                                    <MenuItem Command="Redo" />
+                                                    <Separator/>
+                                                    <MenuItem Command="Cut" />
+                                                    <MenuItem Command="Copy" />
+                                                    <MenuItem Command="Paste" />
+                                                </ContextMenu>
+                                            </avalonedit:TextEditor.ContextMenu>
+                                        </avalonedit:TextEditor>
+                                    </Border>
+                                    <Label Name="MainReportIdLabel" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" FontWeight="Normal" HorizontalAlignment="Right">Запрос для id карточки док-та</Label>
+                                    <Border x:Name="SqlMainRowIdBorder" BorderBrush="Silver" BorderThickness="1" Grid.Column="1" Grid.Row="2">
+                                        <avalonedit:TextEditor Grid.Column="1" Grid.Row="11" FontWeight="Normal" FontFamily="Courier New" FontSize="12" Name="SqlMainRowId" ShowLineNumbers="False" IsEnabled="True" SnapsToDevicePixels="True" Margin="0,-1,0,15" TextChanged="SqlMainReportId_TextChanged" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
+                                            <avalonedit:TextEditor.ContextMenu>
+                                                <ContextMenu>
+                                                    <MenuItem Command="Undo" />
+                                                    <MenuItem Command="Redo" />
+                                                    <Separator/>
+                                                    <MenuItem Command="Cut" />
+                                                    <MenuItem Command="Copy" />
+                                                    <MenuItem Command="Paste" />
+                                                </ContextMenu>
+                                            </avalonedit:TextEditor.ContextMenu>
+                                        </avalonedit:TextEditor>
+                                    </Border>
+                                </Grid>
+                            </GroupBox>
+                            <GroupBox Header="Интеграция с Внешней системой" BorderThickness="0,1,0,0" FontWeight="Bold">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="230" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Row="0" x:Name="SendRequestLabel" FontWeight="Normal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="23,3,0,1" Content="Отправлять запрос?"></Label>
+                                    <CheckBox Grid.Column="1" Grid.Row="0" FontWeight="Normal" Height="16" HorizontalAlignment="Left" Name="SendRequestCheckBox" IsChecked="{Binding Path=IsSendRequest}" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="2,4,0,2" />
+                                    <Label Grid.Row="1" Grid.RowSpan="2" x:Name="IntegrationLabel" FontWeight="Normal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="23,3,0,1" Content="Интеграции"/>
+                                    <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Left">
+                                        <Button Content="Добавить" Height="25" Name="AddIntegration"  Width="90" Margin="5" Click="AddIntegration_Click" />
+                                        <Button Content="Удалить" Height="25" Name="RemoveIntegration"  Width="90" Click="RemoveIntegration_Click" />
+                                    </StackPanel>
+                                    <DataGrid Name="IntegrationGrid" ItemsSource="{Binding Path=CurrentReport.Integration}" AutoGenerateColumns="False" Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" MinWidth="350" HorizontalAlignment="Left" CanUserAddRows="False" CanUserDeleteRows="False" RowEditEnding="IntegrationGrid_RowEditEnding">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Порядок" Binding="{Binding Path=Order}"/>
+                                            <DataGridTextColumn Header="Код системы" Binding="{Binding Path=SystemCode}"/>
+                                            <DataGridCheckBoxColumn Header="Выполнять до?" Binding="{Binding Path=BeforeAction}"/>
+                                            <DataGridComboBoxColumn x:Name="IntegrationSourceComboBox" Header="Источник" DisplayMemberPath="datasourcename" SelectedValuePath="datasourceid" SelectedItemBinding="{Binding DataSource}"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </Grid>
+                            </GroupBox>
+                            <GroupBox Header="Интеграция с SharePoint" FontWeight="Bold" BorderThickness="0,1,0,0">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="230" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Row="0" x:Name="ShareSaveLabel" FontWeight="Normal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="23,3,0,1" Content="Помещать результат на SharePoint?"></Label>
+                                    <CheckBox Grid.Column="1" Grid.Row="0" FontWeight="Normal" Height="16" HorizontalAlignment="Left" Name="ShareSaveCheckBox" IsChecked="{Binding Path=sharepoint_dosave}" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="2,4,0,2" />
+                                    <Label Name="SpLoadTypeLabel" Grid.Column="0" FontWeight="Normal" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Content="Способ загрузки"></Label>
+                                    <ComboBox  Grid.Column="1" FontWeight="Normal" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Name="SpLoadTypeComboBox" MinWidth="286" DisplayMemberPath="Key" SelectedValuePath="Value" SelectionChanged="sploadtype_SelectionChanged" SelectedValue="{Binding Path=SpLoadType, Mode=TwoWay}"/>
+                                    <Label Grid.Row="2" FontWeight="Normal" x:Name="SpPathFolderNameLabel" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,0,4">Тег для пути сохранения</Label>
+                                    <TextBox Grid.Column="1" FontWeight="Normal" Grid.Row="2" x:Name="SpPathFolderNameTextBox" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="286" Text="{Binding Path=PathKeyFieldName, Mode=TwoWay}" Margin="0,4"></TextBox>
+                                    <Label Name="ChangeNameTypeLabel" Grid.Column="0" FontWeight="Normal" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right" Content="Добавлять к имени"></Label>
+                                    <ComboBox  Grid.Column="1" FontWeight="Normal" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Name="ChangeNameTypeComboBox" MinWidth="286" DisplayMemberPath="Key" SelectedValuePath="Value" SelectedValue="{Binding Path=NamePostfix, Mode=TwoWay}"/>
+                                    <Label Grid.Row="4" FontWeight="Normal" x:Name="GroupLabel" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,0,4">GroupKey</Label>
+                                    <TextBox Grid.Column="1" FontWeight="Normal" Grid.Row="4" x:Name="GroupTextBox" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="286" Text="{Binding Path=sharepoint_groupkey, Mode=TwoWay}" Margin="0,4"></TextBox>
+                                    <Label Grid.Row="5" FontWeight="Normal" VerticalAlignment="Center" x:Name="ShareCodeLabel" HorizontalAlignment="Right" Margin="0,0,0,4">Код интеграции SharePoint</Label>
+                                    <TextBox Grid.Column="1" FontWeight="Normal" Grid.Row="5" x:Name="ShareCodeTextBox" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="286" Text="{Binding Path=sharepoint_intcode, Mode=TwoWay}" Margin="0,4"></TextBox>
+                                </Grid>
+                            </GroupBox>
+                            <GroupBox Header="Данные для тестирования" FontWeight="Bold" BorderThickness="0,1,0,0">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="230" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Row="0" x:Name="TestIdLabel" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,0,4">Тестовый идентификатор</Label>
+                                    <TextBox Grid.Column="1" Grid.Row="0" x:Name="TestIdTextBox" FontWeight="Normal" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="286" Text="{Binding Path=testid, Mode=TwoWay}" Margin="0,4"></TextBox>
+                                    <Label Grid.Row="1" x:Name="UserIdLabel" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,0,4">Тестовый идентификатор пользователя (@userId)</Label>
+                                    <TextBox Grid.Column="1" Grid.Row="1" x:Name="UserIdTextBox" FontWeight="Normal" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="286" Text="{Binding Path=testuserid, Mode=TwoWay}" Margin="0,4"></TextBox>
+                                </Grid>
+                            </GroupBox>
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem Header="Данные отчета" Name="tabItem3" GotFocus="tabItem3_GotFocus">
+                    <Grid x:Name="GridTab3">
+                        <Grid Name="grid1" ClipToBounds="True">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="250" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <ToolBarPanel Grid.Row="0" Grid.ColumnSpan="2" >
+                                <ToolBar Name="toolBar1">
+                                    <Button Name="Up" Width="22" Height="22" Click="SlideUp" IsEnabled="False" Opacity="0.6">
+                                        <Image Source="Image/arrow_up.png" Width="33" />
+                                    </Button>
+                                    <Button Name="Down"  Width="22" Height="22" Click="SlideDown" IsEnabled="False" Opacity="0.6">
+                                        <Image Source="Image/arrow_down.png" Width="33" />
+                                    </Button>
+                                    <Separator/>
+                                    <Button Name="AddNestedDSButton" Click="AddNestedDSButton_Click">Добавить дочерний источник данных</Button>
+                                    <Button Name="RemoveNestedDSButton" Click="RemoveNestedDSButton_Click">Удалить дочерний источник данных</Button>
+                                    <Separator Name="RunQuerySeparator" />
+                                    <Button Name="RunQuery" Click="RunQuery_Click">Выполнить запрос</Button>
+                                </ToolBar>
+                            </ToolBarPanel>
+                            <TreeView Name="treeView1" Grid.Column="0" Grid.Row="1" SelectedItemChanged="treeView1_SelectedItemChanged">
+                                <TreeView.ItemTemplate>
+                                    <HierarchicalDataTemplate ItemsSource="{Binding Path=NestedDataSources}">
+                                        <TextBlock Text="{Binding Path=datasourcename}" />
+                                    </HierarchicalDataTemplate>
+                                </TreeView.ItemTemplate>
+                            </TreeView>
+                            <Grid Grid.Column="1" Grid.Row="1" Name="DataSourceGrid">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" Content="Наименование" Height="26" Margin="0" Width="98"></Label>
+                                <TextBox Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="250" Text="{Binding Path=datasourcename, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DataContext="{Binding}" IsEnabled="False" Name="DataSourceNameTextBox" Height="20" Margin="0" Width="250"></TextBox>
+                                <CheckBox Grid.Column="1" Visibility="Collapsed" Click="useGlobal_Click" x:Name="useGlobal" Content="Глобальный источник" Margin="267,8,143,7"/>
+                                <ComboBox x:Name="GlobalDataSources" Visibility="Collapsed" SelectionChanged="GlobalDataSources_SelectionChanged" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="293" Height="20" DisplayMemberPath="Value" SelectedValuePath="Key" Margin="267,5,0,0" Grid.Row="1"/>
+                                <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Content="Ключ" Height="26" Margin="0,2" Width="40"></Label>
+                                <TextBox Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="250" Text="{Binding Path=keyfieldname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="250" IsEnabled="False" Name="KeyFieldNameTextBox" Height="20" Margin="0"></TextBox>
+                                <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Content="Внешний ключ" Height="26" Margin="0,2" Width="93"></Label>
+                                <TextBox Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="250" Text="{Binding Path=foreignkeyfieldname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="250" IsEnabled="False" Name="ForeignKeyFieldNameTextBox" Height="20" Margin="0"></TextBox>
+                                <Label Grid.Column="0" Grid.Row="5" VerticalAlignment="Top" HorizontalAlignment="Right" Content="Запрос" Height="26" Width="49"></Label>
+                                <Label Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right" Content="Одной строкой?" Height="26" Margin="0,2" Width="100"></Label>
+                                <CheckBox Name="OneRow" Grid.Column="1" Grid.Row="3" Height="16" HorizontalAlignment="Left" IsChecked="{Binding Path=assingleline}" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="0,7" Width="16" />
+                                <Label Name="IsInregrationRequestLabel" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right" Content="Запрос для интеграции?" Height="26" Margin="0,2" Width="144" Visibility="Collapsed"></Label>
+                                <CheckBox Name="IsIntegrationRequestCheckBox" Grid.Column="1" Grid.Row="4" Height="16" HorizontalAlignment="Left" IsChecked="{Binding Path=IsIntegrationRequest}" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="0,7" Width="16" Visibility="Collapsed"/>
+                                <Border BorderBrush="Silver" BorderThickness="1" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="3" Margin="0,5,0,0">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Name="GridRowDef3" Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <avalonedit:TextEditor Grid.Row="0" FontFamily="Courier New" FontSize="12" Name="SQLDSQueryEditor" ShowLineNumbers="False" IsEnabled="False" SnapsToDevicePixels="True" TextChanged="SQLQuery_TextChanged">
+                                            <avalonedit:TextEditor.ContextMenu>
+                                                <ContextMenu>
+                                                    <MenuItem Command="Undo" />
+                                                    <MenuItem Command="Redo" />
+                                                    <Separator/>
+                                                    <MenuItem Command="Cut" />
+                                                    <MenuItem Command="Copy" />
+                                                    <MenuItem Command="Paste" />
+                                                </ContextMenu>
+                                            </avalonedit:TextEditor.ContextMenu>
+                                        </avalonedit:TextEditor>
+                                        <GridSplitter Name="ResultGridSplitter"
+                                                      Grid.Row="1" 
+                                                      ResizeDirection="Rows"
+                                                      Grid.Column="0"
+                                                      Background="Blue"
+                                                      Grid.ColumnSpan="2"
+                                                      Width="auto"
+                                                      Height="3"
+                                                      HorizontalAlignment="Stretch"
+                                                      VerticalAlignment="Stretch"
+                                                      ShowsPreview="True"
+                                                      Margin="0"/>
+                                        <Grid Grid.Row="2" Name="ResultGrid">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="25"/>
+                                            </Grid.RowDefinitions>
+                                            <DataGrid CanUserAddRows="False" Name="DataGridResultQuery" Grid.Row="0" Margin="10 5 10 0"></DataGrid>
+                                            <StackPanel  Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0 0 10 0">
+                                                <Label>Число записей:</Label>
+                                                <Label Name="CountResultQuery" ></Label>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Проверки отчета" Name="tabItem2">
+                    <Grid x:Name="GridTab2">
+                        <Grid Name="grid4" ClipToBounds="True">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Name="ConditionLeftColumn" Width="250"/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <ToolBarPanel Grid.Row="0" Grid.ColumnSpan="2" >
+                                <ToolBar Name="toolBar2">
+                                    <ComboBox x:Name="GlobalConditions" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="198" Height="23" DisplayMemberPath="Value" SelectedValuePath="Key"/>
+                                    <Button Name="AddGlobalCondition" Click="AddGlobalCondition_Click">Добавить глобальное условие</Button>
+                                    <Button Name="AddCondition" Click="AddCondition_Click">Добавить условие</Button>
+                                    <Button Name="RemoveCondition" Click="RemoveCondition_Click">Удалить условие</Button>
+                                </ToolBar>
+                            </ToolBarPanel>
+                            <Grid Grid.Column="1" Grid.Row="1" Name="conditionGrid">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="109*" />
+                                    <RowDefinition Height="30*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="116" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" Content="Наименование" Height="26" Margin="0,2" Width="98"></Label>
+                                <TextBox Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="250" Text="{Binding Path=conditionname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DataContext="{Binding}" IsEnabled="False" Name="ConditionNameTextBox" Height="20" Margin="0" Width="250"></TextBox>
+                                <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Content="Порядок" Height="26" Margin="0,2,0,1" Width="63"></Label>
+                                <TextBox Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="250" Text="{Binding Path=OrderNo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DataContext="{Binding}" IsEnabled="True" 
+                                         Name="ConditionOrderTextBox" Height="20" Margin="0" Width="250"></TextBox>
+                                <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Content="Условие сравнения" Height="26" Margin="-1,2,0,2" Width="117"></Label>
+                                <ComboBox Grid.Column="1" Grid.Row="2" Height="20" HorizontalAlignment="Left" Margin="0" FontSize="11" FontWeight="ExtraBlack" Name="conditionOperatorComboBox" VerticalAlignment="Center" Width="120" Text="{Binding Path=conditionoperator, Mode=TwoWay}">
+                                    <ComboBoxItem Content="=" Height="20" FontSize="10" FontWeight="ExtraBlack"/>
+                                    <ComboBoxItem Content="&lt;&gt;" Height="20" FontSize="10" FontWeight="ExtraBlack"/>
+                                    <ComboBoxItem Content="&gt;" Height="20" FontSize="10" FontWeight="ExtraBlack"/>
+                                    <ComboBoxItem Content="&lt;" Height="20" FontSize="10" FontWeight="ExtraBlack"/>
+                                    <ComboBoxItem Content="&gt;=" Height="20" FontSize="10" FontWeight="ExtraBlack"/>
+                                    <ComboBoxItem Content="&lt;=" Height="20" FontSize="10" FontWeight="ExtraBlack"/>
+                                </ComboBox>
+                                <Label Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right" Content="Число записей" Height="26" Margin="0,0,0,4" Width="91" RenderTransformOrigin="0.484,-0.339"/>
+                                <TextBox Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" MinWidth="100" Text="{Binding Path=recordcount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="120" IsEnabled="False" Name="RecordCountTextBox" Margin="0" Height="20
+                                         " VerticalAlignment="Center"/>
+                                <Label Grid.Row="5" VerticalAlignment="Top" HorizontalAlignment="Right" Content="Запрос" Height="26" Width="49"></Label>
+                                <Border BorderBrush="Silver" BorderThickness="1" Grid.Row="5" Grid.Column="1" Grid.RowSpan="1" Margin="0,5,5,5">
+                                    <avalonedit:TextEditor TextChanged="SQLQuery_TextChanged" FontFamily="Courier New" FontSize="12" Name="SQLConditionQueryEditor" ShowLineNumbers="False" IsEnabled="False" SnapsToDevicePixels="True" Margin="0">
+                                        <avalonedit:TextEditor.ContextMenu>
+                                            <ContextMenu>
+                                                <MenuItem Command="Undo" />
+                                                <MenuItem Command="Redo" />
+                                                <Separator/>
+                                                <MenuItem Command="Cut" />
+                                                <MenuItem Command="Copy" />
+                                                <MenuItem Command="Paste" />
+                                            </ContextMenu>
+                                        </avalonedit:TextEditor.ContextMenu>
+                                    </avalonedit:TextEditor>
+                                </Border>
+                                <Label Grid.Row="6" VerticalAlignment="Top" HorizontalAlignment="Right" Content="Текст ошибки" Height="26" Margin="0,1,3,0" Width="88"/>
+                                <TextBox Grid.Row="6" Grid.Column="1" Margin="0,5,5,5" Text="{Binding Path=errormessage, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" />
+                                <CheckBox Name="PreconditionBox" Content="" Grid.Column="1" IsChecked="{Binding Path=precondition}" HorizontalAlignment="Left"  Grid.Row="4" VerticalAlignment="Center" Width="17" Height="15"/>
+                                <Label Name="LabelPrecondition" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right" Content="Предусловие" Height="26" Margin="0,1,0,3" Width="87" RenderTransformOrigin="0.484,-0.339"/>
+                            </Grid>
+                            <ListBox Grid.Row="1" Name="condtionListBox" SelectionChanged="condtionListBox_SelectionChanged" />
+                        </Grid>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Комплектность документов" Name="docComplete" Visibility="Collapsed">
+                    <Grid>
+                        <Grid Name="grid5" ClipToBounds="True">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="250" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <ToolBarPanel Grid.Row="0" Grid.ColumnSpan="2" >
+                                <ToolBar Name="toolBar3">
+                                    <Button Name="AddCondition2" Click="AddCondition2_Click">Добавить условие</Button>
+                                    <Button Name="RemoveCondition2" Click="RemoveCondition2_Click">Удалить условие</Button>
+                                </ToolBar>
+                            </ToolBarPanel>
+                            <Grid Grid.Column="1" Grid.Row="1" Name="conditionGrid2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="120*" />
+                                    <RowDefinition Height="84*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="141" />
+                                    <ColumnDefinition Width="344*" />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" Content="Наименование"></Label>
+                                <TextBox Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="250" Text="{Binding Path=conditionname, Mode=TwoWay}" DataContext="{Binding}" IsEnabled="False" Name="ConditionNameTextBox2"></TextBox>
+                                <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Content="Условие сравнения"></Label>
+                                <ComboBox Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="0,3,0,0" Name="conditionOperatorComboBox2" VerticalAlignment="Top" Width="120" Text="{Binding Path=conditionoperator, Mode=TwoWay}">
+                                    <ComboBoxItem Content="=" />
+                                    <ComboBoxItem Content="&lt;&gt;" />
+                                    <ComboBoxItem Content="&gt;" />
+                                    <ComboBoxItem Content="&lt;" />
+                                    <ComboBoxItem Content="&gt;=" />
+                                    <ComboBoxItem Content="&lt;=" />
+                                </ComboBox>
+                                <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Content="Число записей"></Label>
+                                <TextBox Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="100" Text="{Binding Path=recordcount, Mode=TwoWay}" Width="120" IsEnabled="False" Name="RecordCountTextBox2" Margin="0,4"></TextBox>
+                                <Label Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Right" Content="Запрос"></Label>
+                                <Border BorderBrush="Silver" BorderThickness="1" Grid.Row="3" Grid.Column="1" Grid.RowSpan="1" Margin="0,5,5,5">
+                                    <avalonedit:TextEditor FontFamily="Courier New" FontSize="12" Name="SQLConditionQueryEditor2" ShowLineNumbers="False" IsEnabled="False" SnapsToDevicePixels="True" Margin="0"></avalonedit:TextEditor>
+                                </Border>
+                                <Label Grid.Row="4" VerticalAlignment="Top" HorizontalAlignment="Right" Content="Сообщение об ошибке"></Label>
+                                <TextBox Grid.Row="4" Grid.Column="1" Margin="0,5,5,5" Text="{Binding Path=errormessage, Mode=TwoWay}" TextWrapping="Wrap" />
+                            </Grid>
+                            <ListBox Grid.Row="1" Name="condtionListBox2" SelectionChanged="condtionListBox2_SelectionChanged" />
+                        </Grid>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Безопасность отчета" Visibility="Collapsed">
+                    <Grid Name="grid2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Row="0" Margin="4">
+                            <CheckBox Height="16" HorizontalAlignment="Left" IsChecked="{Binding Path=securitymanagement}" VerticalAlignment="Center" VerticalContentAlignment="Center" >
+                                Включить управление правами для этого отчета
+                            </CheckBox>
+                        </StackPanel>
+                        <Grid Grid.Row="1" Name="grid3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="50" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="1" Grid.ColumnSpan="1" Name="stackPanel1" Margin="5">
+                                <Button Content="&gt;&gt;" Name="AddAllBusinessRoles" Click="AddAllBusinessRoles_Click" />
+                                <Button Content="&gt;" Name="AddBusinessRole" Click="AddBusinessRole_Click" />
+                                <Button Content="&lt;" Name="RemoveBusinessRole" Click="RemoveBusinessRole_Click" />
+                                <Button Content="&lt;&lt;" Name="RemoveAllBusinessRoles" Click="RemoveAllBusinessRoles_Click" />
+                            </StackPanel>
+                            <ListBox Name="AvalableRolesListBox" />
+                            <ListBox Grid.Column="2" Name="ExistsBusinessRoleListBox" />
+                        </Grid>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Параметры" Name="tabRepParams">
+                    <Grid x:Name="GridTabParams">
+                        <Grid Name="gridRepParams" ClipToBounds="True">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Name="ParamLeftColumn" Width="250" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <ToolBarPanel Grid.Row="0" Grid.ColumnSpan="2" >
+                                <ToolBar Name="toolBarRepParams">
+                                    <ComboBox x:Name="GlobalParameters" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="198" Height="23" DisplayMemberPath="Value" SelectedValuePath="Key"/>
+                                    <Button Name="AddGlobalParameter" Click="AddGlobalParameter_Click">Добавить глобальный параметр</Button>
+                                    <Button Name="AddRepParam" Click="AddRepParam_Click">Добавить параметр</Button>
+                                    <Button Name="RemoveRepParam" Click="RemoveRepParam_Click">Удалить параметр</Button>
+                                    <Button Name="OpenConditions" Click="OpenConditions_Click">Открыть условия</Button>
+                                </ToolBar>
+                            </ToolBarPanel>
+                            <Grid Grid.Column="1" Grid.Row="1" Name="RepParamsGrid">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="29" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="60*" />
+                                    <RowDefinition Height="60" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="116" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" Content="Наименование" Height="26" Margin="0,2" Width="98
+                                       "></Label>
+                                <TextBox Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="250" Text="{Binding Path=name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DataContext="{Binding}" IsEnabled="True" 
+                                         Name="RepParamNameTextBox" Height="20" Margin="0" Width="250"></TextBox>
+                                <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Content="Отображаемое имя" Height="26" Margin="-3,2,0,2" Width="119"></Label>
+                                <TextBox Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="250" Text="{Binding Path=displayname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DataContext="{Binding}" IsEnabled="True" 
+                                         Name="RepParamDisplayNameTextBox" Height="20" Margin="0" Width="250"></TextBox>
+                                <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Content="Порядок" Height="26" Margin="0,2,0,1" Width="63"></Label>
+                                <TextBox Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="250" Text="{Binding Path=displayorder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DataContext="{Binding}" IsEnabled="True" 
+                                         Name="RepParamDisplayOrderTextBox" Height="20" Margin="0" Width="250"></TextBox>
+                                <Label Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right" Content="Тип данных" Height="26" Margin="0,2" Width="74"></Label>
+                                <ComboBox Grid.Column="1" Grid.Row="3" Height="20" HorizontalAlignment="Left" Margin="0,3,0,0" FontSize="11" FontWeight="ExtraBlack" 
+                                          Name="RepParamDataTypeComboBox" VerticalAlignment="Center" Width="120" Text="{Binding Path=datatype, Mode=TwoWay}" SelectionChanged="RepParamDataTypeComboBox_SelectionChanged">
+                                    <ComboBoxItem Content="String" Height="20" FontSize="10" FontWeight="ExtraBlack"/>
+                                    <ComboBoxItem Content="DateTime" Height="20" FontSize="10" FontWeight="ExtraBlack"/>
+                                    <ComboBoxItem Content="Bool" Height="20" FontSize="10" FontWeight="ExtraBlack"/>
+                                    <ComboBoxItem Content="OptionSet" Height="20" FontSize="10" FontWeight="ExtraBlack"/>
+                                    <ComboBoxItem Content="LookUp" Height="20" FontSize="10" FontWeight="ExtraBlack"/>
+                                </ComboBox>
+                                <Label Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right" Content="Nullable" Height="26" Margin="0,2" Width="54"></Label>
+                                <CheckBox Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="100"
+                                          IsChecked="{Binding Path=nullable, Mode=TwoWay}" Width="120" IsEnabled="True" 
+                                          Name="RepParamIsNullable" Margin="0,7" Height="16"></CheckBox>
+                                <Label Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Right" Content="Тестовое значение" Height="26" Margin="0,2" Width="115"></Label>
+                                <TextBox Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="250" Text="{Binding Path=testval, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DataContext="{Binding}" IsEnabled="True" 
+                                         Name="RepParamTestValTextBox" Height="20" Margin="0" Width="250"></TextBox>
+                                <Label Grid.Row="6" VerticalAlignment="Top" HorizontalAlignment="Right" Content="Запрос" Height="26" Width="49"></Label>
+                                <Border BorderBrush="Silver" BorderThickness="1" Grid.Row="6" Grid.Column="1" Grid.RowSpan="1" Margin="0,5,5,5">
+                                    <avalonedit:TextEditor FontFamily="Courier New" FontSize="12" Name="SQLRepParamQueryEditor" ShowLineNumbers="False" IsEnabled="True" SnapsToDevicePixels="True" Margin="0" TextChanged="SQLQuery_TextChanged">
+                                        <avalonedit:TextEditor.ContextMenu>
+                                            <ContextMenu>
+                                                <MenuItem Command="Undo" />
+                                                <MenuItem Command="Redo" />
+                                                <Separator/>
+                                                <MenuItem Command="Cut" />
+                                                <MenuItem Command="Copy" />
+                                                <MenuItem Command="Paste" />
+                                            </ContextMenu>
+                                        </avalonedit:TextEditor.ContextMenu>
+                                    </avalonedit:TextEditor>
+                                </Border>
+                                <Label Grid.Row="7" VerticalAlignment="Top" HorizontalAlignment="Right" Content="Текст ошибки" Height="26" Width="87"/>
+                                <TextBox Grid.Row="7" Margin="0,5,5,5" Text="{Binding Path=errormessage, Mode=TwoWay}" TextWrapping="Wrap" Grid.Column="1" />
+                            </Grid>
+                            <ListBox Grid.Row="1" Name="RepParamListBox" SelectionChanged="RepParamListBox_SelectionChanged" />
+                        </Grid>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Фильтры" Name="tabFiltration">
+                    <Grid x:Name="FilterGrid">
+                        <Grid Name="gridFilter" ClipToBounds="True">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Name="FilterLeftColumn" Width="250" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <ToolBarPanel Grid.Row="0" Grid.ColumnSpan="2" >
+                                <ToolBar Name="toolBarFilter">
+                                    <ComboBox x:Name="GlobalFilter" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="198" Height="23" DisplayMemberPath="Value" SelectedValuePath="Key"/>
+                                    <Button Name="PinFilter" Click="PinFilter_Click">Добавить фильтр к отчету</Button>
+                                    <Button Name="UnpinFilter" Click="UnpinFilter_Click">Убрать фильтр из отчета</Button>
+                                    <Button Name="OpenVisibleSetting" Click="OpenVisibleSetting_Click">Настройки отображения</Button>
+                                </ToolBar>
+                            </ToolBarPanel>
+                            <ListBox Grid.Row="1" Name="FilterListBox" SelectionChanged="FilterListBox_SelectionChanged" />
+                            <Grid Grid.Column="1" Grid.Row="1" Name="FilterReportGrid">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="60*" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="60" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="130" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" Content="Наименование" Height="26" Margin="0,2" Width="98"/>
+                                <TextBox Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="250" Text="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DataContext="{Binding}" IsEnabled="False" Name="FilterNameTextBox" Height="20" Margin="0" Width="250"/>
+                                <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Content="Отображаемое имя" Height="26" Margin="-3,2,0,2" Width="119"></Label>
+                                <TextBox Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="250" Text="{Binding Path=DisplayName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DataContext="{Binding}" IsEnabled="False" 
+                                         Name="FilterDisplayNameTextBox" Height="20" Margin="0" Width="250"></TextBox>
+                                <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Content="Порядок" Height="26" Margin="0,2,0,1" Width="63"></Label>
+                                <TextBox Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="250" Text="{Binding Path=Order, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DataContext="{Binding}" IsEnabled="False" 
+                                         Name="FilterOrderTextBox" Height="20" Margin="0" Width="250"></TextBox>
+                                <Label Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right" Content="Тип данных" Height="26" Margin="0,2" Width="74"></Label>
+                                <ComboBox Grid.Column="1" Grid.Row="3" Height="20" HorizontalAlignment="Left" Margin="0,3,0,0" FontSize="11" FontWeight="ExtraBlack" IsEnabled="False"
+                                          Name="FilterTypeComboBox" VerticalAlignment="Center" Width="120" Text="{Binding Path=Type, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DataContext="{Binding}">
+                                    <ComboBoxItem Content="String" Height="20" FontSize="10" FontWeight="ExtraBlack"/>
+                                    <ComboBoxItem Content="DateTime" Height="20" FontSize="10" FontWeight="ExtraBlack"/>
+                                    <ComboBoxItem Content="Bool" Height="20" FontSize="10" FontWeight="ExtraBlack"/>
+                                    <ComboBoxItem Content="OptionSet" Height="20" FontSize="10" FontWeight="ExtraBlack"/>
+                                    <ComboBoxItem Content="LookUp" Height="20" FontSize="10" FontWeight="ExtraBlack"/>
+                                </ComboBox>
+                                <Label Grid.Row="4" VerticalAlignment="Top" HorizontalAlignment="Right" Content="Запрос" Height="26" Width="49"></Label>
+                                <Border BorderBrush="Silver" BorderThickness="1" Grid.Row="4" Grid.Column="1" Grid.RowSpan="1" Margin="0,5,5,5">
+                                    <avalonedit:TextEditor FontFamily="Courier New" FontSize="12" Name="SQLFilterQueryEditor" ShowLineNumbers="False" IsEnabled="False" SnapsToDevicePixels="True" Margin="0" TextChanged="SQLQuery_TextChanged">
+                                        <avalonedit:TextEditor.ContextMenu>
+                                            <ContextMenu>
+                                                <MenuItem Command="Undo" />
+                                                <MenuItem Command="Redo" />
+                                                <Separator/>
+                                                <MenuItem Command="Cut" />
+                                                <MenuItem Command="Copy" />
+                                                <MenuItem Command="Paste" />
+                                            </ContextMenu>
+                                        </avalonedit:TextEditor.ContextMenu>
+                                    </avalonedit:TextEditor>
+                                </Border>
+                                <Label Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Right" Content="Значение" Height="26" Margin="0,2" Width="65" Name="FilterValueLabel"></Label>
+                                <TextBox Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="250" LostFocus="FilterValueTextBox_LostFocus" IsEnabled="True" 
+                                         Name="FilterValueTextBox" Height="20" Margin="0" Width="250"></TextBox>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Grid>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" Height="45" VerticalAlignment="Bottom" Width="931">
+            <Button Content="Разметить шаблон" Height="25" Width="135" HorizontalAlignment="Right" Margin="10,10,5,10" Name="DoDesign" Click="DoDesign_Click"/>
+            <Button Width="90" Height="25" HorizontalAlignment="Right" Margin="5,10" Name="DoStore" Click="DoStore_Click">Сохранить</Button>
+            <Button Width="110" Height="25" HorizontalAlignment="Right" Margin="5,10" Name="DoTest" Click="DoTest_Click">Сформировать</Button>
+            <Button Content="Тест (удалять неслитые поля)" Height="25" Margin="5,10" Name="DoRemoveUnmergedFieldsAndTest" Width="184" Click="button1_Click" Visibility="Collapsed" />
+            <Button Content="Выполнить проверки" Height="25" Name="RunConditionsCheck" Width="135" Margin="5,10" Click="RunConditionsCheck_Click" />
+            <Button Content="Экспорт" Height="25" Name="DoExport" Width="90" Margin="5,10" Click="button1_Click_1" />
+            <Label Name="IsChange" Visibility="Collapsed"></Label>
+        </StackPanel>
+    </Grid>
+</Page>

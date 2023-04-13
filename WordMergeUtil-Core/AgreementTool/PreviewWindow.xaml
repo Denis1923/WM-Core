@@ -1,0 +1,1043 @@
+﻿<Window x:Class="WordMergeUtil_Core.AgreementTool.PreviewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WordMergeUtil_Core.AgreementTool"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        mc:Ignorable="d"
+        Unloaded="Window_Unloaded"
+        Title="Предпросмотр" Height="600" Width="1000">
+    <Window.Resources>
+        <telerik:IconSources x:Key="IconSources" 
+                             LightBasePath="pack://application:,,,/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/" 
+                             DarkBasePath="pack://application:,,,/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/Dark/"
+                             ModernBasePath="pack://application:,,,/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/Modern/" />
+        <local:SecondBlockNameConverter x:Key="SecondBlockNameConverter"></local:SecondBlockNameConverter>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <telerik:RadRichTextBoxRibbonUI Name="radRichTextBoxRibbonUI" CollapseThresholdSize="50,50" DataContext="{Binding Commands, ElementName=editor}" Grid.Row="0" ApplicationButtonVisibility="Visible" ApplicationName="Preview" Margin="4,0">
+            <telerik:RadRichTextBoxRibbonUI.Resources>
+                <telerik:FontFamiliesProvider x:Key="FontFamiliesProvider"/>
+                <telerik:EditingContextTypeToBoolConverter x:Key="EditingContextTypeToBoolConverter"/>
+            </telerik:RadRichTextBoxRibbonUI.Resources>
+
+            <telerik:RadRichTextBoxRibbonUI.Backstage>
+                <telerik:RadRibbonBackstage>
+                    <telerik:RadRibbonBackstageItem Header="Новый" Icon="{telerik:IconResource IconRelativePath=16/new.png, IconSources={StaticResource IconSources}}" IsSelectable="false" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding NewDocumentCommand}"/>
+                    <telerik:RadRibbonBackstageItem Header="Открыть" Icon="{telerik:IconResource IconRelativePath=16/open.png, IconSources={StaticResource IconSources}}" IsSelectable="false" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding OpenDocumentCommand}"/>
+                    <telerik:RadRibbonBackstageItem Header="Сохранить" Icon="{telerik:IconResource IconRelativePath=16/save.png, IconSources={StaticResource IconSources}}" IsSelectable="false" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding SaveCommand}"/>
+                    <telerik:RadRibbonBackstageItem Header="Сохранить как" Icon="{telerik:IconResource IconRelativePath=16/saveas.png, IconSources={StaticResource IconSources}}" IsDefault="false">
+                        <StackPanel HorizontalAlignment="Stretch" Margin="20,20,0,0" UseLayoutRounding="True">
+                            <TextBlock Foreground="#FF5E5E7C" FontWeight="ExtraBold" FontSize="18" FontFamily="Verdana" Text="Save As"/>
+                            <Rectangle Fill="Gray" HorizontalAlignment="Left" Height="1" Width="410"/>
+                            <StackPanel Margin="0,30,0,0" Orientation="Horizontal">
+                                <telerik:RadRibbonButton BorderBrush="Gray" CommandParameter="docx" CornerRadius="3" Height="80" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding SaveCommand}" telerik:RadRichTextBoxRibbonUI.ShouldCloseBackstage="True" VerticalContentAlignment="Center" Width="90">
+                                    <Image HorizontalAlignment="Center" Source="{telerik:IconResource IconRelativePath=ApplicationMenu/worddoc.png, IconSources={StaticResource IconSources}}" Stretch="None"/>
+                                </telerik:RadRibbonButton>
+                                <StackPanel Margin="20 0 0 0">
+                                    <TextBlock Foreground="#FF5E5E7C" FontWeight="ExtraBold" FontSize="18" Text="Документ Word"/>
+                                    <TextBlock FontSize="13" FontFamily="Verdana" TextWrapping="Wrap" Text="Сохранить файл как документ Word." Width="300"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Margin="0,30,0,0" Orientation="Horizontal">
+                                <telerik:RadRibbonButton BorderBrush="Gray" CommandParameter="pdf" CornerRadius="3" Height="80" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding SaveCommand}" telerik:RadRichTextBoxRibbonUI.ShouldCloseBackstage="True" VerticalContentAlignment="Center" Width="90">
+                                    <Image HorizontalAlignment="Center" Source="{telerik:IconResource IconRelativePath=ApplicationMenu/Pdf.png, IconSources={StaticResource IconSources}}" Stretch="None"/>
+                                </telerik:RadRibbonButton>
+                                <StackPanel Margin="20 0 0 0">
+                                    <TextBlock Foreground="#FF5E5E7C" FontWeight="ExtraBold" FontSize="18" Text="Документ PDF"/>
+                                    <TextBlock FontSize="13" FontFamily="Verdana" TextWrapping="Wrap" Text="Сохранить файл как документ PDF." Width="300"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Margin="0,30,0,0" Orientation="Horizontal">
+                                <telerik:RadRibbonButton BorderBrush="Gray" CommandParameter="html" CornerRadius="3" Height="80" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding SaveCommand}" telerik:RadRichTextBoxRibbonUI.ShouldCloseBackstage="True" VerticalContentAlignment="Center" Width="90">
+                                    <Image HorizontalAlignment="Center" Source="{telerik:IconResource IconRelativePath=ApplicationMenu/html.png, IconSources={StaticResource IconSources}}" Stretch="None"/>
+                                </telerik:RadRibbonButton>
+                                <StackPanel Margin="20 0 0 0">
+                                    <TextBlock Foreground="#FF5E5E7C" FontWeight="ExtraBold" FontSize="18" Text="Документ HTML"/>
+                                    <TextBlock FontSize="13" FontFamily="Verdana" TextWrapping="Wrap" Text="Сохранить файл как документ HTML." Width="300"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Margin="0,30,0,0" Orientation="Horizontal">
+                                <telerik:RadRibbonButton BorderBrush="Gray" CommandParameter="rtf" CornerRadius="3" Height="80" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding SaveCommand}" telerik:RadRichTextBoxRibbonUI.ShouldCloseBackstage="True" VerticalContentAlignment="Center" Width="90">
+                                    <Image HorizontalAlignment="Center" Source="{telerik:IconResource IconRelativePath=ApplicationMenu/Rtf.png, IconSources={StaticResource IconSources}}" Stretch="None"/>
+                                </telerik:RadRibbonButton>
+                                <StackPanel Margin="20 0 0 0">
+                                    <TextBlock Foreground="#FF5E5E7C" FontWeight="ExtraBold" FontSize="18" Text="Формат Rich Text"/>
+                                    <TextBlock FontSize="13" FontFamily="Verdana" TextWrapping="Wrap" Text="Сохранить документ в формате Rich Text." Width="300"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Margin="0,30,0,0" Orientation="Horizontal">
+                                <telerik:RadRibbonButton BorderBrush="Gray" CommandParameter="txt" CornerRadius="3" Height="80" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding SaveCommand}" telerik:RadRichTextBoxRibbonUI.ShouldCloseBackstage="True" VerticalContentAlignment="Center" Width="90">
+                                    <Image HorizontalAlignment="Center" Source="{telerik:IconResource IconRelativePath=ApplicationMenu/PlainText.png, IconSources={StaticResource IconSources}}" Stretch="None"/>
+                                </telerik:RadRibbonButton>
+                                <StackPanel Margin="20 0 0 0">
+                                    <TextBlock Foreground="#FF5E5E7C" FontWeight="ExtraBold" FontSize="18" Text="Plain text"/>
+                                    <TextBlock FontSize="13" FontFamily="Verdana" TextWrapping="Wrap" Text="Сохранить документ в формате plain text." Width="300"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Margin="0,30,0,0" Orientation="Horizontal">
+                                <telerik:RadRibbonButton BorderBrush="Gray" CommandParameter="xaml" CornerRadius="3" Height="80" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding SaveCommand}" telerik:RadRichTextBoxRibbonUI.ShouldCloseBackstage="True" VerticalContentAlignment="Center" Width="90">
+                                    <Image HorizontalAlignment="Center" Source="{telerik:IconResource IconRelativePath=ApplicationMenu/Xaml.png, IconSources={StaticResource IconSources}}" Stretch="None"/>
+                                </telerik:RadRibbonButton>
+                                <StackPanel Margin="20 0 0 0">
+                                    <TextBlock Foreground="#FF5E5E7C" FontWeight="ExtraBold" FontSize="18" Text="Документ XAML"/>
+                                    <TextBlock FontSize="13" FontFamily="Verdana" TextWrapping="Wrap" Text="Сохранить документ в формате XAML." Width="300"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </telerik:RadRibbonBackstageItem>
+                    <telerik:RadRibbonBackstageItem Header="Print" Icon="{telerik:IconResource IconRelativePath=16/print.png, IconSources={StaticResource IconSources}}" IsDefault="true">
+                        <StackPanel HorizontalAlignment="Stretch" Margin="20,20,0,0" UseLayoutRounding="True">
+                            <TextBlock Foreground="#FF5E5E7C" FontWeight="ExtraBold" FontSize="18" FontFamily="Verdana" Text="Print"/>
+                            <Rectangle Fill="Gray" HorizontalAlignment="Left" Height="1" Width="410"/>
+                            <StackPanel Margin="0,30,0,0" Orientation="Horizontal">
+                                <telerik:RadRibbonButton BorderBrush="Gray" CommandParameter="Native" CornerRadius="3" Height="80" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding PrintCommand}" telerik:RadRichTextBoxRibbonUI.ShouldCloseBackstage="True" VerticalContentAlignment="Center" Width="90">
+                                    <Image HorizontalAlignment="Center" Source="{telerik:IconResource IconRelativePath=ApplicationMenu/pagesetup.png, IconSources={StaticResource IconSources}}" Stretch="None"/>
+                                </telerik:RadRibbonButton>
+                                <StackPanel Margin="20 0 0 0">
+                                    <TextBlock Foreground="#FF5E5E7C" FontWeight="ExtraBold" FontSize="18" Text="Быстрая печать"/>
+                                    <TextBlock FontSize="13" FontFamily="Verdana" TextWrapping="Wrap" Text="Отправьте документ прямо на принтер по умолчанию, не внося изменений." Width="300"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </telerik:RadRibbonBackstageItem>
+                </telerik:RadRibbonBackstage>
+            </telerik:RadRichTextBoxRibbonUI.Backstage>
+
+            <telerik:RadRichTextBoxRibbonUI.ContextualGroups>
+                <telerik:RadRibbonContextualGroup x:Name="TableTools" Header="Работа с таблицами">
+                    <telerik:RadRibbonContextualGroup.IsActive>
+                        <Binding Converter="{StaticResource EditingContextTypeToBoolConverter}" Mode="OneWay" Path="AssociatedRichTextBox.CurrentEditingContext.Type">
+                            <Binding.ConverterParameter>
+                                <telerik:EditingContextTypes>Table</telerik:EditingContextTypes>
+                            </Binding.ConverterParameter>
+                        </Binding>
+                    </telerik:RadRibbonContextualGroup.IsActive>
+                </telerik:RadRibbonContextualGroup>
+                <telerik:RadRibbonContextualGroup x:Name="HeaderFooterTools" Header="Работа с колонтитулами">
+                    <telerik:RadRibbonContextualGroup.IsActive>
+                        <Binding Converter="{StaticResource EditingContextTypeToBoolConverter}" Mode="OneWay" Path="AssociatedRichTextBox.CurrentEditingContext.Type">
+                            <Binding.ConverterParameter>
+                                <telerik:EditingContextTypes>HeaderFooter</telerik:EditingContextTypes>
+                            </Binding.ConverterParameter>
+                        </Binding>
+                    </telerik:RadRibbonContextualGroup.IsActive>
+                </telerik:RadRibbonContextualGroup>
+            </telerik:RadRichTextBoxRibbonUI.ContextualGroups>
+            <telerik:RadRichTextBoxRibbonUI.QuickAccessToolBar>
+                <telerik:QuickAccessToolBar>
+                    <telerik:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding SaveCommand}" Size="Small" SmallImage="{telerik:IconResource IconRelativePath=16/save.png, IconSources={StaticResource IconSources}}" Text="Сохранить"/>
+                    <telerik:RadRibbonSplitButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding UndoCommand}" Size="Small" SmallImage="{telerik:IconResource IconRelativePath=16/undo.png, IconSources={StaticResource IconSources}}" Text="Отменить">
+                        <telerik:RadRibbonSplitButton.DropDownContent>
+                            <telerik:MultipleUndoControl telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding MultipleUndoCommand}"/>
+                        </telerik:RadRibbonSplitButton.DropDownContent>
+                    </telerik:RadRibbonSplitButton>
+                    <telerik:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding RedoCommand}" Size="Small" SmallImage="{telerik:IconResource IconRelativePath=16/redo.png, IconSources={StaticResource IconSources}}" Text="Повторить"/>
+                </telerik:QuickAccessToolBar>
+            </telerik:RadRichTextBoxRibbonUI.QuickAccessToolBar>
+            <telerik:RadRibbonTab Header="Главная">
+                <telerik:RadRibbonGroup Header="Буфер">
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Вставка содержимого буфера обмена в документ." LargeImage="{telerik:IconResource IconRelativePath=32/paste.png,IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding PasteCommand}" Size="Large" Text="Вставить" telerik:ScreenTip.Title="Вставить"/>
+                    <telerik:RadCollapsiblePanel>
+                        <telerik:RadRibbonButton CollapseToSmall="WhenGroupIsMedium" telerik:ScreenTip.Description="Удаление выделенного фрагмента и помещение его в буфер обмена." telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding CutCommand}" Size="Medium" SmallImage="{telerik:IconResource IconRelativePath=16/cut.png, IconSources={StaticResource IconSources}}" Text="Вырезать" telerik:ScreenTip.Title="Вырезать"/>
+                        <telerik:RadRibbonButton CollapseToSmall="WhenGroupIsMedium" telerik:ScreenTip.Description="Помещение копии выделенного фрагмента в буфер обмена." telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding CopyCommand}" Size="Medium" SmallImage="{telerik:IconResource IconRelativePath=16/copy.png, IconSources={StaticResource IconSources}}" Text="Копировать" telerik:ScreenTip.Title="Копировать"/>
+                        <telerik:FormatPainterButton CollapseToSmall="WhenGroupIsMedium" telerik:ScreenTip.Description="Применить это оформление к другому содержимому в документе. &#x0a;&#x0a;Для этого:&#x0a;1. Выделите содержимое с нужным форматированием&#x0a;2. Нажмите кнопку Формат по образцу.&#x0a;3. Выделите что-нибудь другое, чтобы автоматически применить форматирование.&#x0a;&#x0a;Примечание. Чтобы применить форматирование в нескольких местах, дважды нажмите кнопку Формат по образцу." telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeFormatPainterStateCommand}" Size="Medium" SmallImage="{telerik:IconResource IconRelativePath=16/FormatPainter.png,IconSources={StaticResource IconSources}}" Text="Формат по образцу" telerik:ScreenTip.Title="Формат по образцу"/>
+                    </telerik:RadCollapsiblePanel>
+                </telerik:RadRibbonGroup>
+                <telerik:RadRibbonGroup DialogLauncherVisibility="Visible" telerik:ScreenTip.Description="Показать параметры шрифта." Header="Шрифт" telerik:ScreenTip.Icon="{telerik:IconResource IconRelativePath=FontDialog.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ShowFontPropertiesDialogCommand}" telerik:ScreenTip.Title="Шрифт">
+                    <telerik:RadOrderedWrapPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <telerik:RadRibbonComboBox CanAutocompleteSelectItems="False" CanKeyboardNavigationSelectItems="False" CommandParameter="{Binding SelectedValue, RelativeSource={RelativeSource Self}}" telerik:ScreenTip.Description="Выбор нового шрифта для текста." IsReadOnly="True" ItemsSource="{Binding RegisteredFonts, Source={StaticResource FontFamiliesProvider}}" MaxDropDownHeight="400" OpenDropDownOnFocus="True" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeFontFamilyCommand}" telerik:ScreenTip.Title="Шрифт" Width="132"/>
+                            <telerik:RadRibbonComboBox CanAutocompleteSelectItems="False" CanKeyboardNavigationSelectItems="False" CommandParameter="{Binding SelectedItem.Tag, RelativeSource={RelativeSource Self}}" telerik:ScreenTip.Description="Изменение размера шрифта." IsEditable="True" IsReadOnly="True" IsTextSearchEnabled="False" MaxDropDownHeight="400" OpenDropDownOnFocus="True" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeFontSizeCommand}" telerik:ScreenTip.Title="Размер шрифта" Width="65">
+                                <telerik:RadRibbonComboBoxItem Content="8" Tag="10.67"/>
+                                <telerik:RadRibbonComboBoxItem Content="9" Tag="12"/>
+                                <telerik:RadRibbonComboBoxItem Content="10" Tag="13.34"/>
+                                <telerik:RadRibbonComboBoxItem Content="11" Tag="14.67"/>
+                                <telerik:RadRibbonComboBoxItem Content="12" Tag="16"/>
+                                <telerik:RadRibbonComboBoxItem Content="14" Tag="18.67"/>
+                                <telerik:RadRibbonComboBoxItem Content="16" Tag="21.33"/>
+                                <telerik:RadRibbonComboBoxItem Content="18" Tag="24"/>
+                                <telerik:RadRibbonComboBoxItem Content="20" Tag="26.67"/>
+                                <telerik:RadRibbonComboBoxItem Content="22" Tag="29.33"/>
+                                <telerik:RadRibbonComboBoxItem Content="24" Tag="32"/>
+                                <telerik:RadRibbonComboBoxItem Content="26" Tag="34.67"/>
+                                <telerik:RadRibbonComboBoxItem Content="28" Tag="37.33"/>
+                                <telerik:RadRibbonComboBoxItem Content="36" Tag="48"/>
+                                <telerik:RadRibbonComboBoxItem Content="48" Tag="64"/>
+                                <telerik:RadRibbonComboBoxItem Content="72" Tag="96"/>
+                            </telerik:RadRibbonComboBox>
+                        </StackPanel>
+                        <telerik:RadButtonGroup>
+                            <telerik:RadRibbonButton telerik:ScreenTip.Description="Увеличить размер шрифта." telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding IncrementFontSizeCommand}" Size="Small" SmallImage="{telerik:IconResource IconRelativePath=16/font-increasesize.png, IconSources={StaticResource IconSources}}" telerik:ScreenTip.Title="Увеличить шрифт"/>
+                            <telerik:RadRibbonButton telerik:ScreenTip.Description="Уменьшить размер шрифта." telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding DecrementFontSizeCommand}" Size="Small" SmallImage="{telerik:IconResource IconRelativePath=16/font-decreasesize.png, IconSources={StaticResource IconSources}}" telerik:ScreenTip.Title="Уменьшить шрифт"/>
+                        </telerik:RadButtonGroup>
+                        <telerik:RadButtonGroup>
+                            <telerik:RadRibbonButton telerik:ScreenTip.Description="Удаление всего форматирования из выделенного фрагмента, сохраняется только обычный текст." telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ClearAllFormattingCommand}" Size="Small" SmallImage="{telerik:IconResource IconRelativePath=16/ClearFormatting16.png, IconSources={StaticResource IconSources}}" telerik:ScreenTip.Title="Очистить всё форматирование"/>
+                        </telerik:RadButtonGroup>
+                        <telerik:RadButtonGroup>
+                            <telerik:RadRibbonToggleButton telerik:ScreenTip.Description="Применение полужирного начертания к тексту." telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleBoldCommand}" Size="Small" SmallImage="{telerik:IconResource IconRelativePath=16/bold.png, IconSources={StaticResource IconSources}}" telerik:ScreenTip.Title="Полужирный"/>
+                            <telerik:RadRibbonToggleButton telerik:ScreenTip.Description="Применение курсивного начертания к тексту." telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleItalicCommand}" Size="Small" SmallImage="{telerik:IconResource IconRelativePath=16/italic.png, IconSources={StaticResource IconSources}}" telerik:ScreenTip.Title="Курсив"/>
+                            <telerik:RadRibbonSplitButton telerik:ScreenTip.Description="Подчеркивание текста." IsToggle="True" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleUnderlineCommand}" SmallImage="{telerik:IconResource IconRelativePath=16/underline.png, IconSources={StaticResource IconSources}}" telerik:ScreenTip.Title="Подчеркнутый">
+                                <telerik:RadRibbonSplitButton.DropDownContent>
+                                    <telerik:RadGallery Height="210" ItemWidth="156" ItemHeight="26" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeUnderlineDecorationCommand}" ViewportWidth="157">
+                                        <telerik:RadGalleryItem Image="{telerik:IconResource IconRelativePath=underline1.png, IconSources={StaticResource IconSources}}" Tag="Line"/>
+                                        <telerik:RadGalleryItem Image="{telerik:IconResource IconRelativePath=underline2.png, IconSources={StaticResource IconSources}}" Tag="DoubleLine"/>
+                                        <telerik:RadGalleryItem Image="{telerik:IconResource IconRelativePath=underline3.png, IconSources={StaticResource IconSources}}" Tag="ThickLine"/>
+                                        <telerik:RadGalleryItem Image="{telerik:IconResource IconRelativePath=underline4.png, IconSources={StaticResource IconSources}}" Tag="DottedLine"/>
+                                        <telerik:RadGalleryItem Image="{telerik:IconResource IconRelativePath=underline5.png, IconSources={StaticResource IconSources}}" Tag="DashedLine"/>
+                                        <telerik:RadGalleryItem Image="{telerik:IconResource IconRelativePath=underline6.png, IconSources={StaticResource IconSources}}" Tag="DotDashedLine"/>
+                                        <telerik:RadGalleryItem Image="{telerik:IconResource IconRelativePath=underline7.png, IconSources={StaticResource IconSources}}" Tag="DotDotDashedLine"/>
+                                        <telerik:RadGalleryItem Image="{telerik:IconResource IconRelativePath=underline8.png, IconSources={StaticResource IconSources}}" Tag="Wave"/>
+                                    </telerik:RadGallery>
+                                </telerik:RadRibbonSplitButton.DropDownContent>
+                            </telerik:RadRibbonSplitButton>
+                            <telerik:RadRibbonToggleButton telerik:ScreenTip.Description="Зачеркивание текста линией." telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleStrikethroughCommand}" Size="Small" SmallImage="{telerik:IconResource IconRelativePath=16/Strikethrough16.png, IconSources={StaticResource IconSources}}" telerik:ScreenTip.Title="Зачеркнутый"/>
+                            <telerik:RadRibbonToggleButton telerik:ScreenTip.Description="Ввод маленьких букв ниже опорной линии текста." telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleSubscriptCommand}" Size="Small" SmallImage="{telerik:IconResource IconRelativePath=16/subscript.png, IconSources={StaticResource IconSources}}" telerik:ScreenTip.Title="Подстрочный"/>
+                            <telerik:RadRibbonToggleButton telerik:ScreenTip.Description="Ввод маленьких букв выше опорной линии текста." telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleSuperscriptCommand}" Size="Small" SmallImage="{telerik:IconResource IconRelativePath=16/superscript.png, IconSources={StaticResource IconSources}}" telerik:ScreenTip.Title="Надстрочный"/>
+                        </telerik:RadButtonGroup>
+                        <telerik:RadButtonGroup>
+                            <telerik:FormattingColorPicker AutomaticColor="Transparent" BorderThickness="0" telerik:ScreenTip.Description="Выделение текста цветом." Image="{telerik:IconResource IconRelativePath=16/highlight.png, IconSources={StaticResource IconSources}}" NoColorText="Без цвета" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeFontHighlightColorCommand}" ActiveColor="Yellow" telerik:ScreenTip.Title="Цвет выделения текста"/>
+                            <telerik:FormattingColorPicker BorderThickness="0" telerik:ScreenTip.Description="Изменение цвета текста." Image="{telerik:IconResource IconRelativePath=16/FontForeColor.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeFontForeColorCommand}" ActiveColor="Red" telerik:ScreenTip.Title="Цвет шрифта"/>
+                        </telerik:RadButtonGroup>
+                    </telerik:RadOrderedWrapPanel>
+                </telerik:RadRibbonGroup>
+                <telerik:RadRibbonGroup DialogLauncherVisibility="Visible" telerik:ScreenTip.Description="Показать параметры абзаца." Header="Абзац" telerik:ScreenTip.Icon="{telerik:IconResource IconRelativePath=PropertiesDialog.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ShowParagraphPropertiesDialogCommand}" telerik:ScreenTip.Title="Абзац">
+                    <telerik:RadOrderedWrapPanel>
+                        <telerik:RadButtonGroup>
+                            <telerik:RadRibbonToggleButton telerik:ScreenTip.Description="Создание маркированного списка." telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleBulletsCommand}" Size="Small" SmallImage="{telerik:IconResource IconRelativePath=16/list-bullets.png, IconSources={StaticResource IconSources}}" telerik:ScreenTip.Title="Маркеры"/>
+                            <telerik:RadRibbonToggleButton telerik:ScreenTip.Description="Создание нумерованного списка." telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleNumberedCommand}" Size="Small" SmallImage="{telerik:IconResource IconRelativePath=16/list-numbered.png, IconSources={StaticResource IconSources}}" telerik:ScreenTip.Title="Нумерация"/>
+                            <telerik:RadRibbonDropDownButton telerik:ScreenTip.Description="Создание многоуровневого списка. Нажмите на стрелку для выбора различных стилей многоуровневого списка." Size="Small" SmallImage="{telerik:IconResource IconRelativePath=16/MultilevelList.png, IconSources={StaticResource IconSources}}" telerik:ScreenTip.Title="Многоуровневый список">
+                                <telerik:RadRibbonDropDownButton.DropDownContent>
+                                    <StackPanel>
+                                        <ScrollViewer MaxHeight="565">
+                                            <StackPanel>
+                                                <telerik:RadGroupHeader Content="Библиотека списков"/>
+                                                <telerik:RadGallery Height="176" ItemWidth="88" ItemHeight="88" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeListStyleCommand}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ViewportWidth="266">
+                                                    <telerik:RadGalleryItem Image="{telerik:IconResource IconRelativePath=MultilevelListNone.png, IconSources={StaticResource IconSources}}" Tag="None"/>
+                                                    <telerik:RadGalleryItem Image="{telerik:IconResource IconRelativePath=MultilevelListBulleted.png, IconSources={StaticResource IconSources}}" Tag="Bulleted"/>
+                                                    <telerik:RadGalleryItem Image="{telerik:IconResource IconRelativePath=MultilevelListNumbered.png, IconSources={StaticResource IconSources}}" Tag="Numbered"/>
+                                                    <telerik:RadGalleryItem Image="{telerik:IconResource IconRelativePath=MultilevelListNumberedParenthesis.png, IconSources={StaticResource IconSources}}" Tag="NumberedParenthesis"/>
+                                                    <telerik:RadGalleryItem Image="{telerik:IconResource IconRelativePath=MultilevelListNumberedHierarchical.png, IconSources={StaticResource IconSources}}" Tag="NumberedHierarchical"/>
+                                                </telerik:RadGallery>
+                                                <telerik:ListStylesGallery AssociatedRichTextBox="{Binding AssociatedRichTextBox, Mode=OneWay}"/>
+                                            </StackPanel>
+                                        </ScrollViewer>
+                                        <telerik:RadRibbonButton HorizontalAlignment="Stretch" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ShowDefineNewListStyleDialogCommand}" Size="Medium" Text="Определить новый стиль списка..."/>
+                                    </StackPanel>
+                                </telerik:RadRibbonDropDownButton.DropDownContent>
+                            </telerik:RadRibbonDropDownButton>
+                        </telerik:RadButtonGroup>
+                        <telerik:RadButtonGroup>
+                            <telerik:RadRibbonButton telerik:ScreenTip.Description="Уменьшение расстояния от поля до абзаца." telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding DecrementParagraphLeftIndentCommand}" Size="Small" SmallImage="{telerik:IconResource IconRelativePath=16/outdent.png, IconSources={StaticResource IconSources}}" telerik:ScreenTip.Title="Уменьшить отступ"/>
+                            <telerik:RadRibbonButton telerik:ScreenTip.Description="Увеличение расстояния от поля до абзаца." telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding IncrementParagraphLeftIndentCommand}" Size="Small" SmallImage="{telerik:IconResource IconRelativePath=16/indent.png, IconSources={StaticResource IconSources}}" telerik:ScreenTip.Title="Увеличить отступ"/>
+                        </telerik:RadButtonGroup>
+                        <telerik:RadButtonGroup>
+                            <telerik:RadRibbonToggleButton telerik:ScreenTip.Description="Устанавливает направление текста слева направо." telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeParagraphFlowDirectionCommand}" Size="Small" SmallImage="{telerik:IconResource IconRelativePath=16/LeftToRightFlowDirection.png, IconSources={StaticResource IconSources}}" Text="Направление текста слева направо" telerik:ScreenTip.Title="Направление текста слева направо">
+                                <telerik:RadRibbonToggleButton.CommandParameter>
+                                    <FlowDirection>LeftToRight</FlowDirection>
+                                </telerik:RadRibbonToggleButton.CommandParameter>
+                            </telerik:RadRibbonToggleButton>
+                            <telerik:RadRibbonToggleButton telerik:ScreenTip.Description="Устанавливает направление текста справа налево." telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeParagraphFlowDirectionCommand}" Size="Small" SmallImage="{telerik:IconResource IconRelativePath=16/RightToLeftFlowDirection.png, IconSources={StaticResource IconSources}}" Text="Направление текста справа налево" telerik:ScreenTip.Title="Направление текста справа налево">
+                                <telerik:RadRibbonToggleButton.CommandParameter>
+                                    <FlowDirection>RightToLeft</FlowDirection>
+                                </telerik:RadRibbonToggleButton.CommandParameter>
+                            </telerik:RadRibbonToggleButton>
+                        </telerik:RadButtonGroup>
+                        <telerik:RadButtonGroup>
+                            <telerik:RadRibbonToggleButton telerik:ScreenTip.Description="Отображение знаков абзаца и других скрытых знаков форматирования." telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleFormattingSymbolsCommand}" Size="Small" SmallImage="{telerik:IconResource IconRelativePath=16/formatting-symbols.png, IconSources={StaticResource IconSources}}" telerik:ScreenTip.Title="Отобразить все знаки"/>
+                        </telerik:RadButtonGroup>
+                        <telerik:RadButtonGroup>
+                            <telerik:RadRibbonToggleButton CommandParameter="Left" telerik:ScreenTip.Description="Выравнивание содержимого по левому полю." telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeTextAlignmentCommand}" Size="Small" SmallImage="{telerik:IconResource IconRelativePath=16/alignleft.png, IconSources={StaticResource IconSources}}" Text="Выровнять слева" telerik:ScreenTip.Title="Выровнять по левому краю"/>
+                            <telerik:RadRibbonToggleButton CommandParameter="Center" telerik:ScreenTip.Description="Выравнивание содержимого по центру страницы." telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeTextAlignmentCommand}" Size="Small" SmallImage="{telerik:IconResource IconRelativePath=16/aligncenter.png, IconSources={StaticResource IconSources}}" Text="Выровнять по центру" telerik:ScreenTip.Title="Выровнять по центру"/>
+                            <telerik:RadRibbonToggleButton CommandParameter="Right" telerik:ScreenTip.Description="Выравнивание содержимого по правому полю." telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeTextAlignmentCommand}" Size="Small" SmallImage="{telerik:IconResource IconRelativePath=16/alignright.png, IconSources={StaticResource IconSources}}" Text="Выровнять справа" telerik:ScreenTip.Title="Выровнять по правому краю"/>
+                            <telerik:RadRibbonToggleButton CommandParameter="Justify" telerik:ScreenTip.Description="Равномерное распределение текста между левым и правым полями." telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeTextAlignmentCommand}" Size="Small" SmallImage="{telerik:IconResource IconRelativePath=16/alignjustify.png, IconSources={StaticResource IconSources}}" Text="Выровнять по ширине" telerik:ScreenTip.Title="Выровнять по ширине"/>
+                        </telerik:RadButtonGroup>
+                        <telerik:RadButtonGroup>
+                            <telerik:FormattingColorPicker AutomaticColor="Transparent" BorderThickness="0" telerik:ScreenTip.Description="Изменение цвета фона для выбранного абзаца." Image="{telerik:IconResource IconRelativePath=16/ParagraphBackgroundColor.png, IconSources={StaticResource IconSources}}" NoColorText="Нет цвета" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeParagraphBackgroundColorCommand}" ActiveColor="Transparent" telerik:ScreenTip.Title="Заливка"/>
+                        </telerik:RadButtonGroup>
+                    </telerik:RadOrderedWrapPanel>
+                </telerik:RadRibbonGroup>
+                <telerik:RadRibbonGroup Header="Редактирование и Проверка">
+                    <telerik:RadCollapsiblePanel>
+                        <telerik:RadRibbonButton CollapseToSmall="WhenGroupIsMedium" telerik:ScreenTip.Description="Найти или заменить текст в документе." telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ShowFindReplaceDialogCommand}" Size="Medium" SmallImage="{telerik:IconResource IconRelativePath=16/Find.png, IconSources={StaticResource IconSources}}" Text="Найти/Заменить" telerik:ScreenTip.Title="Найти/Заменить"/>
+                        <telerik:RadRibbonToggleButton CollapseToSmall="WhenGroupIsMedium" telerik:ScreenTip.Description="Включить проверку правописания." telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleSpellCheckingCommand}" Size="Medium" SmallImage="{telerik:IconResource IconRelativePath=16/EnableSpellCheck.png, IconSources={StaticResource IconSources}}" Text="Включить проверку правописания" telerik:ScreenTip.Title="Проверка правописания"/>
+                        <telerik:RadRibbonButton CollapseToSmall="WhenGroupIsMedium" telerik:ScreenTip.Description="Открыть контекстное меню на следующей ошибке правописания." telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding OpenContextMenuOnNextSpellingErrorCommand}" Size="Medium" SmallImage="{telerik:IconResource IconRelativePath=16/FindNextSpellingError.png, IconSources={StaticResource IconSources}}" Text="Найти следующую ошибку" telerik:ScreenTip.Title="Следующая ошибка"/>
+                    </telerik:RadCollapsiblePanel>
+                </telerik:RadRibbonGroup>
+                <telerik:RadRibbonGroup Header="Стили">
+                    <telerik:StylesGallery AssociatedRichTextBox="{Binding AssociatedRichTextBox, Mode=OneWay}"/>
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Изменить набор стилей, цветов, шрифтов и отступов абзацев, используемых в этом документе." LargeImage="{telerik:IconResource IconRelativePath=32/ChangeStyles.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ShowManageStylesDialogCommand}" Size="Large" Text="Изменить стили" telerik:ScreenTip.Title="Изменить стили"/>
+                </telerik:RadRibbonGroup>
+            </telerik:RadRibbonTab>
+            <telerik:RadRibbonTab Header="Добавить">
+                <telerik:RadRibbonGroup Header="Страницы">
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Начать следующую страницу с текущей позиции." LargeImage="{telerik:IconResource IconRelativePath=32/PageBreak.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding InsertPageBreakCommand}" Size="Large" Text="Разделитель страницы" telerik:ScreenTip.Title="Разделитель страницы"/>
+                </telerik:RadRibbonGroup>
+                <telerik:RadRibbonGroup Header="Таблицы">
+                    <telerik:RadRibbonDropDownButton CollapseToMedium="WhenGroupIsMedium" Command="{Binding InsertTableCommand}" telerik:ScreenTip.Description="Добавить таблицу в документ." LargeImage="{telerik:IconResource IconRelativePath=32/InsertTable.png, IconSources={StaticResource IconSources}}" Size="Large" Text="Таблица" telerik:ScreenTip.Title="Таблица">
+                        <telerik:RadRibbonDropDownButton.DropDownContent>
+                            <StackPanel>
+                                <telerik:RadRibbonButton ClickMode="Press">
+                                    <telerik:TableSizePicker Command="{Binding InsertTableCommand}"/>
+                                </telerik:RadRibbonButton>
+                                <telerik:RadMenuItem IsSeparator="True"/>
+                                <telerik:RadRibbonButton HorizontalAlignment="Stretch" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ShowInsertTableDialogCommand}" Size="Medium" SmallImage="{telerik:IconResource IconRelativePath=16/InsertTable.png, IconSources={StaticResource IconSources}}" Text="Добавить таблицу..."/>
+                            </StackPanel>
+                        </telerik:RadRibbonDropDownButton.DropDownContent>
+                    </telerik:RadRibbonDropDownButton>
+                </telerik:RadRibbonGroup>
+                <telerik:RadRibbonGroup Header="Изображения">
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Вставить изображение из файла." LargeImage="{telerik:IconResource IconRelativePath=32/Picture.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding InsertPictureCommand}" Size="Large" Text="Изображение" telerik:ScreenTip.Title="Добавить изображение из файла"/>
+                </telerik:RadRibbonGroup>
+                <telerik:RadRibbonGroup Header="Ссылки">
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Создать ссылку на веб-страницу, изображение или адрес электронной почты." LargeImage="{telerik:IconResource IconRelativePath=32/inserthyperlink.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ShowInsertHyperlinkDialogCommand}" Size="Large" Text="Ссылка" telerik:ScreenTip.Title="Вставить гиперссылку"/>
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Создать закладку, чтобы присвоить имя определенной точке в документе." LargeImage="{telerik:IconResource IconRelativePath=32/InsertBookmark.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ShowManageBookmarksDialogCommand}" Size="Large" Text="Закладка" telerik:ScreenTip.Title="Закладка"/>
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="См. такие элементы, как заголовки, рисунки и таблицы." LargeImage="{telerik:IconResource IconRelativePath=32/InsertCrossReference.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ShowInsertCrossReferenceWindowCommand}" Size="Large" Text="Перекрестная ссылка" telerik:ScreenTip.Title="Перекрестная ссылка"/>
+                </telerik:RadRibbonGroup>
+                <telerik:RadRibbonGroup Header="Примечания">
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Добавление примечания к этой части документа." LargeImage="{telerik:IconResource IconRelativePath=32/NewComment.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding InsertCommentCommand}" Size="Large" Text="Примечание" telerik:ScreenTip.Title="Вставить примечание"/>
+                </telerik:RadRibbonGroup>
+                <telerik:RadRibbonGroup Header="Колонтитулы">
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Изменить верхний колонтитул." LargeImage="{telerik:IconResource IconRelativePath=32/EditHeader.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding EditHeaderCommand}" Size="Large" Text="Верхний колонтитул" telerik:ScreenTip.Title="Верхний колонтитул"/>
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Изменить нижний колонтитул." LargeImage="{telerik:IconResource IconRelativePath=32/EditFooter.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding EditFooterCommand}" Size="Large" Text="Нижний колонтитул" telerik:ScreenTip.Title="Нижний колонтитул"/>
+                </telerik:RadRibbonGroup>
+                <telerik:RadRibbonGroup Header="Текст">
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Вставить текущую дату и время в документ." LargeImage="{telerik:IconResource IconRelativePath=32/InsertDateTime.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ShowInsertDateTimeDialogCommand}" Size="Large" Text="Дата и время" telerik:ScreenTip.Title="Вставить дату и время"/>
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Вставить номер страницы в документ." LargeImage="{telerik:IconResource IconRelativePath=32/InsertPageNumber.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding InsertPageFieldCommand}" Size="Large" Text="Номер страницы" telerik:ScreenTip.Title="Вставить номер страницы"/>
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Вставить блок, содержащий форматированный исходный код программы." LargeImage="{telerik:IconResource IconRelativePath=32/CodeBlock.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ShowCodeFormattingDialogCommand}" Size="Large" Text="Код" telerik:ScreenTip.Title="Вставить блок кода"/>
+                </telerik:RadRibbonGroup>
+                <telerik:RadRibbonGroup Header="Символы">
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Вставка символов, отсутствующих на клавиатуре. На выбор доступны математические символы, обозначения денежных единиц, символов авторского права и товарного знака." LargeImage="{telerik:IconResource IconRelativePath=32/Symbol.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ShowInsertSymbolWindowCommand}" Size="Large" Text="Символ" telerik:ScreenTip.Title="Добавить символ"/>
+                </telerik:RadRibbonGroup>
+            </telerik:RadRibbonTab>
+            <telerik:RadRibbonTab Header="Макет">
+                <telerik:RadRibbonGroup Header="Параметры страницы">
+                    <telerik:RadRibbonDropDownButton CollapseToMedium="WhenGroupIsMedium" Command="{Binding ChangePaperTypeCommand}" telerik:ScreenTip.Description="Выбор размера бумаги для документа." LargeImage="{telerik:IconResource IconRelativePath=32/PageSize.png, IconSources={StaticResource IconSources}}" Size="Large" Text="Размер" telerik:ScreenTip.Title="Размер страницы">
+                        <telerik:RadRibbonDropDownButton.DropDownContent>
+                            <telerik:RadGallery ItemWidth="184" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangePaperTypeCommand}" ViewportWidth="185" MaxHeight="320">
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="A0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="A0" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (33.05&quot; x 46.78&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="A1">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="A1" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (23.39&quot; x 33.05&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="A2">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="A2" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (16.53&quot; x 23.39&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="A3">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="A3" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (11.7&quot; x 16.53&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="A4">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="A4" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (8.26&quot; x 11.7&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="A5">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="A5" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (5.83&quot; x 8.26&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="RA0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="RA0" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (33.86&quot; x 48.03&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="RA1">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="RA1" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (24.01&quot; x 33.86&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="RA2">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="RA2" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (16.93&quot; x 24.01&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="RA3">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="RA3" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (12.01&quot; x 16.93&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="RA4">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="RA4" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (8.46&quot; x 12.01&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="RA5">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="RA5" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (4.76&quot; x 8.46&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="B0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="B0" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (39.38&quot; x 55.67&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="B1">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="B1" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (27.83&quot; x 39.38&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="B2">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="B2" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (59.05&quot; x 19.68&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="B3">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="B3" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (13.91&quot; x 19.68&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="B4">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="B4" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (10.13&quot; x 14.33&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="B5">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="B5" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (7.17&quot; x 10.13&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="Quarto">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="Quarto" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (8&quot; x 10&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="Foolscap">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="Foolscap" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (8&quot; x 13&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="Executive">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="Executive" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (7.5&quot; x 10&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="GovernmentLetter">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="GovernmentLetter" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (10.5&quot; x 8&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="Letter">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="Letter" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (8.5&quot; x 11&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="Legal">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="Legal" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (8.5&quot; x 14&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="Ledger">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="Ledger" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (17&quot; x 11&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="Tabloid">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="Tabloid" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (11&quot; x 17&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="Post">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="Post" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (15.64&quot; x 19.25&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="Crown">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="Crown" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (20&quot; x 15&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="LargePost">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="LargePost" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (16.5&quot; x 21&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="Demy">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="Demy" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (17.5&quot; x 22&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="Medium">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="Medium" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (18&quot; x 23&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="Royal">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="Royal" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (20&quot; x 25&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="Elephant">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="Elephant" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (21.74&quot; x 28&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="DoubleDemy">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="DoubleDemy" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (23.5&quot; x 35&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="QuadDemy">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="QuadDemy" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (35&quot; x 45&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="STMT">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="STMT" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (5.5&quot; x 8.5&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="Folio">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="Folio" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (8.5&quot; x 13&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="Statement">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="Statement" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (5.5&quot; x 8.5&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="Size10x14">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="Size10x14" VerticalAlignment="Center"/>
+                                        <TextBlock FontWeight="Normal" Text=" (10&quot; x 14&quot;)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                            </telerik:RadGallery>
+                        </telerik:RadRibbonDropDownButton.DropDownContent>
+                    </telerik:RadRibbonDropDownButton>
+                    <telerik:RadRibbonDropDownButton CollapseToMedium="WhenGroupIsMedium" Command="{Binding ChangePageMarginsCommand}" telerik:ScreenTip.Description="Выбор размера полей для текущего раздела." LargeImage="{telerik:IconResource IconRelativePath=32/PageMargin.png, IconSources={StaticResource IconSources}}" Size="Large" Text="Поля" telerik:ScreenTip.Title="Поля">
+                        <telerik:RadRibbonDropDownButton.DropDownContent>
+                            <telerik:RadGallery Height="270" ItemWidth="114" ItemHeight="54" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangePageMarginsCommand}" ViewportWidth="115">
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="Normal">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="{telerik:IconResource IconRelativePath=PageMarginNormal.png, IconSources={StaticResource IconSources}}" Stretch="None"/>
+                                        <TextBlock Text="Обычные" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="Narrow">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="{telerik:IconResource IconRelativePath=PageMarginNarrow.png, IconSources={StaticResource IconSources}}" Stretch="None"/>
+                                        <TextBlock Text="Узкие" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="Moderate">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="{telerik:IconResource IconRelativePath=PageMarginModerate.png, IconSources={StaticResource IconSources}}" Stretch="None"/>
+                                        <TextBlock Text="Средние" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="Wide">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="{telerik:IconResource IconRelativePath=PageMarginWide.png, IconSources={StaticResource IconSources}}" Stretch="None"/>
+                                        <TextBlock Text="Широкие" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="Office2003">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="{telerik:IconResource IconRelativePath=PageMarginNormal.png, IconSources={StaticResource IconSources}}" Stretch="None"/>
+                                        <TextBlock Text="Office2003" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                            </telerik:RadGallery>
+                        </telerik:RadRibbonDropDownButton.DropDownContent>
+                    </telerik:RadRibbonDropDownButton>
+                    <telerik:RadRibbonDropDownButton CollapseToMedium="WhenGroupIsMedium" Command="{Binding ChangePageOrientationCommand}" telerik:ScreenTip.Description="Выбор книжной или альбомной ориентации страниц." LargeImage="{telerik:IconResource IconRelativePath=32/PageOrientation.png, IconSources={StaticResource IconSources}}" Size="Large" Text="Ориентация" telerik:ScreenTip.Title="Ориентация страницы">
+                        <telerik:RadRibbonDropDownButton.DropDownContent>
+                            <telerik:RadGallery Height="216" ItemWidth="109" ItemHeight="54" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangePageOrientationCommand}" ViewportWidth="110">
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left">
+                                    <telerik:RadGalleryItem.Tag>
+                                        <telerik:PageOrientation>Portrait</telerik:PageOrientation>
+                                    </telerik:RadGalleryItem.Tag>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="{telerik:IconResource IconRelativePath=32/PageOrientationPortrait.png, IconSources={StaticResource IconSources}}" Stretch="None"/>
+                                        <TextBlock Text="Книжная" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left">
+                                    <telerik:RadGalleryItem.Tag>
+                                        <telerik:PageOrientation>Rotate90</telerik:PageOrientation>
+                                    </telerik:RadGalleryItem.Tag>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="{telerik:IconResource IconRelativePath=32/PageOrientationLandscape.png, IconSources={StaticResource IconSources}}" Stretch="None"/>
+                                        <TextBlock Text="Альбомная" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left">
+                                    <telerik:RadGalleryItem.Tag>
+                                        <telerik:PageOrientation>Rotate180</telerik:PageOrientation>
+                                    </telerik:RadGalleryItem.Tag>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="{telerik:IconResource IconRelativePath=32/PageOrientationRotate180.png, IconSources={StaticResource IconSources}}" Stretch="None"/>
+                                        <TextBlock Text="Книжная (перевернутая)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                                <telerik:RadGalleryItem HorizontalContentAlignment="Left">
+                                    <telerik:RadGalleryItem.Tag>
+                                        <telerik:PageOrientation>Rotate270</telerik:PageOrientation>
+                                    </telerik:RadGalleryItem.Tag>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="{telerik:IconResource IconRelativePath=32/PageOrientationRotate270.png, IconSources={StaticResource IconSources}}" Stretch="None"/>
+                                        <TextBlock Text="Альбомная (перевернутая)" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </telerik:RadGalleryItem>
+                            </telerik:RadGallery>
+                        </telerik:RadRibbonDropDownButton.DropDownContent>
+                    </telerik:RadRibbonDropDownButton>
+                    <telerik:RadRibbonDropDownButton CollapseToMedium="WhenGroupIsMedium" Command="{Binding ChangeSectionColumnsCommand}" telerik:ScreenTip.Description="Разбейте текст на две или более колонки." LargeImage="{telerik:IconResource IconRelativePath=SectionColumns/TwoLarge.png, IconSources={StaticResource IconSources}}" Size="Large" Text="Колонки" telerik:ScreenTip.Title="Добавить или удалить колонки">
+                        <telerik:RadRibbonDropDownButton.DropDownContent>
+                            <StackPanel>
+                                <telerik:RadGallery Height="270" ItemWidth="150" ItemHeight="54" 
+                                                telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeSectionColumnsCommand}" 
+                                                ViewportWidth="150">
+                                    <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="One">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="{telerik:IconResource IconRelativePath=SectionColumns/One.png,IconSources={StaticResource IconSources}}" Width="23" Stretch="None"/>
+                                            <TextBlock Text="Один" VerticalAlignment="Center" Margin="5 0"/>
+                                        </StackPanel>
+                                    </telerik:RadGalleryItem>
+                                    <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="Two">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="{telerik:IconResource IconRelativePath=SectionColumns/Two.png,IconSources={StaticResource IconSources}}" Width="23" Stretch="None"/>
+                                            <TextBlock Text="Два" VerticalAlignment="Center" Margin="5 0"/>
+                                        </StackPanel>
+                                    </telerik:RadGalleryItem>
+                                    <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="Three">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="{telerik:IconResource IconRelativePath=SectionColumns/Three.png,IconSources={StaticResource IconSources}}" Width="23" Stretch="None"/>
+                                            <TextBlock Text="Три" VerticalAlignment="Center" Margin="5 0"/>
+                                        </StackPanel>
+                                    </telerik:RadGalleryItem>
+                                    <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="Left">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="{telerik:IconResource IconRelativePath=SectionColumns/Left.png,IconSources={StaticResource IconSources}}" Width="23" Stretch="None"/>
+                                            <TextBlock Text="Слева" VerticalAlignment="Center" Margin="5 0"/>
+                                        </StackPanel>
+                                    </telerik:RadGalleryItem>
+                                    <telerik:RadGalleryItem HorizontalContentAlignment="Left" Tag="Right">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="{telerik:IconResource IconRelativePath=SectionColumns/Right.png,IconSources={StaticResource IconSources}}" Width="23" Stretch="None"/>
+                                            <TextBlock Text="Справа" VerticalAlignment="Center" Margin="5 0"/>
+                                        </StackPanel>
+                                    </telerik:RadGalleryItem>
+                                </telerik:RadGallery>
+                                <telerik:RadMenuItem IsSeparator="True"/>
+                                <telerik:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ShowSectionColumnsDialogCommand}" 
+                                                         SmallImage="{telerik:IconResource IconRelativePath=SectionColumns/MoreColumns.png, IconSources={StaticResource IconSources}}" 
+                                                         HorizontalAlignment="Stretch" 
+                                                         Size="Medium" Text="Другие колонки..."/>
+                            </StackPanel>
+                        </telerik:RadRibbonDropDownButton.DropDownContent>
+                    </telerik:RadRibbonDropDownButton>
+                    <StackPanel>
+                        <telerik:RadRibbonDropDownButton CollapseToMedium="WhenGroupIsMedium" Command="{Binding InsertSectionBreakCommand}" telerik:ScreenTip.Description="Добавление разрыва для колонки, страницы или раздела в документе." LargeImage="{telerik:IconResource IconRelativePath=16/Break.png, IconSources={StaticResource IconSources}}" Size="Medium" Text="Разрывы" telerik:ScreenTip.Title="Вставить разрывы страниц и разделов">
+                            <telerik:RadRibbonDropDownButton.DropDownContent>
+                                <StackPanel>
+                                    <telerik:RadGroupHeader Content="Разрывы страниц"/>
+                                    <telerik:RadGallery Height="162" ItemHeight="54" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding InsertBreakCommand}" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                                        <telerik:RadGalleryItem HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Tag="PageBreak">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Source="{telerik:IconResource IconRelativePath=32/PageBreak.png, IconSources={StaticResource IconSources}}" Stretch="None"/>
+                                                <TextBlock Margin="8 0 0 0" Text="Страница" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </telerik:RadGalleryItem>
+                                        <telerik:RadGalleryItem HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Tag="ColumnBreak">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Source="{telerik:IconResource IconRelativePath=32/ColumnBreak.png, IconSources={StaticResource IconSources}}" Stretch="None"/>
+                                                <TextBlock Margin="8 0 0 0" Text="Колонка" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </telerik:RadGalleryItem>
+                                        <telerik:RadGalleryItem HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Tag="LineBreak">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Source="{telerik:IconResource IconRelativePath=32/LineBreak.png, IconSources={StaticResource IconSources}}" Stretch="None"/>
+                                                <TextBlock Margin="8 0 0 0" Text="Обтекание текстом" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </telerik:RadGalleryItem>
+                                    </telerik:RadGallery>
+                                    <telerik:RadGroupHeader Content="Разрывы разделов"/>
+                                    <telerik:RadGallery Height="216" ItemHeight="54" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding InsertSectionBreakCommand}" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                                        <telerik:RadGalleryItem HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Tag="NextPage">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Source="{telerik:IconResource IconRelativePath=32/NextPageSectionBreak.png, IconSources={StaticResource IconSources}}" Stretch="None"/>
+                                                <TextBlock Margin="8 0 0 0" Text="Следующая страница" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </telerik:RadGalleryItem>
+                                        <telerik:RadGalleryItem HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Tag="Continuous">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Source="{telerik:IconResource IconRelativePath=32/ContinuousSectionBreak.png,IconSources={StaticResource IconSources}}" Stretch="None"/>
+                                                <TextBlock Margin="8 0 0 0" Text="Без разрыва" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </telerik:RadGalleryItem>
+                                        <telerik:RadGalleryItem HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Tag="EvenPage">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Source="{telerik:IconResource IconRelativePath=32/EvenPageSectionBreak.png, IconSources={StaticResource IconSources}}" Stretch="None"/>
+                                                <TextBlock Margin="8 0 0 0" Text="Четная страница" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </telerik:RadGalleryItem>
+                                        <telerik:RadGalleryItem HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Tag="OddPage">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Source="{telerik:IconResource IconRelativePath=32/OddPageSectionBreak.png, IconSources={StaticResource IconSources}}" Stretch="None"/>
+                                                <TextBlock Margin="8 0 0 0" Text="Нечетная страница" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </telerik:RadGalleryItem>
+                                    </telerik:RadGallery>
+                                </StackPanel>
+                            </telerik:RadRibbonDropDownButton.DropDownContent>
+                        </telerik:RadRibbonDropDownButton>
+                    </StackPanel>
+                </telerik:RadRibbonGroup>
+                <telerik:RadRibbonGroup Header="Фон страницы">
+                    <telerik:RadRibbonDropDownButton CollapseToMedium="WhenGroupIsMedium" Command="{Binding ChangeIntegratedWatermarkTypeCommand}" telerik:ScreenTip.Description="Вставьте призрачный текст позади содержимого на странице." LargeImage="{telerik:IconResource IconRelativePath=32/Watermark.png, IconSources={StaticResource IconSources}}" Size="Large" Text="Водяной знак" telerik:ScreenTip.Title="Водяной знак">
+                        <telerik:RadRibbonDropDownButton.DropDownContent>
+                            <StackPanel Orientation="Vertical">
+                                <telerik:RadGroupHeader Content="Predefined"/>
+                                <telerik:RadGallery Height="200" ItemWidth="115" ItemHeight="100" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeIntegratedWatermarkTypeCommand}" ViewportWidth="345">
+                                    <telerik:RadGalleryItem HorizontalContentAlignment="Left" Image="{telerik:IconResource IconRelativePath=WatermarkGallery/confidentialR.png, IconSources={StaticResource IconSources}}" Tag="ConfidentialRotated"/>
+                                    <telerik:RadGalleryItem HorizontalContentAlignment="Left" Image="{telerik:IconResource IconRelativePath=WatermarkGallery/confidential.png, IconSources={StaticResource IconSources}}" Tag="Confidential"/>
+                                    <telerik:RadGalleryItem HorizontalContentAlignment="Left" Image="{telerik:IconResource IconRelativePath=WatermarkGallery/doNotCopyR.png, IconSources={StaticResource IconSources}}" Tag="DoNotCopyRotated"/>
+                                    <telerik:RadGalleryItem HorizontalContentAlignment="Left" Image="{telerik:IconResource IconRelativePath=WatermarkGallery/doNotCopy.png, IconSources={StaticResource IconSources}}" Tag="DoNotCopy"/>
+                                    <telerik:RadGalleryItem HorizontalContentAlignment="Left" Image="{telerik:IconResource IconRelativePath=WatermarkGallery/draftR.png, IconSources={StaticResource IconSources}}" Tag="DraftRotated"/>
+                                    <telerik:RadGalleryItem HorizontalContentAlignment="Left" Image="{telerik:IconResource IconRelativePath=WatermarkGallery/draft.png, IconSources={StaticResource IconSources}}" Tag="Draft"/>
+                                    <telerik:RadGalleryItem HorizontalContentAlignment="Left" Image="{telerik:IconResource IconRelativePath=WatermarkGallery/sampleR.png, IconSources={StaticResource IconSources}}" Tag="SampleRotated"/>
+                                    <telerik:RadGalleryItem HorizontalContentAlignment="Left" Image="{telerik:IconResource IconRelativePath=WatermarkGallery/sample.png, IconSources={StaticResource IconSources}}" Tag="Sample"/>
+                                    <telerik:RadGalleryItem HorizontalContentAlignment="Left" Image="{telerik:IconResource IconRelativePath=WatermarkGallery/asapR.png, IconSources={StaticResource IconSources}}" Tag="AsapRotated"/>
+                                    <telerik:RadGalleryItem HorizontalContentAlignment="Left" Image="{telerik:IconResource IconRelativePath=WatermarkGallery/asap.png, IconSources={StaticResource IconSources}}" Tag="Asap"/>
+                                    <telerik:RadGalleryItem HorizontalContentAlignment="Left" Image="{telerik:IconResource IconRelativePath=WatermarkGallery/urgentR.png, IconSources={StaticResource IconSources}}" Tag="UrgentRotated"/>
+                                    <telerik:RadGalleryItem HorizontalContentAlignment="Left" Image="{telerik:IconResource IconRelativePath=WatermarkGallery/urgent.png, IconSources={StaticResource IconSources}}" Tag="Urgent"/>
+                                </telerik:RadGallery>
+                                <telerik:RadMenuItem IsSeparator="True"/>
+                                <telerik:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ShowWatermarkSettingsDialogCommand}" Size="Medium" SmallImage="{telerik:IconResource IconRelativePath=16/Watermark.png, IconSources={StaticResource IconSources}}" Text="Вставьте собственный водяной знак."/>
+                                <telerik:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding RemoveWatermarkCommand}" Size="Medium" SmallImage="{telerik:IconResource IconRelativePath=16/RemoveWatermark.png, IconSources={StaticResource IconSources}}" Text="Удалить водяной знак"/>
+                            </StackPanel>
+                        </telerik:RadRibbonDropDownButton.DropDownContent>
+                    </telerik:RadRibbonDropDownButton>
+                </telerik:RadRibbonGroup>
+            </telerik:RadRibbonTab>
+            <telerik:RadRibbonTab Header="Ссылки">
+                <telerik:RadRibbonGroup Header="Оглавление">
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Добавьте в документ оглавление." LargeImage="{telerik:IconResource IconRelativePath=32/InsertTableOfContents.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ShowInsertTableOfContentsDialogCommand}" Size="Large" Text="Оглавление" telerik:ScreenTip.Title="Оглавление"/>
+                </telerik:RadRibbonGroup>
+                <telerik:RadRibbonGroup DialogLauncherVisibility="Visible" Header="Сноски" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ShowNotesDialogCommand}">
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Добавить сноску в документ." LargeImage="{telerik:IconResource IconRelativePath=32/InsertFootnote.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding InsertFootnoteCommand}" Size="Large" Text="Вставить сноску" telerik:ScreenTip.Title="Вставить сноску."/>
+                    <telerik:RadCollapsiblePanel>
+                        <telerik:RadRibbonButton telerik:ScreenTip.Description="Добавить концевую сноску в документ." telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding InsertEndnoteCommand}" Size="Medium" SmallImage="{telerik:IconResource IconRelativePath=16/InsertEndnote.png, IconSources={StaticResource IconSources}}" Text="Вставить концевую сноску" telerik:ScreenTip.Title="Вставить концевую сноску."/>
+                        <telerik:RadRibbonSplitButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding GoToNextFootnoteCommand}" Size="Medium" SmallImage="{telerik:IconResource IconRelativePath=16/NextNote.png, IconSources={StaticResource IconSources}}" Text="Следующая сноска">
+                            <telerik:RadRibbonSplitButton.DropDownContent>
+                                <StackPanel>
+                                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Переход к следующей сноске в документе." telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding GoToNextFootnoteCommand}" Size="Medium" SmallImage="{telerik:IconResource IconRelativePath=16/NextNote.png, IconSources={StaticResource IconSources}}" Text="Следующая сноска" telerik:ScreenTip.Title="Следующая сноска."/>
+                                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Переход к предыдущей сноске в документе." telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding GoToPreviousFootnoteCommand}" Size="Medium" SmallImage="{telerik:IconResource IconRelativePath=16/PreviousNote.png, IconSources={StaticResource IconSources}}" Text="Предыдущая сноска" telerik:ScreenTip.Title="Предыдущая сноска."/>
+                                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Переход к следующей концевой сноске в документе." telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding GoToNextEndnoteCommand}" Size="Medium" SmallImage="{telerik:IconResource IconRelativePath=16/NextNote.png, IconSources={StaticResource IconSources}}" Text="Следующая концевая сноска" telerik:ScreenTip.Title="Следующая концевая сноска."/>
+                                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Переход к предыдущей концевой сноске в документе." telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding GoToPreviousEndnoteCommand}" Size="Medium" SmallImage="{telerik:IconResource IconRelativePath=16/PreviousNote.png, IconSources={StaticResource IconSources}}" Text="Предыдущая концевая сноска" telerik:ScreenTip.Title="Предыдущая концевая сноска."/>
+                                </StackPanel>
+                            </telerik:RadRibbonSplitButton.DropDownContent>
+                        </telerik:RadRibbonSplitButton>
+                    </telerik:RadCollapsiblePanel>
+                </telerik:RadRibbonGroup>
+                <telerik:RadRibbonGroup Header="Ссылки и списки литературы">
+                    <telerik:RadRibbonDropDownButton CollapseToMedium="WhenGroupIsMedium" telerik:ScreenTip.Description="Укажите книгу, журнальную статью или другое периодическое издание в качестве источника информации в документе." LargeImage="{telerik:IconResource IconRelativePath=32/InsertCitation.png, IconSources={StaticResource IconSources}}" Size="Large" Text="Вставить ссылку" telerik:ScreenTip.Title="Вставить ссылку">
+                        <telerik:RadRibbonDropDownButton.DropDownContent>
+                            <StackPanel Orientation="Vertical">
+                                <telerik:CitationsSourceGallery/>
+                                <telerik:RadMenuItem IsSeparator="True"/>
+                                <telerik:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ShowAddNewBibliographicReferenceDialogCommand}" Size="Medium" SmallImage="{telerik:IconResource IconRelativePath=16/AddNewSource.png, IconSources={StaticResource IconSources}}" Text="Добавить новый источник..."/>
+                            </StackPanel>
+                        </telerik:RadRibbonDropDownButton.DropDownContent>
+                    </telerik:RadRibbonDropDownButton>
+                    <telerik:RadCollapsiblePanel>
+                        <telerik:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ShowManageBibliographicSourcesDialogCommand}" Size="Medium" SmallImage="{telerik:IconResource IconRelativePath=16/ManageSources.png, IconSources={StaticResource IconSources}}" Text="Управление источниками"/>
+                        <StackPanel Margin="3 0 0 0" Orientation="Horizontal">
+                            <Image Margin="0 0 2 0" Source="{telerik:IconResource IconRelativePath=16/BibliographyStyle.png, IconSources={StaticResource IconSources}}" Stretch="None"/>
+                            <TextBlock FontWeight="Normal" Margin="3 0" Text="Стиль:" VerticalAlignment="Center"/>
+                            <telerik:RadRibbonComboBox CanAutocompleteSelectItems="False" CanKeyboardNavigationSelectItems="False" CommandParameter="{Binding SelectedValue, RelativeSource={RelativeSource Self}}" DisplayMemberPath="Name" IsReadOnly="True" ItemsSource="{Binding AssociatedRichTextBox.Document.BibliographicStyles.Values}" MinHeight="15" OpenDropDownOnFocus="True" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeBibliographicStyleCommand}" Width="80"/>
+                        </StackPanel>
+                        <telerik:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding InsertBibliographyFieldCommand}" Size="Medium" SmallImage="{telerik:IconResource IconRelativePath=16/InsertBibliography.png, IconSources={StaticResource IconSources}}" Text="Список литературы"/>
+                    </telerik:RadCollapsiblePanel>
+                </telerik:RadRibbonGroup>
+                <telerik:RadRibbonGroup Header="Названия">
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Обозначьте свое изображение или объект.&#xA;&#xA;После того, как вы добавили заголовок, вы можете ссылаться на свой объект, вставив перекрестную ссылку." LargeImage="{telerik:IconResource IconRelativePath=32/InsertCaption.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ShowInsertCaptionDialogCommand}" Size="Large" Text="Вставить название" telerik:ScreenTip.Title="Вставить название"/>
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Ссылки на такие элементы, как заголовки, рисунки и таблицы." LargeImage="{telerik:IconResource IconRelativePath=32/InsertCrossReference.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ShowInsertCrossReferenceWindowCommand}" Size="Large" Text="Перекрестная ссылка" telerik:ScreenTip.Title="Перекрестная ссылка"/>
+                </telerik:RadRibbonGroup>
+            </telerik:RadRibbonTab>
+            <telerik:RadRibbonTab Header="Метки">
+                <telerik:RadRibbonGroup Header="Составление документа и вставка полей">
+                    <telerik:RadRibbonToggleButton telerik:ScreenTip.Description="Выделяет поля, которые вы вставили в документ." LargeImage="{telerik:IconResource IconRelativePath=32/HighlightMergeFields.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleMergeFieldsHighlightCommand}" Size="Large" Text="Подсветить метки" telerik:ScreenTip.Title="Подсветить метки"/>
+                    <telerik:RadRibbonDropDownButton CollapseToMedium="WhenGroupIsMedium" telerik:ScreenTip.Description="Вы можете вставить поля, такие как Имя или Адрес, которые автоматически заменяться на информацию из БД или листа контактов для каждой копии формы письма." LargeImage="{telerik:IconResource IconRelativePath=32/InsertMergeField.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding InsertMergeFieldEmptyCommand}" Size="Large" Text="Добавить метку" telerik:ScreenTip.Title="Добавить метку"/>
+                </telerik:RadRibbonGroup>
+                <telerik:RadRibbonGroup Header="Предварительный просмотр">
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Показать все коды полей в текущем документе." LargeImage="{telerik:IconResource IconRelativePath=32/ShowAllFieldsCodes.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeAllFieldsDisplayModeCommand}" Size="Large" Text="Показать коды полей" telerik:ScreenTip.Title="Показать коды полей">
+                        <telerik:RadRibbonButton.CommandParameter>
+                            <telerik:FieldDisplayMode>Code</telerik:FieldDisplayMode>
+                        </telerik:RadRibbonButton.CommandParameter>
+                    </telerik:RadRibbonButton>
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Показать все названия полей в текущем документе." LargeImage="{telerik:IconResource IconRelativePath=32/ShowAllFieldsDisplayNames.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeAllFieldsDisplayModeCommand}" Size="Large" Text="Показать имена полей" telerik:ScreenTip.Title="Показать имена полей">
+                        <telerik:RadRibbonButton.CommandParameter>
+                            <telerik:FieldDisplayMode>DisplayName</telerik:FieldDisplayMode>
+                        </telerik:RadRibbonButton.CommandParameter>
+                    </telerik:RadRibbonButton>
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Заменяет метки в документе на актуальные данные из источника, чтобы вы могли видеть, как это выглядит." LargeImage="{telerik:IconResource IconRelativePath=32/ShowAllFieldsResults.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeAllFieldsDisplayModeCommand}" Size="Large" Text="Предпросмотр" telerik:ScreenTip.Title="Предварительный просмотр данных">
+                        <telerik:RadRibbonButton.CommandParameter>
+                            <telerik:FieldDisplayMode>Result</telerik:FieldDisplayMode>
+                        </telerik:RadRibbonButton.CommandParameter>
+                    </telerik:RadRibbonButton>
+                    <telerik:Separator/>
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Предварительный просмотр первой записи в списке получателей." LargeImage="{telerik:IconResource IconRelativePath=32/First.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding PreviewFirstMailMergeDataRecordCommand}" Size="Large" Text="Первая" telerik:ScreenTip.Title="Предварительный просмотр первой записи"/>
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Предварительный просмотр предыдущей записи в списке получателей." LargeImage="{telerik:IconResource IconRelativePath=32/Previous.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding PreviewPreviousMailMergeDataRecordCommand}" Size="Large" Text="Предыдущая" telerik:ScreenTip.Title="Предварительный просмотр предыдущей записи"/>
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Предварительный просмотр следующей записи в списке получателей." LargeImage="{telerik:IconResource IconRelativePath=32/Next.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding PreviewNextMailMergeDataRecordCommand}" Size="Large" Text="Следующая" telerik:ScreenTip.Title="Предварительный просмотр следующей записи"/>
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Предварительный просмотр последней записи в списке получателей." LargeImage="{telerik:IconResource IconRelativePath=32/Last.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding PreviewLastMailMergeDataRecordCommand}" Size="Large" Text="Последняя" telerik:ScreenTip.Title="Предварительный просмотр последней записи"/>
+                </telerik:RadRibbonGroup>
+                <telerik:RadRibbonGroup Header="Завершение">
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Завершить слияние." LargeImage="{telerik:IconResource IconRelativePath=32/MailMerge.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding MailMergeCommand}" Size="Large" Text="Слияние" telerik:ScreenTip.Title="Завершить и слить"/>
+                </telerik:RadRibbonGroup>
+            </telerik:RadRibbonTab>
+            <telerik:RadRibbonTab Header="Рецензирование">
+                <telerik:RadRibbonGroup Header="Проверка">
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Проверьте орфографию текста в документе." LargeImage="{telerik:IconResource IconRelativePath=32/EnableSpellCheck.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ShowSpellCheckingDialogCommand}" Size="Large" Text="Правописание" telerik:ScreenTip.Title="Правописание"/>
+                </telerik:RadRibbonGroup>
+                <telerik:RadRibbonGroup Header="Примечания">
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Добавление заметки к текущей части документа." LargeImage="{telerik:IconResource IconRelativePath=32/NewComment.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding InsertCommentCommand}" Size="Large" Text="Создать примечание" telerik:ScreenTip.Title="Создать примечание"/>
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Удаление выделенного примечания." LargeImage="{telerik:IconResource IconRelativePath=32/DeleteComment.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding DeleteCommentCommand}" Size="Large" Text="Удалить" telerik:ScreenTip.Title="Удалить примечание"/>
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Перейти к предыдущему примечанию в документе." LargeImage="{telerik:IconResource IconRelativePath=32/PreviousComment.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding GoToPreviousCommentCommand}" Size="Large" Text="Предыдущее" telerik:ScreenTip.Title="Предыдущее примечание"/>
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Перейти к следующему примечанию в документе." LargeImage="{telerik:IconResource IconRelativePath=32/NextComment.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding GoToNextCommentCommand}" Size="Large" Text="Следующее" telerik:ScreenTip.Title="Следующее примечание"/>
+                    <telerik:RadRibbonToggleButton telerik:ScreenTip.Description="Нажмите, чтобы показать или скрыть примечания." LargeImage="{telerik:IconResource IconRelativePath=32/ShowHideComments.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleCommentsCommand}" Size="Large" Text="Показать примечания" telerik:ScreenTip.Title="Показать/скрыть примечания"/>
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Нажмите, чтобы удалить все примечания в документе." LargeImage="{telerik:IconResource IconRelativePath=32/DeleteAllComments.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding DeleteAllCommentsCommand}" Size="Large" Text="Удалить все" telerik:ScreenTip.Title="Удалить все примечания"/>
+                </telerik:RadRibbonGroup>
+                <telerik:RadRibbonGroup Header="Отслеживание и изменения">
+                    <telerik:RadRibbonToggleButton telerik:ScreenTip.Description="Отслеживать все изменения, внесенные в документ, включая вставки, удаления и изменения форматирования." LargeImage="{telerik:IconResource IconRelativePath=32/TrackChanges.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleTrackChangesCommand}" Size="Large" Text="Отслеживание изменений" telerik:ScreenTip.Title="Отслеживание изменений"/>
+                    <telerik:RadRibbonSplitButton telerik:ScreenTip.Description="Принять и перейти к следующему" LargeImage="{telerik:IconResource IconRelativePath=32/AcceptChange.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding AcceptRevisionCommand}" Size="Large" Text="Принять" telerik:ScreenTip.Title="Принять">
+                        <telerik:RadRibbonSplitButton.DropDownContent>
+                            <StackPanel>
+                                <telerik:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding AcceptRevisionCommand}" Size="Medium" SmallImage="{telerik:IconResource IconRelativePath=16/AcceptChange.png, IconSources={StaticResource IconSources}}" Text="Принять и перейти к следующему"/>
+                                <telerik:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding AcceptAllRevisionsCommand}" Size="Medium" SmallImage="{telerik:IconResource IconRelativePath=16/AcceptChange.png, IconSources={StaticResource IconSources}}" Text="Принять все изменения"/>
+                            </StackPanel>
+                        </telerik:RadRibbonSplitButton.DropDownContent>
+                    </telerik:RadRibbonSplitButton>
+                    <telerik:RadRibbonSplitButton telerik:ScreenTip.Description="Отклонить и перейти к следующему" LargeImage="{telerik:IconResource IconRelativePath=32/RejectChange.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding RejectRevisionCommand}" Size="Large" Text="Отклонить" telerik:ScreenTip.Title="Отклонить">
+                        <telerik:RadRibbonSplitButton.DropDownContent>
+                            <StackPanel>
+                                <telerik:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding RejectRevisionCommand}" Size="Medium" SmallImage="{telerik:IconResource IconRelativePath=16/RejectChange.png, IconSources={StaticResource IconSources}}" Text="Отклонить и перейти к следующему"/>
+                                <telerik:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding RejectAllRevisionsCommand}" Size="Medium" SmallImage="{telerik:IconResource IconRelativePath=16/RejectChange.png, IconSources={StaticResource IconSources}}" Text="Отклонить все изменения"/>
+                            </StackPanel>
+                        </telerik:RadRibbonSplitButton.DropDownContent>
+                    </telerik:RadRibbonSplitButton>
+                    <telerik:RadCollapsiblePanel>
+                        <telerik:RadRibbonButton telerik:ScreenTip.Description="Предыдущее изменение." telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding GoToPreviousRevisionCommand}" Size="Medium" SmallImage="{telerik:IconResource IconRelativePath=16/PreviousChange.png, IconSources={StaticResource IconSources}}" Text="Предыдущее" telerik:ScreenTip.Title="Предыдущее"/>
+                        <telerik:RadRibbonButton telerik:ScreenTip.Description="Следующее изменение" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding GoToNextRevisionCommand}" Size="Medium" SmallImage="{telerik:IconResource IconRelativePath=16/NextChange.png, IconSources={StaticResource IconSources}}" Text="Следующее" telerik:ScreenTip.Title="Следующее"/>
+                    </telerik:RadCollapsiblePanel>
+                </telerik:RadRibbonGroup>
+                <telerik:RadRibbonGroup Header="Защитить">
+                    <telerik:RadRibbonToggleButton telerik:ScreenTip.Description="Ограничить, как люди редактируют определенные части документа." LargeImage="{telerik:IconResource IconRelativePath=32/ProtectDocument.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleDocumentProtectionCommand}" Size="Large" Text="Защитить документ" telerik:ScreenTip.Title="Переключить защиту документа"/>
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Показывает диалог для установки ограничений редактирования для пользователей / групп." LargeImage="{telerik:IconResource IconRelativePath=32/ChangeEditingPermissions.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ShowChangeEditingPermissionsDialogCommand}" Size="Large" Text="Ограничения редактирования" telerik:ScreenTip.Title="Изменить ограничения редактирования"/>
+                </telerik:RadRibbonGroup>
+            </telerik:RadRibbonTab>
+            <telerik:RadRibbonTab Header="Вид">
+                <telerik:RadRibbonGroup Header="Режимы">
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Отображение документа в виде веб-страницы." LargeImage="{telerik:IconResource IconRelativePath=32/web-C.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeLayoutModeCommand}" Size="Large" Text="Веб-документ" telerik:ScreenTip.Title="Веб-документ">
+                        <telerik:RadRibbonButton.CommandParameter>
+                            <telerik:DocumentLayoutMode>Flow</telerik:DocumentLayoutMode>
+                        </telerik:RadRibbonButton.CommandParameter>
+                    </telerik:RadRibbonButton>
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Просмотр документа в том виде, в котором он будет напечатан." LargeImage="{telerik:IconResource IconRelativePath=32/PageBreak.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeLayoutModeCommand}" Size="Large" Text="Разметка страницы" telerik:ScreenTip.Title="Разметка страницы">
+                        <telerik:RadRibbonButton.CommandParameter>
+                            <telerik:DocumentLayoutMode>Paged</telerik:DocumentLayoutMode>
+                        </telerik:RadRibbonButton.CommandParameter>
+                    </telerik:RadRibbonButton>
+                </telerik:RadRibbonGroup>
+            </telerik:RadRibbonTab>
+            <telerik:RadRibbonTab ContextualGroupName="TableTools" Header="Дизайн">
+                <telerik:RadRibbonGroup Header="Параметры стилей таблиц">
+                    <telerik:RadCollapsiblePanel>
+                        <CheckBox Content="Строка заголовка" telerik:ScreenTip.Description="Применение особого формирования к первой строке таблицы." Margin="2" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleTableLookFirstRowOptionCommand}" telerik:ScreenTip.Title="Строка заголовка"/>
+                        <CheckBox Content="Итоговая строка" telerik:ScreenTip.Description="Применение особого формирования к последней строке таблицы." Margin="2" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleTableLookLastRowOptionCommand}" telerik:ScreenTip.Title="Строка итогов"/>
+                        <CheckBox Content="Чередующиеся строки" telerik:ScreenTip.Description="Отображение чередующихся строк, при котором четные строки отформатированы иначе, чем нечетные.&amp;#10;&amp;#10;Такое чередование облегчает восприятие таблицы." Margin="2" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleTableLookRowBandingOptionCommand}" telerik:ScreenTip.Title="Чередующиеся строки"/>
+                        <CheckBox Content="Первый столбец" telerik:ScreenTip.Description="Применение особого формирования к первому столбцу таблицы." Margin="2" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleTableLookFirstColumnOptionCommand}" telerik:ScreenTip.Title="Первый столбец"/>
+                        <CheckBox Content="Последний столбец" telerik:ScreenTip.Description="Применение особого формирования к последнему столбцу таблицы." Margin="2" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleTableLookLastColumnOptionCommand}" telerik:ScreenTip.Title="Последний столбец"/>
+                        <CheckBox Content="Чередующиеся столбцы" telerik:ScreenTip.Description="Отображение чередующихся столбцы, при котором четные столбцы отформатированы иначе, чем нечетные.&amp;#10;&amp;#10;Такое чередование облегчает восприятие таблицы." Margin="2" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleTableLookColumnBandingOptionCommand}" telerik:ScreenTip.Title="Чередующиеся столбцы"/>
+                    </telerik:RadCollapsiblePanel>
+                </telerik:RadRibbonGroup>
+                <telerik:RadRibbonGroup Header="Стили таблицы">
+                    <telerik:TableStylesGallery AssociatedRichTextBox="{Binding AssociatedRichTextBox, Mode=OneWay}"/>
+                </telerik:RadRibbonGroup>
+            </telerik:RadRibbonTab>
+            <telerik:RadRibbonTab ContextualGroupName="TableTools" Header="Расположение">
+                <telerik:RadRibbonGroup Header="Таблица">
+                    <telerik:RadRibbonDropDownButton CollapseToMedium="WhenGroupIsMedium" Command="{Binding SelectTableEmptyCommand}" telerik:ScreenTip.Description="Выделение текущей ячейки, строки, столбца или всей таблицы." LargeImage="{telerik:IconResource IconRelativePath=32/SelectTableTools.png, IconSources={StaticResource IconSources}}" Size="Large" Text="Выбрать" telerik:ScreenTip.Title="Выбрать таблицу">
+                        <telerik:RadRibbonDropDownButton.DropDownContent>
+                            <StackPanel>
+                                <telerik:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding SelectTableCellCommand}" Size="Medium" SmallImage="{telerik:IconResource IconRelativePath=16/SelectTableCell.png, IconSources={StaticResource IconSources}}" Text="Выделить ячейку"/>
+                                <telerik:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding SelectTableColumnCommand}" Size="Medium" SmallImage="{telerik:IconResource IconRelativePath=16/SelectTableColumn.png, IconSources={StaticResource IconSources}}" Text="Выделить столбец"/>
+                                <telerik:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding SelectTableRowCommand}" Size="Medium" SmallImage="{telerik:IconResource IconRelativePath=16/SelectTableRow.png, IconSources={StaticResource IconSources}}" Text="Выделить строку"/>
+                                <telerik:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding SelectTableCommand}" Size="Medium" SmallImage="{telerik:IconResource IconRelativePath=16/SelectTable.png, IconSources={StaticResource IconSources}}" Text="Выделить таблицу"/>
+                            </StackPanel>
+                        </telerik:RadRibbonDropDownButton.DropDownContent>
+                    </telerik:RadRibbonDropDownButton>
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Открытие диалогового окна 'Свойство таблицы' для изменения дополнительных свойств таблицы." LargeImage="{telerik:IconResource IconRelativePath=32/TableProperties.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ShowTablePropertiesDialogCommand}" Size="Large" Text="Свойства" telerik:ScreenTip.Title="Свойства таблицы"/>
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Удалить выбранную таблицу." LargeImage="{telerik:IconResource IconRelativePath=32/DeleteTable.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding DeleteTableCommand}" Size="Large" Text="Удалить" telerik:ScreenTip.Title="Удалить таблицу"/>
+                </telerik:RadRibbonGroup>
+                <telerik:RadRibbonGroup Header="Строки">
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Вставить новую строку." LargeImage="{telerik:IconResource IconRelativePath=32/InsertTableRow.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding InsertTableRowCommand}" Size="Large" Text="Вставить строку" telerik:ScreenTip.Title="Вставить строку"/>
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Добавление новой строки непосредственно под текущей строкой." LargeImage="{telerik:IconResource IconRelativePath=32/InsertTableRowBelow.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding InsertTableRowBelowCommand}" Size="Large" Text="Вставить снизу" telerik:ScreenTip.Title="Вставить строку снизу"/>
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Добавление новой строки непосредственно над текущей строкой." LargeImage="{telerik:IconResource IconRelativePath=32/InsertTableRowAbove.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding InsertTableRowAboveCommand}" Size="Large" Text="Вставить сверху" telerik:ScreenTip.Title="Вставить строку сверху"/>
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Удалить выбранную строку." LargeImage="{telerik:IconResource IconRelativePath=32/DeleteTableRows.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding DeleteTableRowCommand}" Size="Large" Text="Удалить строку" telerik:ScreenTip.Title="Удалить строку"/>
+                </telerik:RadRibbonGroup>
+                <telerik:RadRibbonGroup Header="Колонки">
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Вставить новый столбец." LargeImage="{telerik:IconResource IconRelativePath=32/InsertTableColumn.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding InsertTableColumnCommand}" Size="Large" Text="Вставить столбец" telerik:ScreenTip.Title="Вставить столбец"/>
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Добавление нового столбца непосредственно слева от текущего столбца." LargeImage="{telerik:IconResource IconRelativePath=32/InsertTableColumnToTheLeft.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding InsertTableColumnToTheLeftCommand}" Size="Large" Text="Вставить слева" telerik:ScreenTip.Title="Вставить столбцы слева"/>
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Добавление нового столбца непосредственно справа от текущего столбца." LargeImage="{telerik:IconResource IconRelativePath=32/InsertTableColumnToTheRight.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding InsertTableColumnToTheRightCommand}" Size="Large" Text="Вставить справа" telerik:ScreenTip.Title="Вставить столбцы справа"/>
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Удалить выбранный столбец." LargeImage="{telerik:IconResource IconRelativePath=32/DeleteTableColumns.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding DeleteTableColumnCommand}" Size="Large" Text="Удалить столбец" telerik:ScreenTip.Title="Удалить столбец"/>
+                </telerik:RadRibbonGroup>
+                <telerik:RadRibbonGroup Header="Слияние">
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Объединение выделенных ячеек в одну." LargeImage="{telerik:IconResource IconRelativePath=32/MergeTableCells.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding MergeTableCellsCommand}" Size="Large" Text="Объединить ячейки" telerik:ScreenTip.Title="Объединить ячейки"/>
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Разбиение текущей ячейки на несколько ячеек." LargeImage="{telerik:IconResource IconRelativePath=32/SplitTableCell.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding UnmergeTableCellsCommand}" Size="Large" Text="Разделить ячейки" telerik:ScreenTip.Title="Разделить ячейки"/>
+                </telerik:RadRibbonGroup>
+                <telerik:RadRibbonGroup Header="Размер ячейки">
+                    <telerik:RadRibbonDropDownButton CollapseToMedium="WhenGroupIsMedium" Command="{Binding ChangeTableColumnsLayoutModeCommand}" telerik:ScreenTip.Description="Автоматическое изменение размеров столбцов в таблице." LargeImage="{telerik:IconResource IconRelativePath=32/AutoFit.png, IconSources={StaticResource IconSources}}" Size="Large" Text="Автоподбор" telerik:ScreenTip.Title="Автоподбор">
+                        <telerik:RadRibbonDropDownButton.DropDownContent>
+                            <StackPanel>
+                                <telerik:RadRibbonButton CommandParameter="AutoFit" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeTableColumnsLayoutModeCommand}" Size="Medium" SmallImage="{telerik:IconResource IconRelativePath=16/AutoFItToWindow.png, IconSources={StaticResource IconSources}}" Text="Автоподбор по ширине окна"/>
+                                <telerik:RadRibbonButton CommandParameter="Fixed" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeTableColumnsLayoutModeCommand}" Size="Medium" SmallImage="{telerik:IconResource IconRelativePath=16/FixedColumnWidth.png, IconSources={StaticResource IconSources}}" Text="Фиксированная ширина столбца"/>
+                            </StackPanel>
+                        </telerik:RadRibbonDropDownButton.DropDownContent>
+                    </telerik:RadRibbonDropDownButton>
+                </telerik:RadRibbonGroup>
+                <telerik:RadRibbonGroup Header="Выравнивание">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <telerik:RadToggleButton Grid.Column="0" CommandParameter="Left,Top" telerik:ScreenTip.Description="Выравнивание текста по верхнему левому углу ячейки." IsTabStop="False" IsBackgroundVisible="False" Padding="2" Grid.Row="0" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding TableCellContentAlignmentCommand}" telerik:ScreenTip.Title="Выровнять сверху по левому краю">
+                            <Image Source="{telerik:IconResource IconRelativePath=16/LeftTopCellAlignment.png, IconSources={StaticResource IconSources}}" Stretch="None"/>
+                        </telerik:RadToggleButton>
+                        <telerik:RadToggleButton Grid.Column="1" CommandParameter="Center,Top" telerik:ScreenTip.Description="Выравнивание текста по центру и по верхнему краю ячейки." IsTabStop="False" IsBackgroundVisible="False" Padding="2" Grid.Row="0" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding TableCellContentAlignmentCommand}" telerik:ScreenTip.Title="Выровнять сверху по центру">
+                            <Image Source="{telerik:IconResource IconRelativePath=16/CenterTopCellAlignment.png, IconSources={StaticResource IconSources}}" Stretch="None"/>
+                        </telerik:RadToggleButton>
+                        <telerik:RadToggleButton Grid.Column="2" CommandParameter="Right,Top" telerik:ScreenTip.Description="Выравнивание текста по верхнему правому углу ячейки." IsTabStop="False" IsBackgroundVisible="False" Padding="2" Grid.Row="0" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding TableCellContentAlignmentCommand}" telerik:ScreenTip.Title="Выровнять сверху по правому краю">
+                            <Image Source="{telerik:IconResource IconRelativePath=16/RightTopCellAlignment.png, IconSources={StaticResource IconSources}}" Stretch="None"/>
+                        </telerik:RadToggleButton>
+                        <telerik:RadToggleButton Grid.Column="0" CommandParameter="Left,Center" telerik:ScreenTip.Description="Центрирование текста по вертикали и выравнивание его по левому краю ячейки." IsTabStop="False" IsBackgroundVisible="False" Padding="2" Grid.Row="1" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding TableCellContentAlignmentCommand}" telerik:ScreenTip.Title="Выровнять по центру по левому краю">
+                            <Image Source="{telerik:IconResource IconRelativePath=16/LeftMiddleCellAlignment.png, IconSources={StaticResource IconSources}}" Stretch="None"/>
+                        </telerik:RadToggleButton>
+                        <telerik:RadToggleButton Grid.Column="1" CommandParameter="Center,Center" telerik:ScreenTip.Description="Центрирование текста в ячейке по вертикали и горизонтали." IsTabStop="False" IsBackgroundVisible="False" Padding="2" Grid.Row="1" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding TableCellContentAlignmentCommand}" telerik:ScreenTip.Title="Выровнять по центру">
+                            <Image Source="{telerik:IconResource IconRelativePath=16/CenterMiddleCellAlignment.png, IconSources={StaticResource IconSources}}" Stretch="None"/>
+                        </telerik:RadToggleButton>
+                        <telerik:RadToggleButton Grid.Column="2" CommandParameter="Right,Center" telerik:ScreenTip.Description="Центрирование текста по вертикали и выравнивание его по правому краю ячейки." IsTabStop="False" IsBackgroundVisible="False" Padding="2" Grid.Row="1" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding TableCellContentAlignmentCommand}" telerik:ScreenTip.Title="Выровнять по центру по правому краю">
+                            <Image Source="{telerik:IconResource IconRelativePath=16/RightMiddleCellAlignment.png, IconSources={StaticResource IconSources}}" Stretch="None"/>
+                        </telerik:RadToggleButton>
+                        <telerik:RadToggleButton Grid.Column="0" CommandParameter="Left,Bottom" telerik:ScreenTip.Description="Выравнивание текста по нижнему левому углу ячейки." IsTabStop="False" IsBackgroundVisible="False" Padding="2" Grid.Row="2" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding TableCellContentAlignmentCommand}" telerik:ScreenTip.Title="Выровнять снизу по левому краю">
+                            <Image Source="{telerik:IconResource IconRelativePath=16/LeftBottomCellAlignment.png, IconSources={StaticResource IconSources}}" Stretch="None"/>
+                        </telerik:RadToggleButton>
+                        <telerik:RadToggleButton Grid.Column="1" CommandParameter="Center,Bottom" telerik:ScreenTip.Description="Выравнивание текста по центру и по нижнему краю ячейки." IsTabStop="False" IsBackgroundVisible="False" Padding="2" Grid.Row="2" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding TableCellContentAlignmentCommand}" telerik:ScreenTip.Title="Выровнять снизу по центру">
+                            <Image Source="{telerik:IconResource IconRelativePath=16/CenterBottomCellAlignment.png, IconSources={StaticResource IconSources}}" Stretch="None"/>
+                        </telerik:RadToggleButton>
+                        <telerik:RadToggleButton Grid.Column="2" CommandParameter="Right,Bottom" telerik:ScreenTip.Description="Выравнивание текста по нижнему правому углу ячейки." IsTabStop="False" IsBackgroundVisible="False" Padding="2" Grid.Row="2" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding TableCellContentAlignmentCommand}" telerik:ScreenTip.Title="Выровнять снизу по правому краю">
+                            <Image Source="{telerik:IconResource IconRelativePath=16/RightBottomCellAlignment.png, IconSources={StaticResource IconSources}}" Stretch="None"/>
+                        </telerik:RadToggleButton>
+                    </Grid>
+                </telerik:RadRibbonGroup>
+                <telerik:RadRibbonGroup Header="Данные">
+                    <telerik:RadRibbonToggleButton telerik:ScreenTip.Description="Пометка нескольких строк как строк заголовка. Если таблица занимает несколько страниц, строка заголовка для удобства будет отображаться на каждой странице." LargeImage="{telerik:IconResource IconRelativePath=32/RepeatTableRow.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleTableRowRepeatOnEveryPageCommand}" Size="Large" Text="Повторить строки заголовков" telerik:ScreenTip.Title="Повторить строки заголовков"/>
+                </telerik:RadRibbonGroup>
+            </telerik:RadRibbonTab>
+            <telerik:RadRibbonTab ContextualGroupName="HeaderFooterTools" Header="Дизайн" Width="140">
+                <telerik:RadRibbonGroup Header="Вставка">
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Вставить текущую дату и время в документ." LargeImage="{telerik:IconResource IconRelativePath=32/InsertDateTime.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ShowInsertDateTimeDialogCommand}" Size="Large" Text="Дата и время" telerik:ScreenTip.Title="Вставить дату и время"/>
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Вставить номера страниц в документ." LargeImage="{telerik:IconResource IconRelativePath=32/InsertPageNumber.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding InsertPageFieldCommand}" Size="Large" Text="Номер страницы" telerik:ScreenTip.Title="Добавить номер страницы"/>
+                </telerik:RadRibbonGroup>
+                <telerik:RadRibbonGroup Header="Навигация">
+                    <StackPanel>
+                        <telerik:RadRibbonToggleButton telerik:ScreenTip.Description="Ссылка на предыдущий раздел, чтобы верхний и нижний колонтитулы в текущем разделе содержали то же содержимое, что и в предыдущем разделе." telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleHeaderFooterLinkToPreviousCommand}" Size="Medium" SmallImage="{telerik:IconResource IconRelativePath=16/LinkToPreviousHeaderFooter.png, IconSources={StaticResource IconSources}}" Text="Как в предыдущем" telerik:ScreenTip.Title="Как в предыдущем"/>
+                    </StackPanel>
+                </telerik:RadRibbonGroup>
+                <telerik:RadRibbonGroup Header="Параметры">
+                    <StackPanel>
+                        <CheckBox Content="Особый колонтитул для первой страницы" telerik:ScreenTip.Description="Настройка особых колонтитулов для первой страницы." telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleDifferentFirstPageHeaderFooterCommand}" telerik:ScreenTip.Title="Особый колонтитул для первой страницы"/>
+                        <CheckBox Content="Разные колонтитулы для четных и нечетных страниц" telerik:ScreenTip.Description="Задание разных колонтитулов для четных и нечетных страниц." telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleDifferentOddAndEvenPagesHeaderFooterCommand}" telerik:ScreenTip.Title="Разные колонтитулы для четных и нечетных страниц"/>
+                    </StackPanel>
+                </telerik:RadRibbonGroup>
+                <telerik:RadRibbonGroup Header="Положение">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Image Grid.Column="0" Grid.Row="0" Source="{telerik:IconResource IconRelativePath=16/HeaderFromTop.png, IconSources={StaticResource IconSources}}" Stretch="None" VerticalAlignment="Center"/>
+                        <telerik:Label Padding="0" IsEnabled="{Binding ElementName=HeaderAreaMarginNumericUpDown, Path=IsEnabled}" Grid.Column="1" Grid.Row="0" Content=" Верхний колонтитул от верха страницы: " VerticalAlignment="Center"/>
+                        <telerik:RadNumericUpDown x:Name="HeaderAreaMarginNumericUpDown" Grid.Column="2" telerik:ScreenTip.Description="Настройка расстояния от верха страницы до верхней части верхнего колонтитула." IsInteger="true" Minimum="0" NullValue="48" Grid.Row="0" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeSectionHeaderTopMarginCommand}" telerik:ScreenTip.Title="Положение верхнего колонтитула относительно верхнего края"/>
+                        <Image Grid.Column="0" Margin="0 1 0 0" Grid.Row="1" Source="{telerik:IconResource IconRelativePath=16/FooterFromBottom.png, IconSources={StaticResource IconSources}}" Stretch="None" VerticalAlignment="Center"/>
+                        <telerik:Label Padding="0" IsEnabled="{Binding ElementName=FooterAreaMarginNumericUpDown, Path=IsEnabled}" Grid.Column="1" Margin="0 1 0 0" Grid.Row="1" Content=" Нижний колонтитул от низа страницы: " VerticalAlignment="Center"/>
+                        <telerik:RadNumericUpDown x:Name="FooterAreaMarginNumericUpDown" Grid.Column="2" telerik:ScreenTip.Description="Настройка расстояния от низа страницы до нижней части нижнего колонтитула." IsInteger="true" Margin="0 1 0 0" Minimum="0" NullValue="48" Grid.Row="1" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeSectionFooterBottomMarginCommand}" telerik:ScreenTip.Title="Положение нижнего колонтитула относительно нижнего края"/>
+                    </Grid>
+                </telerik:RadRibbonGroup>
+                <telerik:RadRibbonGroup Header="Закрытие">
+                    <telerik:RadRibbonButton telerik:ScreenTip.Description="Закрытие окна колонтитулов." LargeImage="{telerik:IconResource IconRelativePath=32/ExitHeaderFooterEditMode.png, IconSources={StaticResource IconSources}}" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ExitHeaderFooterEditModeCommand}" Size="Large" Text="Закрыть окно колонтитулов" telerik:ScreenTip.Title="Закрыть окно колонтитулов"/>
+                </telerik:RadRibbonGroup>
+            </telerik:RadRibbonTab>
+        </telerik:RadRichTextBoxRibbonUI>
+
+        <telerik:DocumentRuler Grid.Row="1">
+            <telerik:RadRichTextBox Name="radRichTextBox1" LayoutMode="Paged" />
+        </telerik:DocumentRuler>
+    </Grid>
+</Window>

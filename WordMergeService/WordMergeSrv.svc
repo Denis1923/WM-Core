@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="WordMergeService.Service1" CodeBehind="WordMergeSrv.svc.cs" %>

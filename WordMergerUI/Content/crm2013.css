@@ -1,0 +1,153 @@
+﻿html {
+    overflow: auto;
+    clear: both;
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    background-color: rgb(255, 255, 255);
+    font-family: Segoe UI,Tahoma,Arial;
+}
+
+h2 {
+    color: rgb(102, 102, 102);
+    font-family: Segoe UI, Tahoma, Arial;
+    font-size: 21px;
+    font-weight: normal;
+}
+
+span div {
+    font-size: 12px;
+    float: left;
+    max-width: 115px;
+}
+
+span {
+    color: #666666;
+    white-space: nowrap;
+}
+
+table {
+    border: 1px solid #ccc;
+    border-left: 0px;
+    border-right: 0px;
+}
+
+td table {
+    width: 100%;
+    border: 0px;
+    border-top: 1px solid #ccc;
+}
+
+tbody tr:hover {
+    background-color: rgb(215, 235, 249);
+}
+
+.selected {
+    background-color: rgb(215, 235, 249);
+}
+
+th {
+    border: 0px;
+    border-bottom: 1px solid #ccc;
+    text-align: left;
+    padding: 7px;
+    font-weight: 400;
+    color: #666666;
+}
+
+td {
+    border: 0px;
+    font-weight: 600;
+    border-collapse: separate;
+    padding: 2px 4px;
+    color: #000000;
+}
+
+a {
+    font-weight: 600;
+    color: #002050;
+    text-align: inherit;
+}
+
+input[type=text] {
+    text-align: left;
+    color: #000000;
+    font-weight: 600;
+    width: 70px;
+    font-size: 12px;
+    margin: 4px 0 4px 0;
+    border: 1px solid #ccc;
+    min-height: 15px;
+}
+
+    input[type=text]:hover {
+    }
+
+    input[type=text]:focus {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        margin: 4px 2px 4px 2px;
+        outline: 0 none;
+    }
+
+input[type=submit] {
+    height: 23px;
+    width: 100px;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 4px;
+    text-transform: uppercase;
+    font-weight: 200;
+    color: #444;
+    background: none;
+    border-style: none;
+    text-align: center;
+    margin: 2px;
+    display: inline-block;
+    background: none;
+    min-height: 30px;
+    outline: 0 none;
+}
+
+    input[type=submit]:hover {
+        background: rgb(215, 235, 249);
+        text-align: center;
+    }
+
+select {
+    border: none;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    min-height: 25px;
+    min-width: 120px;
+}
+
+    select::-ms-expand {
+        display: none;
+    }
+
+    select:hover {
+    }
+
+    select:focus {
+        outline: 0 none;
+    }
+
+option {
+    min-width: 120px;
+    margin-left: 12px;
+}
+
+input:focus {
+}
+
+textarea:focus {
+    outline: 0 none;
+}
+
+.Button {
+    outline: 0 none;
+}

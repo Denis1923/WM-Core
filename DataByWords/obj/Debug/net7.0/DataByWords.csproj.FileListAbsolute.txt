@@ -1,0 +1,15 @@
+C:\source\WordMerger-Agreement-Core\DataByWords\bin\Debug\net7.0\DataByWords.exe
+C:\source\WordMerger-Agreement-Core\DataByWords\bin\Debug\net7.0\DataByWords.deps.json
+C:\source\WordMerger-Agreement-Core\DataByWords\bin\Debug\net7.0\DataByWords.runtimeconfig.json
+C:\source\WordMerger-Agreement-Core\DataByWords\bin\Debug\net7.0\DataByWords.dll
+C:\source\WordMerger-Agreement-Core\DataByWords\bin\Debug\net7.0\DataByWords.pdb
+C:\source\WordMerger-Agreement-Core\DataByWords\obj\Debug\net7.0\DataByWords.csproj.AssemblyReference.cache
+C:\source\WordMerger-Agreement-Core\DataByWords\obj\Debug\net7.0\DataByWords.GeneratedMSBuildEditorConfig.editorconfig
+C:\source\WordMerger-Agreement-Core\DataByWords\obj\Debug\net7.0\DataByWords.AssemblyInfoInputs.cache
+C:\source\WordMerger-Agreement-Core\DataByWords\obj\Debug\net7.0\DataByWords.AssemblyInfo.cs
+C:\source\WordMerger-Agreement-Core\DataByWords\obj\Debug\net7.0\DataByWords.csproj.CoreCompileInputs.cache
+C:\source\WordMerger-Agreement-Core\DataByWords\obj\Debug\net7.0\DataByWords.dll
+C:\source\WordMerger-Agreement-Core\DataByWords\obj\Debug\net7.0\refint\DataByWords.dll
+C:\source\WordMerger-Agreement-Core\DataByWords\obj\Debug\net7.0\DataByWords.pdb
+C:\source\WordMerger-Agreement-Core\DataByWords\obj\Debug\net7.0\DataByWords.genruntimeconfig.cache
+C:\source\WordMerger-Agreement-Core\DataByWords\obj\Debug\net7.0\ref\DataByWords.dll

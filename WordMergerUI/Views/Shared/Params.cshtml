@@ -1,0 +1,59 @@
+﻿@model WordMergerUI.Models.WmDataViewModel 
+
+@{
+    if(Model != null && Model.ReportParams != null && Model.ReportParams.Count() > 0)
+    {                
+        foreach(var param in Model.ReportParams.Where(x => x.IsVisible))
+        {            
+            @Html.Label(param.Name + "_label", param.DisplayName, new { style = "font-size:0.8em" });
+            <br/>
+            switch(param.DataType)
+            {
+                case "DateTime":
+                    @Html.TextBox(param.Name, !string.IsNullOrEmpty(param.Value) ? param.Value : (param.List != null && param.List.Count() > 0) ? param.List[0].Value : string.Empty, new { @class = "dateParameter WMParameters" + (param.Nulable ? " nullable" : ""), style = "font-size:0.8em" });
+                    <br/>
+                    <br/>
+                    break;
+
+                case "String":
+                    @Html.TextBox(param.Name, !string.IsNullOrEmpty(param.Value) ? param.Value : (param.List != null && param.List.Count() > 0) ? param.List[0].Value : string.Empty, new { style = "font-size:0.8em", @class = "WMParameters" + (param.Nulable ? " nullable" : "") });
+                    <br/>
+                    <br/>
+                    break;
+
+                case "Bool":
+                    @Html.CheckBox(param.Name, !string.IsNullOrEmpty(param.Value) && param.Value != "null" ? bool.Parse(param.Value) : (param.List != null && param.List.Count() > 0) ? bool.Parse(param.List[0].Value) : false, new { @class = "WMParameters" + (param.Nulable ? " nullable" : "") });
+                    <br/>
+                    <br/>
+                    break;
+
+                case "OptionSet":
+                    if(param.List != null && param.List.Count() > 0)
+                    {
+                        @Html.DropDownList(param.Name, new SelectList(param.List, "Value", "Label", param.Value), new { @class = "WMParameters" + (param.Nulable ? " nullable" : ""), style = "font-size:0.8em" })
+                        <br/>
+                        <br/>
+                    }
+                    break;
+
+                case "LookUp":
+
+                    if(param.List != null && param.List.Count() > 0)
+                    {
+                        @Html.DropDownList(param.Name, new SelectList(param.List, "Value", "Label", param.Value), new { @class = "WMParameters combobox" + (param.Nulable ? " nullable" : ""), style = "font-size:0.8em" })
+                        <br/>
+                        <br/>
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        }
+        foreach(var param in Model.ReportParams.Where(x => !x.IsVisible))
+        {
+            @Html.Hidden(param.Name, param.Value, new { style = "font-size:0.8em", @class = "WMParameters" + (param.Nulable ? " nullable" : "") });
+        }
+        <script type="text/javascript">$(".combobox").combobox();</script>    
+    }
+}

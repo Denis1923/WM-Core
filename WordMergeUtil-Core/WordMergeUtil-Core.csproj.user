@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup>
+    <ApplicationDefinition Update="App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="AgreementTool\AddWizardWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="AgreementTool\AgreementWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="AgreementTool\ConditionWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="AgreementTool\DataWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="AgreementTool\DateInputDialog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="AgreementTool\DiffFileWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="AgreementTool\DiffWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="AgreementTool\GlobalParagraphWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="AgreementTool\LightPreviewWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="AgreementTool\OpenDocumentWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="AgreementTool\PreviewWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="AgreementTool\SelectDocumentDialog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="AgreementTool\TagCloudWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="AgreementTool\VersionWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="BusinessRolesWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ChildWindows\DocPreviewWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ConditionEditor.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="GlobalSettinsPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Global\GlobalSourceCheck.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Global\GlobalSourceFilters.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Global\GlobalSourceManager.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Global\GlobalSourceParams.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="LoginPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ReportPackage\FilterVisibleEditor.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ReportPackage\ParameterConditionEditor.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ReportPackage\ReportEditor.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ReportPackage\ReportPackageEditor.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ReportPackage\ReportPackageEditorPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ReportPackage\ReportPackageEntryEditor.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ReportPackage\ReportPackageManager.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Report\Controls\DocListItem.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Report\ReportManager.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="SelectTemplateWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="TestComWin.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="AgreementTool\AddWizardWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AgreementTool\AgreementWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AgreementTool\Assets\DropDownTemplate.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AgreementTool\ConditionWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AgreementTool\DataWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AgreementTool\DateInputDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AgreementTool\DiffFileWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AgreementTool\DiffWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AgreementTool\GlobalParagraphWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AgreementTool\LightPreviewWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AgreementTool\OpenDocumentWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AgreementTool\PreviewWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AgreementTool\SelectDocumentDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AgreementTool\TagCloudWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AgreementTool\VersionWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="BusinessRolesWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ChildWindows\DocPreviewWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ConditionEditor.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GlobalSettinsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Global\GlobalSourceCheck.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Global\GlobalSourceFilters.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Global\GlobalSourceManager.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Global\GlobalSourceParams.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="LoginPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ReportPackage\FilterVisibleEditor.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ReportPackage\ParameterConditionEditor.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ReportPackage\ReportEditor.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ReportPackage\ReportPackageEditor.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ReportPackage\ReportPackageEditorPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ReportPackage\ReportPackageEntryEditor.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ReportPackage\ReportPackageManager.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Report\Controls\DocListItem.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Report\ReportManager.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="SelectTemplateWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="TestComWin.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>

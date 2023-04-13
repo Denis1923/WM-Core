@@ -1,0 +1,15 @@
+C:\source\WordMerger-Agreement-Core\WordMerger.Scripts\bin\Debug\net7.0\WordMerger.Scripts.exe
+C:\source\WordMerger-Agreement-Core\WordMerger.Scripts\bin\Debug\net7.0\WordMerger.Scripts.deps.json
+C:\source\WordMerger-Agreement-Core\WordMerger.Scripts\bin\Debug\net7.0\WordMerger.Scripts.runtimeconfig.json
+C:\source\WordMerger-Agreement-Core\WordMerger.Scripts\bin\Debug\net7.0\WordMerger.Scripts.dll
+C:\source\WordMerger-Agreement-Core\WordMerger.Scripts\bin\Debug\net7.0\WordMerger.Scripts.pdb
+C:\source\WordMerger-Agreement-Core\WordMerger.Scripts\obj\Debug\net7.0\WordMerger.Scripts.csproj.AssemblyReference.cache
+C:\source\WordMerger-Agreement-Core\WordMerger.Scripts\obj\Debug\net7.0\WordMerger.Scripts.GeneratedMSBuildEditorConfig.editorconfig
+C:\source\WordMerger-Agreement-Core\WordMerger.Scripts\obj\Debug\net7.0\WordMerger.Scripts.AssemblyInfoInputs.cache
+C:\source\WordMerger-Agreement-Core\WordMerger.Scripts\obj\Debug\net7.0\WordMerger.Scripts.AssemblyInfo.cs
+C:\source\WordMerger-Agreement-Core\WordMerger.Scripts\obj\Debug\net7.0\WordMerger.Scripts.csproj.CoreCompileInputs.cache
+C:\source\WordMerger-Agreement-Core\WordMerger.Scripts\obj\Debug\net7.0\WordMerger.Scripts.dll
+C:\source\WordMerger-Agreement-Core\WordMerger.Scripts\obj\Debug\net7.0\refint\WordMerger.Scripts.dll
+C:\source\WordMerger-Agreement-Core\WordMerger.Scripts\obj\Debug\net7.0\WordMerger.Scripts.pdb
+C:\source\WordMerger-Agreement-Core\WordMerger.Scripts\obj\Debug\net7.0\WordMerger.Scripts.genruntimeconfig.cache
+C:\source\WordMerger-Agreement-Core\WordMerger.Scripts\obj\Debug\net7.0\ref\WordMerger.Scripts.dll

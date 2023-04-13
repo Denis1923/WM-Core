@@ -1,0 +1,17 @@
+C:\source\WordMerger-Agreement-Core\DocumentsPackage\obj\Debug\net7.0\DocumentsPackage.csproj.AssemblyReference.cache
+C:\source\WordMerger-Agreement-Core\DocumentsPackage\obj\Debug\net7.0\DocumentsPackage.GeneratedMSBuildEditorConfig.editorconfig
+C:\source\WordMerger-Agreement-Core\DocumentsPackage\obj\Debug\net7.0\DocumentsPackage.AssemblyInfoInputs.cache
+C:\source\WordMerger-Agreement-Core\DocumentsPackage\obj\Debug\net7.0\DocumentsPackage.AssemblyInfo.cs
+C:\source\WordMerger-Agreement-Core\DocumentsPackage\obj\Debug\net7.0\DocumentsPackage.csproj.CoreCompileInputs.cache
+C:\source\WordMerger-Agreement-Core\DocumentsPackage\bin\Debug\net7.0\DocumentsPackage.exe
+C:\source\WordMerger-Agreement-Core\DocumentsPackage\bin\Debug\net7.0\DocumentsPackage.deps.json
+C:\source\WordMerger-Agreement-Core\DocumentsPackage\bin\Debug\net7.0\DocumentsPackage.runtimeconfig.json
+C:\source\WordMerger-Agreement-Core\DocumentsPackage\bin\Debug\net7.0\DocumentsPackage.dll
+C:\source\WordMerger-Agreement-Core\DocumentsPackage\bin\Debug\net7.0\DocumentsPackage.pdb
+C:\source\WordMerger-Agreement-Core\DocumentsPackage\bin\Debug\net7.0\ICSharpCode.SharpZipLib.dll
+C:\source\WordMerger-Agreement-Core\DocumentsPackage\obj\Debug\net7.0\DocumentsPackage.csproj.CopyComplete
+C:\source\WordMerger-Agreement-Core\DocumentsPackage\obj\Debug\net7.0\DocumentsPackage.dll
+C:\source\WordMerger-Agreement-Core\DocumentsPackage\obj\Debug\net7.0\refint\DocumentsPackage.dll
+C:\source\WordMerger-Agreement-Core\DocumentsPackage\obj\Debug\net7.0\DocumentsPackage.pdb
+C:\source\WordMerger-Agreement-Core\DocumentsPackage\obj\Debug\net7.0\DocumentsPackage.genruntimeconfig.cache
+C:\source\WordMerger-Agreement-Core\DocumentsPackage\obj\Debug\net7.0\ref\DocumentsPackage.dll
